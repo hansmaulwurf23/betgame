@@ -93,6 +93,10 @@ public class SQLiteDialect extends Dialect {
 		return new StringBuffer(query.length() + 20).append(query).append(
 				hasOffset ? " limit ? offset ?" : " limit ?").toString();
 	}
+	
+	public boolean bindLimitParametersInReverseOrder() {
+		return true;
+	}
 
 	public boolean supportsTemporaryTables() {
 		return true;
