@@ -3,11 +3,14 @@
 
 dataSource {
    dbCreate = ""
-   url = "jdbc:sqlite:/home/martin/workspace/betgame/data/data.db"
-   logSql = false
+   url = "jdbc:sqlite:./data/data.db"
+   logSql = true
    dialect = "dialect.SQLiteDialect"
    driverClassName = "org.sqlite.JDBC"
    readOnly = "true"
+   dateStringFormat = "yyyy-MM-dd HH:mm:ss"
+   datePrecision = Calendar.SECOND
+   grails.dbconsole.enabled = true
 }
 hibernate {
     cache.use_second_level_cache = true

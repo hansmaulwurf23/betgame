@@ -28,8 +28,8 @@ class Games {
 	Integer prevGameId
 	Integer winner
 	Integer winner90
-	String createdAt
-	String updatedAt
+	Date createdAt
+	Date updatedAt
 
 	static mapping = {
 		id generator: "assigned"
@@ -65,4 +65,5 @@ class Games {
 		createdAt maxSize: 2000000000
 		updatedAt maxSize: 2000000000
 	}
+	
 }
