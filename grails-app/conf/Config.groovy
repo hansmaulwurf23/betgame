@@ -102,8 +102,10 @@ log4j = {
     // Example of changing the log pattern for the default console appender:
     //
     appenders {
-        console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+        console name:'stdout', layout:new util.log4j.ColoredPatternLayout(conversionPattern: '%d [%l] %p - %m%n')
     }
+	
+	info   'grails.app'
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -117,3 +119,8 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'de.betgame.sec.User'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'de.betgame.sec.UserRole'
+grails.plugins.springsecurity.authority.className = 'de.betgame.sec.Role'

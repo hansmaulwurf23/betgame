@@ -2,7 +2,7 @@ package de.betgame.sportdb
 
 class Groups {
 
-	Integer eventId
+	Events event
 	String title
 	Integer pos
 	String createdAt
@@ -11,6 +11,7 @@ class Groups {
 	static mapping = {
 		id generator: "assigned"
 		version false
+		event column:'event_id'
 	}
 
 	static constraints = {

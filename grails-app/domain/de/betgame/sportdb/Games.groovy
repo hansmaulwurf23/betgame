@@ -8,7 +8,7 @@ class Games {
 	Groups group
 	Teams team1
 	Teams team2
-	String playAt
+	Date playAt
 	Integer postponed
 	Grounds ground
 	Integer cityId
