@@ -63,14 +63,14 @@ grails.project.dependency.resolution = {
 		compile ":db-reverse-engineer:0.5"
 		
 		compile ":spring-security-core:2.0-RC2"
-		compile ":spring-security-oauth2-provider:1.0.5.2"
+		compile ":spring-security-cas:2.0-RC1"
 		
         // plugins for the compile step
         compile ":scaffolding:2.0.0"
         compile ':cache:1.1.1'
 
         // plugins needed at runtime but not for compilation
-        runtime ":hibernate:3.6.10.1" // or ":hibernate4:4.1.11.1"
+        runtime ":hibernate:3.6.10.3" // or ":hibernate4:4.1.11.1"
         runtime ":database-migration:1.3.5"
         runtime ":jquery:1.10.2"
         runtime ":resources:1.2"
