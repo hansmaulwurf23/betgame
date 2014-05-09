@@ -19,7 +19,9 @@ class User {
 	}
 
 	static mapping = {
+		table name: 'users'
 		password column: '`password`'
+		datasource 'betgame'
 	}
 
 	Set<Role> getAuthorities() {

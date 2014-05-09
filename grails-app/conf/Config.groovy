@@ -87,9 +87,24 @@ grails.hibernate.cache.queries = false
 grails.plugin.reveng.packageName = "de.betgame.sportdb"
 
 
+// set per-environment serverURL stem for creating absolute links
+environments {
+		production {
+				grails.serverURL = "https://www.idm.uni-erlangen.de/${appName}"
+				//grails.config.locations = ["file:/var/opt/betgame/betgame-config.groovy"]
+		}
+		development {
+				grails.serverURL = "http://localhost:8080/${appName}"
+				//grails.config.locations = ["file:${userHome}/.grails/betgame-config.groovy"]
+		}
+}
+
+
+
 environments {
     development {
         grails.logging.jul.usebridge = true
+		grails.plugin.springsecurity.debug.useFilter = true
     }
     production {
         grails.logging.jul.usebridge = false
@@ -102,10 +117,11 @@ log4j = {
     // Example of changing the log pattern for the default console appender:
     //
     appenders {
-        console name:'stdout', layout:new util.log4j.ColoredPatternLayout(conversionPattern: '%d [%l] %p - %m%n')
+        console name:'stdout', layout:new util.log4j.ANSIPatternLayout(conversionPattern: '%d{yyyyMMdd_HHmmss,SSS}  %5p %c{1} - %m%n')
+
     }
 	
-	info   'grails.app'
+	debug  'grails.app'
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -115,23 +131,31 @@ log4j = {
            'org.codehaus.groovy.grails.commons',            // core / classloading
            'org.codehaus.groovy.grails.plugins',            // plugins
            'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
+		   'grails.app.service.org.grails.plugin.resource',
+		   'grails.app.taglib.org.grails.plugin.resource',
+		   'grails.app.resourceMappers.org.grails.plugin.resource',
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+		   
+	root { info 'stdout'}
 }
+
 
 
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'de.betgame.sec.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'de.betgame.sec.UserRole'
 grails.plugin.springsecurity.authority.className = 'de.betgame.sec.Role'
-grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-	'/':                              ['permitAll'],
-	'/index':                         ['permitAll'],
-	'/index.gsp':                     ['permitAll'],
-	'/**/js/**':                      ['permitAll'],
-	'/**/css/**':                     ['permitAll'],
-	'/**/images/**':                  ['permitAll'],
-	'/**/favicon.ico':                ['permitAll']
-]
+grails.plugin.springsecurity.rejectIfNoRule = false
+grails.plugin.springsecurity.fii.rejectPublicInvocations = false
 
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	'/':               ['permitAll'],
+	'/index':          ['permitAll'],
+	'/index.gsp':      ['permitAll'],
+	'/**/js/**':       ['permitAll'],
+	'/**/css/**':      ['permitAll'],
+	'/**/images/**':   ['permitAll'],
+	'/**/favicon.ico': ['permitAll']
+ ]
