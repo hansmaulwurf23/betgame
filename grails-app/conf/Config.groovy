@@ -98,8 +98,6 @@ environments {
 		}
 }
 
-
-
 environments {
     development {
         grails.logging.jul.usebridge = true
