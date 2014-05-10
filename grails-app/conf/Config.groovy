@@ -86,16 +86,15 @@ grails.hibernate.cache.queries = false
 // reverse engineering
 grails.plugin.reveng.packageName = "de.betgame.sportdb"
 
-
 // set per-environment serverURL stem for creating absolute links
 environments {
 		production {
 				grails.serverURL = "https://www.idm.uni-erlangen.de/${appName}"
-				//grails.config.locations = ["file:/var/opt/betgame/betgame-config.groovy"]
+				grails.config.locations = ["file:/var/opt/betgame/betgame-config.groovy"]
 		}
 		development {
 				grails.serverURL = "http://localhost:8080/${appName}"
-				//grails.config.locations = ["file:${userHome}/.grails/betgame-config.groovy"]
+				grails.config.locations = ["file:${userHome}/.grails/betgame-config.groovy"]
 		}
 }
 
