@@ -12,8 +12,12 @@ import grails.transaction.Transactional
 class GamesController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+	
+	def springSecurityService
 
 	def index() {
+		log.warn springSecurityService.authentication
+		
 		if (!session.event) {
 			session.event = Events.findByKey('world.2014')
 			log.warn "Setting session.event to ${session.event}"

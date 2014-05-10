@@ -104,21 +104,23 @@ environments {
 environments {
     development {
         grails.logging.jul.usebridge = true
-		grails.plugin.springsecurity.debug.useFilter = true
+		grails.plugin.springsecurity.debug.useFilter = false
     }
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://www.changeme.com"
     }
 }
 
 // log4j configuration
 log4j = {
-    // Example of changing the log pattern for the default console appender:
-    //
     appenders {
         console name:'stdout', layout:new util.log4j.ANSIPatternLayout(conversionPattern: '%d{yyyyMMdd_HHmmss,SSS}  %5p %c{1} - %m%n')
-
+		
+		rollingFile name: 'file',
+			file: "/var/log/grails/betgame.log",
+			layout:new util.log4j.ANSIPatternLayout(conversionPattern: '%d{yyyy-MM-dd HH:mm:ss.SSS}  %5p %c{1} - %m%n'),
+			maxFileSize:"2000MB",
+			maxBackupIndex: 10
     }
 	
 	debug  'grails.app'
@@ -138,7 +140,7 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 		   
-	root { info 'stdout'}
+	root { info 'file'}
 }
 
 
@@ -149,6 +151,7 @@ grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'de.betgame.sec
 grails.plugin.springsecurity.authority.className = 'de.betgame.sec.Role'
 grails.plugin.springsecurity.rejectIfNoRule = false
 grails.plugin.springsecurity.fii.rejectPublicInvocations = false
+grails.plugin.springsecurity.logout.postOnly = false
 
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':               ['permitAll'],

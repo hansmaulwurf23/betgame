@@ -62,8 +62,6 @@ class Games {
 		prevGameId nullable: true
 		winner nullable: true
 		winner90 nullable: true
-		createdAt maxSize: 2000000000
-		updatedAt maxSize: 2000000000
 	}
 	
 }
