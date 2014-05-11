@@ -89,11 +89,9 @@ grails.plugin.reveng.packageName = "de.betgame.sportdb"
 // set per-environment serverURL stem for creating absolute links
 environments {
 		production {
-				grails.serverURL = "https://www.idm.uni-erlangen.de/${appName}"
 				grails.config.locations = ["file:/var/opt/betgame/betgame-config.groovy"]
 		}
 		development {
-				grails.serverURL = "http://localhost:8080/${appName}"
 				grails.config.locations = ["file:${userHome}/.grails/betgame-config.groovy"]
 		}
 }
@@ -111,7 +109,7 @@ environments {
 // log4j configuration
 log4j = {
     appenders {
-        console name:'stdout', layout:new util.log4j.ANSIPatternLayout(conversionPattern: '%d{yyyyMMdd_HHmmss,SSS}  %5p %c{1} - %m%n')
+        console name:'stdout', layout:new util.log4j.ANSIPatternLayout(conversionPattern: '%d{yyyyMMdd_HHmmss.SSS}  %5p %c{1} - %m%n')
 		
 		rollingFile name: 'file',
 			file: "/var/log/grails/betgame.log",
