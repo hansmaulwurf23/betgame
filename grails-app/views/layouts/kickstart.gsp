@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport"		content="width=device-width, initial-scale=1.0">
     <meta name="description"	content="">
-    <meta name="author"			content="">
+    <meta name="author"			content="Martin Fischer">
     
 	<link rel="shortcut icon"		href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
 	
@@ -18,8 +18,8 @@
 	
 	<%-- Manual switch for the skin can be found in /view/_menu/_config.gsp --%>
 	<r:require modules="jquery"/> <%-- jQuery is required for Bootstrap! --%>
-	<r:require modules="bootstrap"/>
-	<r:require modules="bootstrap_utils"/>
+	<r:require modules="bootstrap-js"/>
+	<r:require modules="custom-bootstrap"/>
 
 	<r:layoutResources />
 	<g:layoutHead />

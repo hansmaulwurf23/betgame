@@ -22,17 +22,17 @@
 <section id="show-games" class="first">
 <div class="container">
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 text-right">
 			<g:formatDate date="${gamesInstance?.playAt}" type="date" dateStyle="SHORT" /> 
 			<g:formatDate date="${gamesInstance?.playAt}" type="time" timeStyle="SHORT" />
 		</div>
-  		<div class="col-xs-4"><g:link controller="grounds" action="show" id="${gamesInstance?.ground?.id}">${gamesInstance?.ground?.encodeAsHTML()}</g:link></div>
+  		<div class="col-xs-4 text-center"><g:link controller="grounds" action="show" id="${gamesInstance?.ground?.id}">${gamesInstance?.ground?.encodeAsHTML()}</g:link></div>
   		<div class="col-xs-4"><g:link controller="grounds" action="show" id="${gamesInstance?.group?.id}">${gamesInstance?.group?.encodeAsHTML()}</g:link></div>
 	</div>
 	
 	<div class="row">
-		<div class="col-xs-5"><g:link controller="teams" action="show" id="${gamesInstance?.team1?.id}">${gamesInstance?.team1?.encodeAsHTML()}</g:link></div>
-		<div class="col-xs-2">${gamesInstance.score1} : ${gamesInstance.score2}</div>
+		<div class="col-xs-5 text-right"><g:link controller="teams" action="show" id="${gamesInstance?.team1?.id}">${gamesInstance?.team1?.encodeAsHTML()}</g:link></div>
+		<div class="col-xs-2 text-center">${gamesInstance.score1} : ${gamesInstance.score2}</div>
 		<div class="col-xs-5"><g:link controller="teams" action="show" id="${gamesInstance?.team2?.id}">${gamesInstance?.team2?.encodeAsHTML()}</g:link></div>
 	</div>
 	

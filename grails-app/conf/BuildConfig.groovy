@@ -62,7 +62,13 @@ grails.project.dependency.resolution = {
         // plugins for the build system only
         build ":tomcat:7.0.50"
 
-		compile ":kickstart-with-bootstrap:1.1.0"
+		// use once on project start:
+		//compile ":kickstart-with-bootstrap:1.1.0"
+		//compile ":twitter-bootstrap:3.1.1"
+		//compile ":lesscss-resources:1.3.3"
+		//compile ":less-resources:1.3.3.2"
+		compile ":twitter-bootstrap:3.0.0"
+		compile ":less-resources:1.3.3.2"
 		
 		//compile ":db-reverse-engineer:0.5"
 		

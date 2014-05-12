@@ -1,7 +1,10 @@
 <li class="dropdown">
 	<a class="dropdown-toggle" data-toggle="dropdown" href="#">Browse <b class="caret"></b></a>
+	
+	<g:set var="ignoreControllers" value="['login', 'logout', 'dbdoc']" />
+	
 	<ul class="dropdown-menu">
-		<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
+		<g:each var="c" in="${grailsApplication.controllerClasses.findAll { !(it.logicalPropertyName.toLowerCase() in ignoreControllers)  }.sort { it.fullName } }">
 			<li class="controller">
 				<g:link controller="${c.logicalPropertyName}">
 					<g:if test="${c.fullName.contains('HomeController')}">

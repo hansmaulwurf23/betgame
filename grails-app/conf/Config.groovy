@@ -86,6 +86,11 @@ grails.hibernate.cache.queries = false
 // reverse engineering
 grails.plugin.reveng.packageName = "de.betgame.sportdb"
 
+// bootstrap stuff
+grails.plugins.twitterbootstrap.fixtaglib = true
+grails.plugins.twitterbootstrap.defaultBundle = 'bundle_bootstrap'
+
+
 // set per-environment serverURL stem for creating absolute links
 environments {
 		production {
@@ -135,7 +140,7 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 		   
-	root { info 'file'}
+	root { info 'stdout', 'file'}
 }
 
 
