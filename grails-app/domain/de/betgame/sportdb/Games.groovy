@@ -41,7 +41,6 @@ class Games {
 	}
 
 	static constraints = {
-		playAt maxSize: 2000000000
 		group nullable: true
 		ground nullable: true
 		team1()

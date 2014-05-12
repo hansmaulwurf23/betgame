@@ -14,21 +14,20 @@ class GamesController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	
 	def springSecurityService
+	
+	def beforeInterceptor = { 
+		if (!session.event) {
+			session.event = Events.findByKey('world.2014')
+		}
+	}
 
 	def index() {
 		log.warn springSecurityService.authentication
-		
-		if (!session.event) {
-			session.event = Events.findByKey('world.2014')
-			log.warn "Setting session.event to ${session.event}"
-		} else {
-			log.debug "session.event is ${session.event}"
-		}
         redirect(action:'list')
     }
 
-	def list(Integer max, Integer groupId) {
-		def event = Events.findByKey('world.2014')
+	def list(Integer groupId) {
+		def event = session.event
 		def group
 		if (!groupId) {
 			group = Groups.findAllByEvent(event).sort { it.pos }[0]

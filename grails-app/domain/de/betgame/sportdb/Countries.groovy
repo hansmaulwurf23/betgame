@@ -10,7 +10,7 @@ class Countries {
 	String altNames
 	Integer pop
 	Integer area
-	Integer continentId
+	Continents continent
 	Integer countryId
 	Integer s
 	Integer c
@@ -26,6 +26,7 @@ class Countries {
 
 	static mapping = {
 		id generator: "assigned"
+		continent column:'continent_id'
 		version false
 	}
 
@@ -35,7 +36,7 @@ class Countries {
 		key maxSize: 2000000000
 		code maxSize: 2000000000
 		altNames nullable: true, maxSize: 2000000000
-		continentId nullable: true
+		continent nullable: true
 		countryId nullable: true
 		motor nullable: true, maxSize: 2000000000
 		iso2 nullable: true, maxSize: 2000000000

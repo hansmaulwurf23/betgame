@@ -30,9 +30,9 @@
 				<td><g:link action="show" id="${gamesInstance.id}">
 					<g:formatDate date="${gamesInstance.playAt}" type="datetime" timeStyle="SHORT" dateStyle="SHORT" />
 				</g:link></td>
-				<td style="text-align: right;">${gamesInstance.team1.code}</td>
+				<td style="text-align: right;">${gamesInstance.team1.code} <bg:flag country="${gamesInstance.team1.country}" /></td>
 				<td style="text-align: center;">${gamesInstance.score1} : ${gamesInstance.score2}</td>
-				<td>${gamesInstance.team2.code}</td>
+				<td><bg:flag country="${gamesInstance.team2.country}" /> ${gamesInstance.team2.code}</td>
 			
 			</tr>
 		</g:each>

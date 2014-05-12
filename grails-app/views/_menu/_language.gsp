@@ -16,8 +16,7 @@
 
 			<li class="divider"></li>
 
-			<!-- get list of all locales available due to an existing property-file in /grails-app/i18n (set once in Bootstrap.groovy) -->
-			<g:set var="allLocales" value="${grailsApplication.config.grails.i18n.locales}"/>
+			<g:set var="allLocales" value="${['en', 'de']}"/>
 			<g:each status="i" var="locale" in="${allLocales}">
 				<li><a class="js-language-link" title="${message(code: 'language.'+locale, default: locale)}" data-lang-code="${locale}" href="${currentURL+'?lang='+locale}">
 					<img class="" src="${resource(plugin: 'kickstart', dir: 'images/flags',file: locale+'.png')}"/>

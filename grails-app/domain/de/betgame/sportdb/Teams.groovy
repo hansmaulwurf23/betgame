@@ -7,7 +7,7 @@ class Teams {
 	String title2
 	String code
 	String synonyms
-	Integer countryId
+	Countries country
 	Integer cityId
 	Integer club
 	Integer since
@@ -19,6 +19,7 @@ class Teams {
 
 	static mapping = {
 		id generator: "assigned"
+		country column:'country_id'
 		version false
 	}
 

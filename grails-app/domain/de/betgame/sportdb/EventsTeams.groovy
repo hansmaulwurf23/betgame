@@ -2,14 +2,16 @@ package de.betgame.sportdb
 
 class EventsTeams {
 
-	Integer eventId
-	Integer teamId
+	Events event
+	Teams team
 	String createdAt
 	String updatedAt
 
 	static mapping = {
 		id generator: "assigned"
 		version false
+		event column:'event_id'
+		team column:'team_id'
 	}
 
 	static constraints = {

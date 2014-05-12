@@ -23,4 +23,8 @@ class Continents {
 		createdAt maxSize: 2000000000
 		updatedAt maxSize: 2000000000
 	}
+	
+	public String toString() {
+		return name
+	}
 }
