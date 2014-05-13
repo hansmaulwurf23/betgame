@@ -29,4 +29,16 @@ class MainTagLib {
 			out << "<img src='${imgLink}' alt='${attrs.country?.name}'/>"
 		}
 	}
+	
+	def localizedGameDate = { attrs, body ->
+		if (attrs.game) {
+			def locDate = attrs.game.getLocalPlayAt()
+			if (locDate) {
+				out << g.formatDate(date: locDate, type: attrs.type, timeStyle: attrs.timeStyle, dateStyle: attrs.dateStyle)
+			} else if (!locDate && !attrs.forceLocalTimeZone) {
+				out << g.formatDate(date: attrs.game.playAt, type: attrs.type, timeStyle: attrs.timeStyle, dateStyle: attrs.dateStyle)
+				out << "(!)"
+			}
+		}
+	}
 }

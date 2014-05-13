@@ -17,7 +17,7 @@ class GamesController {
 	
 	def beforeInterceptor = { 
 		if (!session.event) {
-			session.event = Events.findByKey('world.2014')
+			session.event = Events.findByKey(grailsApplication.config.de.betgame.sportdb.event.key)
 		}
 	}
 

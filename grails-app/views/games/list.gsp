@@ -28,7 +28,7 @@
 			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 			
 				<td><g:link action="show" id="${gamesInstance.id}">
-					<g:formatDate date="${gamesInstance.playAt}" type="datetime" timeStyle="SHORT" dateStyle="SHORT" />
+					<bg:localizedGameDate game="${gamesInstance}" type="datetime" timeStyle="SHORT" dateStyle="SHORT" />
 				</g:link></td>
 				<td style="text-align: right;">${gamesInstance.team1.code} <bg:flag country="${gamesInstance.team1.country}" /></td>
 				<td style="text-align: center;">${gamesInstance.score1} : ${gamesInstance.score2}</td>

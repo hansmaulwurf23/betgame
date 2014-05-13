@@ -1,5 +1,7 @@
 package de.betgame.sportdb
 
+import java.text.SimpleDateFormat;
+
 class Games {
 
 	String key
@@ -61,6 +63,16 @@ class Games {
 		prevGameId nullable: true
 		winner nullable: true
 		winner90 nullable: true
+	}
+	
+	def getLocalPlayAt() {
+		if (playAt && ground && ground.timezone) {
+			Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(ground.timezone))
+			cal.set(year: playAt.year +1900, month: playAt.month, date: playAt.date, hourOfDay: playAt.hours, minute: playAt.minutes)
+			return cal.time
+		} else {
+			return null
+		}
 	}
 	
 }

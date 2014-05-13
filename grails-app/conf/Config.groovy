@@ -90,6 +90,7 @@ grails.plugin.reveng.packageName = "de.betgame.sportdb"
 grails.plugins.twitterbootstrap.fixtaglib = true
 grails.plugins.twitterbootstrap.defaultBundle = 'bundle_bootstrap'
 
+de.betgame.sportdb.event.key = 'world.2014'
 
 // set per-environment serverURL stem for creating absolute links
 environments {
