@@ -4,7 +4,10 @@ modules = {
     }
 	
 	'custom-bootstrap' {
-		dependsOn 'bootstrap-less'
-		resource url:[dir: 'less', file: 'main.less'], attrs:[rel: "stylesheet/less", type:'css']
+		dependsOn 'bootstrap'
+		resource url:'css/main.css'
+		resource url:[dir: 'less', file: 'custom-bootstrap.less'], attrs:[rel: "stylesheet/less", type:'css']
 	}
+	
+	
 }
