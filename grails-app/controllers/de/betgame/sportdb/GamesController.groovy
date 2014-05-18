@@ -2,6 +2,7 @@ package de.betgame.sportdb
 
 
 import static org.springframework.http.HttpStatus.*
+import de.betgame.Bet;
 import grails.transaction.Transactional
 
 /**
@@ -43,7 +44,12 @@ class GamesController {
     }
 
     def show(Games gamesInstance) {
-        respond gamesInstance
+		def user = springSecurityService.currentUser
+		def myBet
+		if (user) {
+			myBet = Bet.findByUserAndGameid(user, gamesInstance.id)
+		}
+        respond gamesInstance, [myBet:myBet]
     }
 
     protected void notFound() {
