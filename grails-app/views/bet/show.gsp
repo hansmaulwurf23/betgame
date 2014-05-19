@@ -1,4 +1,4 @@
-
+<%@page import="de.betgame.sportdb.Games"%>
 <%@ page import="de.betgame.Bet" %>
 <!DOCTYPE html>
 <html>
@@ -13,26 +13,28 @@
 
 <section id="show-bet" class="first">
 
-	<table class="table">
-		<tbody>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="bet.gameid.label" default="Gameid" /></td>
-				<td valign="top" class="value">${fieldValue(bean: betInstance, field: "gameid")}</td>
-			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="bet.score1.label" default="Score1" /></td>
-				<td valign="top" class="value">${fieldValue(bean: betInstance, field: "score1")}</td>
-			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="bet.score2.label" default="Score2" /></td>
-				<td valign="top" class="value">${fieldValue(bean: betInstance, field: "score2")}</td>
-			</tr>
-		
-		</tbody>
-	</table>
+
+<div class="panel panel-default">
+	
+	<div class="panel-heading">
+		<g:set var="gamesInstance" value="${Games.get(betInstance.gameid)}" />
+		<g:render template="/games/gameDivRow" />
+	</div>
+
+	<div class="row panel-body">	
+		<div class="col-xs-5 text-right">
+			${betInstance.score1}
+		</div>
+		<div class="col-xs-2 text-center"> : </div>
+		<div class="col-xs-5">
+			${betInstance.score2}
+		</div>
+	</div>
+
+</div>
+
+<g:link controller="games" action="list" params="[groupId:gamesInstance.group.id]">${gamesInstance.group}</g:link>
+
 </section>
 
 </body>

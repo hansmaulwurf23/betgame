@@ -16,29 +16,15 @@
 	<table class="table table-bordered margin-top-medium">
 		<thead>
 			<tr>
-			
-				<th><g:message code="bet.user.label" default="User" /></th>
-			
-				<g:sortableColumn property="gameid" title="${message(code: 'bet.gameid.label', default: 'Gameid')}" />
-			
-				<g:sortableColumn property="score1" title="${message(code: 'bet.score1.label', default: 'Score1')}" />
-			
-				<g:sortableColumn property="score2" title="${message(code: 'bet.score2.label', default: 'Score2')}" />
-			
+				<th></th>
+				<th>${message(code: 'bet.label', default: 'Bet')}</th>
 			</tr>
 		</thead>
 		<tbody>
 		<g:each in="${betInstanceList}" status="i" var="betInstance">
 			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-			
-				<td><g:link action="show" id="${betInstance.id}">${fieldValue(bean: betInstance, field: "user")}</g:link></td>
-			
-				<td>${fieldValue(bean: betInstance, field: "gameid")}</td>
-			
-				<td>${fieldValue(bean: betInstance, field: "score1")}</td>
-			
-				<td>${fieldValue(bean: betInstance, field: "score2")}</td>
-			
+				<td><g:link action="show" id="${betInstance.id}"><i class="glyphicon glyphicon-search"></i></g:link></td>
+				<td><g:render template="betRow" model="[betInstance:betInstance, games:games]" /></td>
 			</tr>
 		</g:each>
 		</tbody>

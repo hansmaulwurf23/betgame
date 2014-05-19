@@ -41,10 +41,7 @@
 	
 	<div class="row">
 		<g:if test="${myBet}">
-			<div class="col-xs-5 text-right"><g:link controller="teams" action="show" id="${gamesInstance?.team1?.id}">${gamesInstance?.team1?.encodeAsHTML()}</g:link> <bg:flag country="${gamesInstance.team1.country}" /></div>
-			<div class="col-xs-2 text-center">${gamesInstance.score1} : ${gamesInstance.score2}</div>
-			<div class="col-xs-5"><bg:flag country="${gamesInstance.team2.country}" /> <g:link controller="teams" action="show" id="${gamesInstance?.team2?.id}">${gamesInstance?.team2?.encodeAsHTML()}</g:link></div>
-			
+			<div class="col-xs-12 text-center">${myBet.score1} : ${myBet.score2}</div>
 		</g:if>
 		<g:else>
 			<div class="col-xs-12 text-center">
@@ -63,6 +60,8 @@
 		<div class="col-xs-12"><small>updated: <g:formatDate date="${gamesInstance?.updatedAt}" /></small></div>
 	</div>
 	</div>
+</div>
+
 </div>
 </section>
 

@@ -4,7 +4,7 @@
 	<g:set var="ignoreControllers" value="['login', 'logout', 'dbdoc']" />
 	
 	<ul class="dropdown-menu">
-		<g:each var="logicalPropertyName" in="${['home', 'games', 'grounds', 'teams']}">
+		<g:each var="logicalPropertyName" in="${['home', 'games', 'bet', 'teams']}">
 			<li class="controller">
 				<g:link controller="${logicalPropertyName}">
 					<g:if test="${logicalPropertyName.contains('home')}"><i class="glyphicon glyphicon-home"></i></g:if>

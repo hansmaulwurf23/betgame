@@ -29,6 +29,7 @@ class GamesController {
 
 	def list(Integer groupId) {
 		def event = session.event
+		log.warn event
 		def group
 		if (!groupId) {
 			group = Groups.findAllByEvent(event).sort { it.pos }[0]
@@ -46,10 +47,11 @@ class GamesController {
     def show(Games gamesInstance) {
 		def user = springSecurityService.currentUser
 		def myBet
+		log.info "Looking for bet from user ${user} and gameid ${gamesInstance.id}"
 		if (user) {
 			myBet = Bet.findByUserAndGameid(user, gamesInstance.id)
 		}
-        respond gamesInstance, [myBet:myBet]
+        respond gamesInstance, model: [myBet:myBet]
     }
 
     protected void notFound() {

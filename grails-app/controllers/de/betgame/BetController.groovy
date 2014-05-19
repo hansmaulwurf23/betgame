@@ -2,6 +2,7 @@ package de.betgame
 
 
 import static org.springframework.http.HttpStatus.*
+import de.betgame.sportdb.Games;
 import grails.transaction.Transactional
 
 /**
@@ -16,14 +17,14 @@ class BetController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
 	def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond Bet.list(params), model:[betInstanceCount: Bet.count()]
+        redirect(action:'list')
     }
 
 	def list(Integer max) {
-		println params
         params.max = Math.min(max ?: 10, 100)
-        respond Bet.list(params), model:[betInstanceCount: Bet.count()]
+		def bets = Bet.findAllByUser(springSecurityService.currentUser, params)
+		def games = Games.findAllByIdInList(bets*.gameid).collectEntries { [ it.id, it] } 
+        [betInstanceList: bets, games:games, betInstanceCount: Bet.countByUser(springSecurityService.currentUser)]
     }
 
     def show(Bet betInstance) {
@@ -39,7 +40,6 @@ class BetController {
     def save() {
 		Bet betInstance = new Bet(params)
 		betInstance.user = springSecurityService.currentUser
-		log.warn "___________________${betInstance.user}"
 		
         if (betInstance == null) {
             notFound()

@@ -3,7 +3,7 @@
 	
 		<g:set var="ignoreControllers" value="['login', 'logout', 'dbdoc', 'events']" />
 	
-		<g:each status="i" var="logicalPropertyName" in="${['home', 'games', 'grounds', 'teams']}">
+		<g:each status="i" var="logicalPropertyName" in="${['home', 'games', 'bet', 'teams']}">
 			<li class="controller${params.controller == logicalPropertyName ? " active" : ""}">
 				<g:link controller="${logicalPropertyName}" action="index">
 					<g:message code="${logicalPropertyName}.label" default="${logicalPropertyName.capitalize()}"/>
