@@ -70,6 +70,8 @@ grails.project.dependency.resolution = {
 		compile ":twitter-bootstrap:3.0.0"
 		compile ":less-resources:1.3.3.2"
 		
+		compile ":ws-client:1.0"
+		
 		//compile ":db-reverse-engineer:0.5"
 		
 		compile ":spring-security-core:2.0-RC2"

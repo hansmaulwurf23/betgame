@@ -2,5 +2,9 @@ package de.betgame
 
 class HomeController {
 
-    def index = { }
+	def openLigaDBService
+	
+    def index = { 
+		openLigaDBService.test()
+	}
 }
