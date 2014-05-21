@@ -5,6 +5,6 @@ class HomeController {
 	def openLigaDBService
 	
     def index = { 
-		openLigaDBService.test()
+		openLigaDBService.fetchTeamsAndGamesAndLocations()
 	}
 }

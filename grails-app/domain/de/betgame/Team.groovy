@@ -1,9 +1,15 @@
-@artifact.package@
-class @artifact.name@ {
+package de.betgame
+
+
+class Team {
 
 	/* Default (injected) attributes of GORM */
 //	Long	id
 //	Long	version
+	String name
+	String iconUrl
+	String code
+	String net
 	
 	/* Automatic timestamping of GORM */
 	Date	dateCreated
@@ -16,14 +22,17 @@ class @artifact.name@ {
 	
     static	mapping = {
 		datasource 'betgame'
-		id column:"@artifact.name@_id", generator: "assigned"
+		id column: "team_id", generator: "assigned"
 		autoTimestamp true
 		version false
     }
     
 	static	constraints = {
+		iconUrl nullable: true
+		code nullable: true
 		dateCreated nullable: true
 		lastUpdated nullable: true
+		net nullable: true
     }
 	
 	/*

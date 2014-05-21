@@ -1,9 +1,15 @@
-@artifact.package@
-class @artifact.name@ {
+package de.betgame
+
+
+class Location {
 
 	/* Default (injected) attributes of GORM */
 //	Long	id
 //	Long	version
+	String city
+	String stadium
+	String groundKey
+	Integer capacity
 	
 	/* Automatic timestamping of GORM */
 	Date	dateCreated
@@ -16,21 +22,24 @@ class @artifact.name@ {
 	
     static	mapping = {
 		datasource 'betgame'
-		id column:"@artifact.name@_id", generator: "assigned"
+		id column: "location_id", generator: "assigned"
 		autoTimestamp true
 		version false
     }
     
 	static	constraints = {
-		dateCreated nullable: true
-		lastUpdated nullable: true
+		stadium nullable:true
+		groundKey nullable:true
+		capacity nullable:true
+		dateCreated nullable:true
+		lastUpdated nullable:true
     }
 	
 	/*
 	 * Methods of the Domain Class
 	 */
 //	@Override	// Override toString for a nicer / more descriptive UI 
-//	public String toString() {
-//		return "${name}";
-//	}
+	public String toString() {
+		return "${city} ($stadium)";
+	}
 }

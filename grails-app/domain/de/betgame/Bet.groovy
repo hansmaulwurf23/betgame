@@ -8,27 +8,28 @@ class Bet {
 //	Long	id
 //	Long	version
 	User user
-	Long gameid
+	Game game 
 	Integer score1
 	Integer score2
 	
 	
 	/* Automatic timestamping of GORM */
-//	Date	dateCreated
-//	Date	lastUpdated
+	Date	dateCreated
+	Date	lastUpdated
 	
-//	static	belongsTo	= []	// tells GORM to cascade commands: e.g., delete this object if the "parent" is deleted.
-//	static	hasOne		= []	// tells GORM to associate another domain object as an owner in a 1-1 mapping
-//	static	hasMany		= []	// tells GORM to associate other domain objects for a 1-n or n-m mapping
-//	static	mappedBy	= []	// specifies which property should be used in a mapping 
 	
     static	mapping = {
 		datasource 'betgame'
+		id column: "bet_id"
+		autoTimestamp true
+		version false
     }
     
 	static	constraints = {
 		user nullable: false
-		gameid nullable: false
+		game nullable: false
+		dateCreated nullable:true
+		lastUpdated nullable:true
     }
 	
 	/*

@@ -9,7 +9,6 @@
 	<title><g:message code="default.show.label" args="[entityName]" /></title>
 	
 	<g:set var="layout_nosecondarymenu"	value="${true}" scope="request"/>
-	<g:set var="countriesInstance" value="${teamsInstance.country}" />"
 </head>
 
 <body>
@@ -28,29 +27,14 @@
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="teams.title.label" default="Title" /></td>
-				<td valign="top" class="value">${fieldValue(bean: teamsInstance, field: "title")} <bg:flag country="${teamsInstance.country}" /></td>
+				<td valign="top" class="value">${fieldValue(bean: teamInstance, field: "name")} <bg:flag net="${teamInstance.net}" /></td>
 			</tr>
 		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="continents.label" default="Continent" /></td>
-				<td valign="top" class="value">${fieldValue(bean: countriesInstance, field: "continent")}</td>
-			</tr>
-			
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="teams.code.label" default="Code" /></td>
-				<td valign="top" class="value">${fieldValue(bean: teamsInstance, field: "code")}</td>
+				<td valign="top" class="value">${fieldValue(bean: teamInstance, field: "code")}</td>
 			</tr>
 			
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="countries.area.label" default="Area" /></td>
-				<td valign="top" class="value">${fieldValue(bean: countriesInstance, field: "area")} km&sup2;</td>
-			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="countries.pop.label" default="Pop" /></td>
-				<td valign="top" class="value">${fieldValue(bean: countriesInstance, field: "pop")}</td>
-			</tr>
-		
 		</tbody>
 	</table>
 </section>

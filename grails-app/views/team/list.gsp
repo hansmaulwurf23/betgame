@@ -26,9 +26,9 @@
 		<tbody>
 		<g:each in="${teamsInstanceList}" status="i" var="teamsInstance">
 			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-				<td><bg:flag country="${teamsInstance.country}" /> <g:link action="show" id="${teamsInstance.id}">${fieldValue(bean: teamsInstance, field: "code")}</g:link></td>
-				<td>${fieldValue(bean: teamsInstance, field: "title")}</td>
-				<td><g:link controller="games" action="list" params="[groupId:groupMap[teamsInstance.code]?.id]" >${groupMap[teamsInstance.code]?.title[-1]}</g:link></td>
+				<td><bg:flag net="${teamsInstance.net}" /> <g:link action="show" id="${teamsInstance.id}">${fieldValue(bean: teamsInstance, field: "code")}</g:link></td>
+				<td>${fieldValue(bean: teamsInstance, field: "name")}</td>
+				<td><g:link controller="games" action="list" params="[group:groupMap[teamsInstance.code]]" >${groupMap[teamsInstance.code]}</g:link></td>
 			</tr>
 		</g:each>
 		</tbody>

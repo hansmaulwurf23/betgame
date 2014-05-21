@@ -124,7 +124,8 @@ log4j = {
 			maxBackupIndex: 10
     }
 	
-	debug  'grails.app'
+	debug  'grails.app',
+			'de.betgame'
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -141,7 +142,7 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 		   
-    warn  'org.apache.cxf'
+    warn    'org.apache.cxf'
 		   
 	root { info 'stdout', 'file'}
 }

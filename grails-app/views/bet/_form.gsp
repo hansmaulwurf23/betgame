@@ -1,13 +1,13 @@
-<%@page import="de.betgame.sportdb.Games"%>
+<%@page import="de.betgame.Game"%>
 <%@ page import="de.betgame.Bet" %>
 
-	<g:hiddenField name="gameid" value="${betInstance.gameid}"/>
+	<g:hiddenField name="game.id" value="${betInstance.game.id}"/>
 
 <div class="panel panel-default">
 	
 	<div class="panel-heading">
-		<g:set var="gamesInstance" value="${Games.get(betInstance.gameid)}" />
-		<g:render template="/games/gameDivRow" />
+		<g:set var="gameInstance" value="${Game.get(betInstance.game.id)}" />
+		<g:render template="/game/gameDivRow" />
 	</div>
 
 	<div class="row panel-body">	

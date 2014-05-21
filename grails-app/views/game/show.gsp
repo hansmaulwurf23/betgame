@@ -1,5 +1,5 @@
 
-<%@ page import="de.betgame.sportdb.Games" %>
+<%@ page import="de.betgame.Game" %>
 <!DOCTYPE html>
 <html>
 
@@ -26,15 +26,15 @@
 	<div class="panel-heading">
 	<div class="row">
 		<div class="col-xs-6">
-			<g:formatDate date="${gamesInstance?.playAt}" type="date" dateStyle="SHORT" /> 
-			<g:formatDate date="${gamesInstance?.playAt}" type="time" timeStyle="SHORT" />
+			<g:formatDate date="${gameInstance?.playAt}" type="date" dateStyle="SHORT" />
+			<g:formatDate date="${gameInstance?.playAt}" type="time" timeStyle="SHORT" />
 		</div>
-  		<div class="col-xs-6 text-right"><g:link controller="grounds" action="show" id="${gamesInstance?.group?.id}">${gamesInstance?.group?.encodeAsHTML()}</g:link></div>
+  		<div class="col-xs-6 text-right"><g:link action="list" params="[ground: gameInstance?.groupName]">Gruppe ${gameInstance?.groupName}</g:link></div>
   	</div>
 	</div>
 	
   	<div class="row">
-		<div class="col-xs-12 text-center">@ <g:link controller="grounds" action="show" id="${gamesInstance?.ground?.id}">${gamesInstance?.ground?.encodeAsHTML()}</g:link></div>
+		<div class="col-xs-12 text-center">@ <g:link controller="location" action="show" id="${gameInstance?.location?.id}">${gameInstance?.location?.encodeAsHTML()}</g:link></div>
 	</div>
 	
 	<g:render template="gameDivRow" />
@@ -49,7 +49,7 @@
 				<g:link controller='login' action='auth'><g:message code="not.logged.in" default="Not Logged In" /></g:link>
 			</sec:ifNotLoggedIn>
 			<sec:ifLoggedIn>
-				<g:link controller="bet" action='create' params="[gameid: gamesInstance.id]" ><g:message code="no.bet" default="No bet yet" /></g:link>
+				<g:link controller="bet" action='create' params="['game.id': gameInstance.id]" ><g:message code="no.bet" default="No bet yet" /></g:link>
 			</sec:ifLoggedIn>
 			</div>
 		</g:else>
@@ -57,7 +57,7 @@
 	
 	<div class="panel-footer">
 	<div class="row">
-		<div class="col-xs-12"><small>updated: <g:formatDate date="${gamesInstance?.updatedAt}" /></small></div>
+		<div class="col-xs-12"><small>updated: <g:formatDate date="${gameInstance?.lastUpdated}" /></small></div>
 	</div>
 	</div>
 </div>

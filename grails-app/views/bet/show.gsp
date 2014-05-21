@@ -1,4 +1,4 @@
-<%@page import="de.betgame.sportdb.Games"%>
+<%@page import="de.betgame.Game"%>
 <%@ page import="de.betgame.Bet" %>
 <!DOCTYPE html>
 <html>
@@ -17,8 +17,8 @@
 <div class="panel panel-default">
 	
 	<div class="panel-heading">
-		<g:set var="gamesInstance" value="${Games.get(betInstance.gameid)}" />
-		<g:render template="/games/gameDivRow" />
+		<g:set var="gameInstance" value="${betInstance.game}" />
+		<g:render template="/game/gameDivRow" />
 	</div>
 
 	<div class="row panel-body">	
@@ -33,7 +33,7 @@
 
 </div>
 
-<g:link controller="games" action="list" params="[groupId:gamesInstance.group.id]">${gamesInstance.group}</g:link>
+<g:link controller="game" action="list" params="[group:gameInstance.groupName]">${gameInstance.groupName}</g:link>
 
 </section>
 
