@@ -7,6 +7,7 @@
 	<meta name="layout" content="kickstart" />
 	<g:set var="entityName" value="${message(code: 'bet.label', default: 'Bet')}" />
 	<title><g:message code="default.list.label" args="[entityName]" /></title>
+	<g:set var="layout_nosecondarymenu"	value="${true}" scope="request"/>
 </head>
 
 <body>
@@ -16,7 +17,7 @@
 	<table class="table table-bordered margin-top-medium">
 		<thead>
 			<tr>
-				<th></th>
+				<th><i class="glyphicon glyphicon-pencil"></i></th>
 				<th>${message(code: 'bet.label', default: 'Bet')}</th>
 			</tr>
 		</thead>

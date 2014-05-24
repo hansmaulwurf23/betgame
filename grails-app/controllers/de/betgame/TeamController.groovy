@@ -9,6 +9,8 @@ class TeamController {
 
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+	def springSecurityService
+	
 	def beforeInterceptor = { }
 	
 	def index() {
@@ -16,14 +18,16 @@ class TeamController {
     }
 
 	def list(Integer max) {
-		def teams = Team.list()
+		def teams = Team.list(sort:'name')
 		def games = Game.list()
 		def groupMap = (games.collectEntries( { [it.team1.code, it.groupName] } ) + games.collectEntries( { [it.team2.code, it.groupName] } ))
 		[teamsInstanceList :  teams, groupMap : groupMap]
     }
 
     def show(Team teamInstance) {
-        respond teamInstance
+		def games = Game.findAllByTeam1OrTeam2(teamInstance, teamInstance)
+		def myBets = Bet.findAllByGameInListAndUser(games, springSecurityService.currentUser).collectEntries { [it.game, it] }
+        respond teamInstance, model: [games:games, myBets:myBets]
     }
 
     protected void notFound() {

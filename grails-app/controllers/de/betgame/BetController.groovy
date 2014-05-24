@@ -51,7 +51,7 @@ class BetController {
             return
         }
 
-		betInstance.save flush:true
+		betInstance.save(flush:true, failOnError:true)
 
         request.withFormat {
             form {

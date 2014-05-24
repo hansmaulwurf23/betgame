@@ -21,22 +21,49 @@
 </ul>
 
 <section id="show-teams" class="first">
+<div class="container">
+<div class="panel panel-default">
+	
+	<div class="panel-heading">
+	<div class="row">
+		<div class="col-xs-6">${teamInstance.code}</div>
+  		<div class="col-xs-6 text-right">${teamInstance.name}</div>
+  	</div>
+	</div>
+	
+  	<g:each in="${games}" var="gameInstance">
+  		<div class="row">
+			<div class="col-xs-4 text-right">
+				<g:link controller="team" action="show" id="${gameInstance?.team1?.id}">
+					${gameInstance?.team1?.code?.encodeAsHTML()}
+				</g:link>
+				<bg:flag net="${gameInstance.team1.net}" />
+			</div>
+			<div class="col-xs-2 text-center">
+				${gameInstance.score1} : ${gameInstance.score2}
+			</div>
+			<div class="col-xs-4">
+				<bg:flag net="${gameInstance.team2.net}" />
+				<g:link controller="team" action="show" id="${gameInstance?.team2?.id}">
+					${gameInstance?.team2?.code?.encodeAsHTML()}
+				</g:link>
+			</div>
+			<div class="col-xs-2 text-center">
+				<g:if test="${myBets[gameInstance]}">
+					${myBets[gameInstance].score1} : ${myBets[gameInstance].score2}
+				</g:if>
+				<g:else>
+					- <sec:ifLoggedIn><g:link controller="bet" action="create" params="['game.id': gameInstance.id]" ><i class="glyphicon glyphicon-pencil"></i></g:link></sec:ifLoggedIn>
+				</g:else>
+			</div>
+		</div>
+  	</g:each>
+	
+	
+</div>
 
-	<table class="table">
-		<tbody>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="teams.title.label" default="Title" /></td>
-				<td valign="top" class="value">${fieldValue(bean: teamInstance, field: "name")} <bg:flag net="${teamInstance.net}" /></td>
-			</tr>
-		
-			<tr class="prop">
-				<td valign="top" class="name"><g:message code="teams.code.label" default="Code" /></td>
-				<td valign="top" class="value">${fieldValue(bean: teamInstance, field: "code")}</td>
-			</tr>
-			
-		</tbody>
-	</table>
+</div>
+	
 </section>
 
 </body>
