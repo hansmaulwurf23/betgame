@@ -1,5 +1,7 @@
 package de.betgame
 
+import de.betgame.sec.User;
+
 class HomeController {
 
 	def openLigaDBService
@@ -11,8 +13,13 @@ class HomeController {
 		def user = springSecurityService.currentUser
 		def myBet
 		if (user) {
-			myBet = Bet.findByUserAndGame(user, gameInstance)
+			myBet = Bet.findByUserAndGame(user, nextGame)
 		}
-		[nextGame:nextGame, myBet:myBet]
+		
+		def countBets = Bet.count()
+		def betters = Bet.executeQuery("select distinct user from Bet b").size()
+		def userCount = User.count()
+		
+		[nextGame:nextGame, myBet:myBet, countBets: countBets, userCount:userCount, betters:betters]
 	}
 }

@@ -74,7 +74,11 @@ grails.project.dependency.resolution = {
 		
 		//compile ":db-reverse-engineer:0.5"
 		
-		compile ":spring-security-core:2.0-RC2"
+		//compile ":spring-security-core:2.0-RC2"
+		//compile ":spring-security-cas:2.0-RC1"
+		runtime ":spring-security-core:1.2.7.3"
+		runtime ":spring-security-cas:1.0.5"
+		//runtime ":webxml:1.4.1"
 		
         // plugins for the compile step
         compile ":scaffolding:2.0.1"

@@ -1,5 +1,8 @@
 package de.betgame
 
+import grails.plugins.springsecurity.Secured
+
+@Secured(['ROLE_EMPLOYEE_191'])
 class GameController {
 
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -17,7 +20,7 @@ class GameController {
 		if (!group) {
 			group = 'A'
 		}
-		def games = Game.findAllByGroupName(group)
+		def games = Game.findAllByGroupName(group, [sort:'playAtUTC'])
 		def groups = Game.executeQuery("select distinct groupName from Game order by groupName")
         [gameInstanceList:games, groups:groups, group:group, layout_nosecondarymenu:true]
     }

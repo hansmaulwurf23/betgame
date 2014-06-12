@@ -33,7 +33,7 @@ class UserRole implements Serializable {
 	}
 
 	static UserRole create(User user, Role role, boolean flush = false) {
-		new UserRole(user: user, role: role).save(flush: flush, insert: true)
+		new UserRole(user: user, role: role).save(flush: true, insert: true, failOnError: true)
 	}
 
 	static boolean remove(User u, Role r, boolean flush = false) {

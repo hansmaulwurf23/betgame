@@ -3,6 +3,7 @@ package de.betgame
 
 import static org.springframework.http.HttpStatus.*
 import de.betgame.sportdb.Games;
+import grails.plugins.springsecurity.Secured
 import grails.transaction.Transactional
 
 /**
@@ -10,6 +11,7 @@ import grails.transaction.Transactional
  * A controller class handles incoming web requests and performs actions such as redirects, rendering views and so on.
  */
 @Transactional(readOnly = true)
+@Secured(['ROLE_EMPLOYEE_191'])
 class BetController {
 
 	def springSecurityService
@@ -28,6 +30,10 @@ class BetController {
     }
 
     def show(Bet betInstance) {
+		if (betInstance.user != springSecurityService.currentUser) {
+			notYours()
+			return
+		}
         respond betInstance
     }
 
@@ -38,31 +44,47 @@ class BetController {
 
     @Transactional
     def save() {
-		Bet betInstance = new Bet(params)
-		betInstance.user = springSecurityService.currentUser
+    	Bet betInstance = new Bet(params)
+    	betInstance.user = springSecurityService.currentUser
 		
-        if (betInstance == null) {
-            notFound()
-            return
-        }
-
-        if (betInstance.hasErrors()) {
-            respond betInstance.errors, view:'create'
-            return
-        }
-
-		betInstance.save(flush:true, failOnError:true)
-
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'betInstance.label', default: 'Bet'), betInstance.id])
-                redirect betInstance
-            }
-            '*' { respond betInstance, [status: CREATED] }
-        }
+		if (cheating(betInstance)) {
+			flash.message = "Sehr sportlich, Herr Kollege... Ihr Versuch zu Bescheissen wurde protokolliert und wird morgen in der Kaffeekueche ausgehaengt..."
+			redirect(controller:'home', action:'index')
+		} else {
+			
+	        if (betInstance == null) {
+	            notFound()
+	            return
+	        }
+	
+	        if (betInstance.hasErrors()) {
+	            respond betInstance.errors, view:'create'
+	            return
+	        }
+			
+			def otherBets = Bet.findAllByUserAndGame(springSecurityService.currentUser, betInstance.game)
+			if (otherBets) {
+				alreadyBet()
+				return
+			}
+	
+			betInstance.save(flush:true, failOnError:true)
+	
+	        request.withFormat {
+	            form {
+	                flash.message = message(code: 'default.created.message', args: [message(code: 'betInstance.label', default: 'Bet'), betInstance.id])
+	                redirect betInstance
+	            }
+	            '*' { respond betInstance, [status: CREATED] }
+	        }
+		}
     }
 
     def edit(Bet betInstance) {
+		if (betInstance.user != springSecurityService.currentUser) {
+			notYours()
+			return
+		}
         respond betInstance
     }
 
@@ -77,16 +99,27 @@ class BetController {
             respond betInstance.errors, view:'edit'
             return
         }
-
-        betInstance.save flush:true
-
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Bet.label', default: 'Bet'), betInstance.id])
-                redirect betInstance
-            }
-            '*'{ respond betInstance, [status: OK] }
-        }
+		
+		if (betInstance.user != springSecurityService.currentUser) {
+			notYours()
+			return
+		}
+		
+		if (cheating(betInstance)) {
+			flash.message = "Sehr sportlich, Herr Kollege... Ihr Versuch zu Bescheissen wurde protokolliert und wird morgen in der Kaffeekueche ausgehaengt..."
+			redirect(controller:'home', action:'index')
+		} else {
+	
+	        betInstance.save flush:true
+	
+	        request.withFormat {
+	            form {
+	                flash.message = message(code: 'default.updated.message', args: [message(code: 'Bet.label', default: 'Bet'), betInstance.id])
+	                redirect betInstance
+	            }
+	            '*'{ respond betInstance, [status: OK] }
+	        }
+		}
     }
 
     @Transactional
@@ -96,6 +129,11 @@ class BetController {
             notFound()
             return
         }
+		
+		if (betInstance.user != springSecurityService.currentUser) {
+			notYours()
+			return
+		}
 
         betInstance.delete flush:true
 
@@ -117,4 +155,25 @@ class BetController {
             '*'{ render status: NOT_FOUND }
         }
     }
+	
+	protected void notYours() {
+		flash.message = "Wette deinen eigenen Kram. :-P"
+		redirect action: "list", method: "GET"
+	}
+	
+	protected void alreadyBet() {
+		flash.message = "Es wurde bereits ein Tipp fuer dieses Spiel abgegeben!"
+		redirect action: "list", method: "GET"
+	}
+	
+	protected boolean cheating(Bet betInstance) {
+		def game = betInstance.game
+		def now = new Date()
+		if (game.playAt <= now) {
+			log.error "${betInstance.user} auf die Finger hauen! (${now}) for game ${game}"
+			return true
+		} else {
+			return false
+		}
+	}
 }

@@ -1,10 +1,8 @@
 package de.betgame
 
+import grails.plugins.springsecurity.Secured
 
-/**
- * TeamController
- * A controller class handles incoming web requests and performs actions such as redirects, rendering views and so on.
- */
+@Secured(['ROLE_EMPLOYEE_191'])
 class TeamController {
 
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]

@@ -8,9 +8,9 @@
 <body>
 
 	<section id="intro" class="first">
-		<h2>Welcome to Betgame <g:meta name="app.version"/></h2>
+		<h2>Welcome to Betgame</h2>
 		<g:if test="${nextGame}">
-		<h3><g:message code="next.game" default="next Game"/></h3>
+		<h3><g:message code="next.game" default="next Game"/> (<g:formatDate type="datetime" date="${nextGame.playAt}" />)</h3>
 		<div class="row">
 			<div class="col-xs-5 text-right">
 				<g:link controller="team" action="show" id="${nextGame?.team1?.id}">
@@ -37,11 +37,27 @@
 				<g:link controller='login' action='auth'><g:message code="not.logged.in" default="Not Logged In" /></g:link>
 			</sec:ifNotLoggedIn>
 			<sec:ifLoggedIn>
-				<g:link controller="bet" action='create' params="['game.id': gameInstance.id]" ><g:message code="no.bet" default="No bet yet" /></g:link>
+				<g:link controller="bet" action='create' params="['game.id': nextGame.id]" ><g:message code="no.bet" default="No bet yet" /></g:link>
 			</sec:ifLoggedIn>
 			</div>
 		</g:else>
 		</g:if>
+		
+		<div class="row">
+			<div class="col-xs-5">
+			Bets: ${countBets}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5">
+			Players: ${betters}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5">
+			Visitors: ${userCount}
+			</div>
+		</div>
 	</section>
 
 
