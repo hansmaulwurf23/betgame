@@ -19,8 +19,8 @@
 			</tr>
 		</thead>
 		<tbody>
-		<g:each in="${punkte}" status="i" var="p">
-			<tr class="${(posMap[(p.punkte)] % 2) == 0 ? 'active' : ''}">
+		<g:each in="${punkte}" var="p">
+			<tr class="${(posMap*.key.indexOf(p.punkte) % 2) == 0 ? '' : 'active'}">
 				<td>${posMap[(p.punkte)]}</td>
 				<td>${p.givenname}</td>
 				<td>${p.punkte}</td>
