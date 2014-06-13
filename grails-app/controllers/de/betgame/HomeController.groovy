@@ -9,17 +9,21 @@ class HomeController {
 	
     def index = { 
 		//openLigaDBService.fetchTeamsAndGamesAndLocations()
-		def nextGame = Game.findByPlayAtGreaterThan(new Date(), [max:1, sort:'playAt'])
+		def today = (new Date()).clearTime()
+		def nextGames = Game.findAllByPlayAtGreaterThanAndPlayAtLessThan(today, today+1, [sort:'playAt'])
 		def user = springSecurityService.currentUser
-		def myBet
+		def myBets
 		if (user) {
-			myBet = Bet.findByUserAndGame(user, nextGame)
+			myBets = Bet.findAllByUserAndGameInList(user, nextGames)
+			myBets = myBets.groupBy { it.game }
 		}
 		
 		def countBets = Bet.count()
 		def betters = Bet.executeQuery("select distinct user from Bet b").size()
 		def userCount = User.count()
 		
-		[nextGame:nextGame, myBet:myBet, countBets: countBets, userCount:userCount, betters:betters]
+		println myBets
+		
+		[nextGames:nextGames, myBets:myBets, countBets: countBets, userCount:userCount, betters:betters]
 	}
 }

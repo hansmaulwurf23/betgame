@@ -1,28 +1,69 @@
 <!DOCTYPE html>
-<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
-<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
-<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
-<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"><!--<![endif]-->
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title><g:layoutTitle default="Grails"/></title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon">
-		<link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'apple-touch-icon.png')}">
-		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
-		<g:layoutHead/>
-		<r:layoutResources />
-	</head>
-	<body>
-		<div id="grailsLogo" role="banner"><a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>
-		<g:layoutBody/>
-		<div class="footer" role="contentinfo"></div>
-		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
-		<g:javascript library="application"/>
-		<r:layoutResources />
-	</body>
+<%-- <html lang="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).toString().replace('_', '-')}"> --%>
+<html lang="${session.'org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE'}">
+
+<head>
+	<title><g:layoutTitle default="${meta(name:'app.name')}" /></title>
+	
+    <meta charset="utf-8">
+    <meta name="viewport"		content="width=device-width, initial-scale=1.0">
+    <meta name="description"	content="">
+    <meta name="author"			content="Martin Fischer">
+    
+	<link rel="shortcut icon"		href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
+	
+	<link rel="apple-touch-icon"	href="assets/ico/apple-touch-icon.png">
+    <link rel="apple-touch-icon"	href="assets/ico/apple-touch-icon-72x72.png"	sizes="72x72">
+    <link rel="apple-touch-icon"	href="assets/ico/apple-touch-icon-114x114.png"	sizes="114x114">
+	
+	<%-- Manual switch for the skin can be found in /view/_menu/_config.gsp --%>
+	<r:require modules="jquery"/> <%-- jQuery is required for Bootstrap! --%>
+	<r:require modules="bootstrap-js"/>
+	<r:require modules="custom-bootstrap"/>
+
+	<r:layoutResources />
+	<g:layoutHead />
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+		<script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<%-- For Javascript see end of body --%>
+</head>
+
+<body>
+	<g:render template="/_menu/navbar"/>														
+
+	<!-- Enable to overwrite Header by individual page -->
+	<g:if test="${ pageProperty(name:'page.header') }">
+   		<g:pageProperty name="page.header" />
+	</g:if>
+	<g:else>
+		<g:render template="/layouts/header"/>														
+	</g:else>
+
+	<g:render template="/layouts/content"/>														
+
+	<!-- Enable to overwrite Footer by individual page -->
+	<g:if test="${ pageProperty(name:'page.footer') }">
+	    <g:pageProperty name="page.footer" />
+	</g:if>
+	<g:else>
+		<g:render template="/layouts/footer"/>														
+	</g:else>
+
+	<!-- Enable to insert additional components (e.g., modals, javascript, etc.) by any individual page -->
+	<g:if test="${ pageProperty(name:'page.include.bottom') }">
+   		<g:pageProperty name="page.include.bottom" />
+	</g:if>
+	<g:else>
+		<!-- Insert a modal dialog for registering (for an open site registering is possible on any page) -->
+		<g:render template="/_common/modals/registerDialog" model="[item: item]"/>
+	</g:else>
+	
+	<!-- Included Javascript files and other resources -->
+	<r:layoutResources />
+</body>
+
 </html>

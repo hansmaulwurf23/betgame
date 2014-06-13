@@ -115,6 +115,29 @@ class OpenLigaDBService {
 		g.save(failOnError: true)
 	}
 	
+	def updateGameScore(gameID, force = false) {
+		log.warn "updating game with id ${gameID}"
+		Game game = Game.get(gameID)
+		if (game) {
+			def matchData = getProxy().GetMatchByMatchID(gameID)
+			if (matchData.matchID != -1) {
+				def endErgeb = matchData?.matchResults?.matchResult?.find { it.resultName == 'Endergebnis' }
+				if (endErgeb) {
+					int s1 = endErgeb.pointsTeam1?.toInteger()
+					int s2 = endErgeb.pointsTeam2?.toInteger()
+					if (game.score1 != s1 || game.score2 != s2 || force) {
+						log.warn "UPDATING GAME SCORE FOR GAME ${gameID}: $s1 - $s2"
+						game.score1 = s1 
+						game.score2 = s2
+						game.numberOfViewers = matchData.numberOfViewers
+						game.matchIsFinished = matchData.matchIsFinished
+						game.save(flush:true, failOnError:true)
+					}
+				}
+			}
+		}
+	}
+	
 	def postProcessingTeams() {
 		Sql sql = new Sql(dataSource_betgame)
 		def teams = Team.findAllByNetIsNull()

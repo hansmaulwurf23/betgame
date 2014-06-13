@@ -41,7 +41,7 @@
 	
 	<div class="row">
 		<g:if test="${myBet}">
-			<div class="col-xs-12 text-center">${myBet.score1} : ${myBet.score2}</div>
+			<div class="col-xs-12 text-center"><g:link controller="bet" action='edit' id="${myBet.id}">${myBet.score1} : ${myBet.score2}</g:link></div>
 		</g:if>
 		<g:else>
 			<div class="col-xs-12 text-center">
@@ -57,7 +57,7 @@
 	
 	<div class="panel-footer">
 	<div class="row">
-		<div class="col-xs-12"><small>updated: <g:formatDate date="${gameInstance?.lastUpdated}" /></small></div>
+		<div class="col-xs-12"><small>updated: <g:formatDate type="datetime" date="${gameInstance?.lastUpdated}" /></small></div>
 	</div>
 	</div>
 </div>

@@ -33,7 +33,7 @@
 
 </div>
 
-<g:link controller="game" action="list" params="[group:gameInstance.groupName]">${gameInstance.groupName}</g:link>
+<g:message code="back.to" default="Back to"/> <g:link controller="game" action="list" params="[group:gameInstance.groupName]"><g:message code="group" default="Group"/> ${gameInstance.groupName}</g:link>
 
 </section>
 

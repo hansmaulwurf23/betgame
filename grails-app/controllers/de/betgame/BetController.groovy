@@ -24,6 +24,7 @@ class BetController {
 
 	def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
+		params.sort = 'game.playAt'
 		def bets = Bet.findAllByUser(springSecurityService.currentUser, params)
 		def games = Game.findAllByIdInList(bets*.game*.id).collectEntries { [ it.id, it] } 
         [betInstanceList: bets, games:games, betInstanceCount: Bet.countByUser(springSecurityService.currentUser)]
@@ -49,6 +50,7 @@ class BetController {
 		
 		if (cheating(betInstance)) {
 			flash.message = "Sehr sportlich, Herr Kollege... Ihr Versuch zu Bescheissen wurde protokolliert und wird morgen in der Kaffeekueche ausgehaengt..."
+			betInstance.discard()
 			redirect(controller:'home', action:'index')
 		} else {
 			
@@ -107,6 +109,7 @@ class BetController {
 		
 		if (cheating(betInstance)) {
 			flash.message = "Sehr sportlich, Herr Kollege... Ihr Versuch zu Bescheissen wurde protokolliert und wird morgen in der Kaffeekueche ausgehaengt..."
+			betInstance.discard()
 			redirect(controller:'home', action:'index')
 		} else {
 	
