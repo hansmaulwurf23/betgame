@@ -10,6 +10,7 @@ class StatsService {
 	
     def getRanking() {
 		Sql sql = new Sql(dataSource_betgame)
+		//TODO forgot to comment bugfix score 1: please verify and remove this line !!!
 		def rows = sql.rows("""
 
 			select punkte, username, givenname, surname
