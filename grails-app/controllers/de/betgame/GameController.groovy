@@ -18,9 +18,9 @@ class GameController {
 	def list(String group) {
 		// FIXME nonbrainer
 		if (!group) {
-			group = 'A'
+			group = 'all'
 		}
-		def games = Game.findAllByGroupName(group, [sort:'playAtUTC'])
+		def games = group=='all'?Game.list([sort:'playAtUTC']):Game.findAllByGroupName(group, [sort:'playAtUTC'])
 		def groups = Game.executeQuery("select distinct groupName from Game order by groupName")
         [gameInstanceList:games, groups:groups, group:group, layout_nosecondarymenu:true]
     }
