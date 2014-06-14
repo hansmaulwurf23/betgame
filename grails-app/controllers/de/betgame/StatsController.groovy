@@ -24,8 +24,17 @@ class StatsController {
 			currentOffset += players.size()
 		}
 		
-		println posMap
+		def nameMap = NameUtil.buildNameMap(punkte) 
 		
-		[punkte : punkte, posMap : posMap]
+		[punkte : punkte, posMap : posMap, nameMap: nameMap]
+	}
+	
+	def luckers() {
+		def result = statsService.getLuckers()
+		def luckyShots = result.sort { it.givenname }.sort { -it.anz }
+		
+		def nameMap = NameUtil.buildNameMap(luckyShots)
+		
+		[luckyShots : luckyShots, nameMap: nameMap]
 	}
 }

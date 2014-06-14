@@ -41,7 +41,7 @@
 	
 	<div class="row">
 		<g:if test="${myBet}">
-			<div class="col-xs-12 text-center"><g:link controller="bet" action='edit' id="${myBet.id}">${myBet.score1} : ${myBet.score2}</g:link></div>
+			<div class="col-xs-12 text-center"><g:link controller="bet" action='edit' id="${myBet.id}">${myBet.score1}:${myBet.score2}</g:link></div>
 		</g:if>
 		<g:else>
 			<div class="col-xs-12 text-center">

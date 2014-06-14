@@ -38,7 +38,7 @@
 				<bg:flag net="${gameInstance.team1.net}" />
 			</div>
 			<div class="col-xs-2 text-center">
-				${gameInstance.score1} : ${gameInstance.score2}
+				${gameInstance.score1}:${gameInstance.score2}
 			</div>
 			<div class="col-xs-4">
 				<bg:flag net="${gameInstance.team2.net}" />
@@ -48,10 +48,10 @@
 			</div>
 			<div class="col-xs-2 text-center">
 				<g:if test="${myBets[gameInstance]}">
-					${myBets[gameInstance].score1} : ${myBets[gameInstance].score2}
+					${myBets[gameInstance].score1}:${myBets[gameInstance].score2}
 				</g:if>
 				<g:else>
-					- <sec:ifLoggedIn><g:link controller="bet" action="create" params="['game.id': gameInstance.id]" ><i class="glyphicon glyphicon-pencil"></i></g:link></sec:ifLoggedIn>
+					<sec:ifLoggedIn><g:link controller="bet" action="create" params="['game.id': gameInstance.id]" ><i class="glyphicon glyphicon-pencil"></i></g:link></sec:ifLoggedIn>
 				</g:else>
 			</div>
 		</div>

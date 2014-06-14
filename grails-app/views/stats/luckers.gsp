@@ -3,7 +3,7 @@
 
 <head>
 	<meta name="layout" content="kickstart" />
-	<title>Ranking</title>
+	<title>Luckers</title>
 	<g:set var="layout_nosecondarymenu"	value="${true}" scope="request"/>
 </head>
 
@@ -13,20 +13,20 @@
 
 <section id="list-ranking" class="first">
 
+	<div class="well"><g:message code="luckers.info" default="Anzahl richtig getippter Spielergebnisse"/></div>
+
 	<table class="table margin-top-medium">
 		<thead>
 			<tr>
-				<th>${message(code: 'rank', default: 'Rang')}</th>
 				<th>${message(code: 'name', default: 'Name')}</th>
-				<th>${message(code: 'points', default: 'Punkte')}</th>
+				<th>${message(code: 'games', default: 'Spiele')}</th>
 			</tr>
 		</thead>
 		<tbody>
-		<g:each in="${punkte}" var="p">
-			<tr class="${(posMap*.key.indexOf(p.punkte) % 2) == 0 ? '' : 'active'}">
-				<td>${posMap[(p.punkte)]}</td>
+		<g:each in="${luckyShots}" var="p" status="i">
+			<tr class="${(i % 2) == 0 ? '' : 'active'}">
 				<td>${nameMap[p]}</td>
-				<td>${p.punkte}</td>
+				<td>${p.anz}</td>
 			</tr>
 		</g:each>
 		</tbody>

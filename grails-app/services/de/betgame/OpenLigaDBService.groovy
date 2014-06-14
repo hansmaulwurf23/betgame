@@ -121,7 +121,7 @@ class OpenLigaDBService {
 				if (endErgeb) {
 					int s1 = endErgeb.pointsTeam1?.toInteger()
 					int s2 = endErgeb.pointsTeam2?.toInteger()
-					if (game.score1 != s1 || game.score2 != s2 || force) {
+					if (force || game.score1 != s1 || game.score2 != s2 || game.numberOfViewers != matchData.numberOfViewers || game.matchIsFinished != matchData.matchIsFinished) {
 						log.warn "UPDATING GAME SCORE FOR GAME ${gameID}: $s1 - $s2"
 						game.score1 = s1 
 						game.score2 = s2
