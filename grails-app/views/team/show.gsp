@@ -1,5 +1,3 @@
-
-<%@ page import="de.betgame.sportdb.Teams" %>
 <!DOCTYPE html>
 <html>
 
