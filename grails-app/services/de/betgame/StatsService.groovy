@@ -20,7 +20,7 @@ class StatsService {
 					CASE
 						WHEN g.score1 = b.score1 AND g.score2 = b.score2 THEN 3
 						WHEN g.score1 - g.score2 = b.score1 - b.score2 THEN 2
-						WHEN sign(g.score1 - g.score2) = sign(b.score1 - b.score2) THEN 1
+						WHEN sign(g.score1 - g.score2) = sign(b.score1 - b.score2) AND g.score1 - g.score2 != 0 THEN 1
 						ELSE 0 
 						END as punkte
 					from game g join bet b using (game_id) 
@@ -47,5 +47,19 @@ class StatsService {
 
 		""")
 		return rows
+	}
+	
+	def getScore(game, bet) {
+		def score = 0
+		if (game.score1 != null && game.score2 != null) {
+			if (game.score1 == bet.score1 && game.score2 == bet.score2) {
+				score = 3
+			} else if (game.score1-game.score2 == bet.score1-bet.score2) {
+				score = 2
+			} else if (((game.score1-game.score2)<0)==((bet.score1-bet.score2)<0) && game.score1-game.score2 != 0) {
+				score = 1
+			}
+		}
+		return score
 	}
 }

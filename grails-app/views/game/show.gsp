@@ -25,11 +25,14 @@
 	
 	<div class="panel-heading">
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-xs-4">
 			<g:formatDate date="${gameInstance?.playAt}" type="date" dateStyle="SHORT" />
 			<g:formatDate date="${gameInstance?.playAt}" type="time" timeStyle="SHORT" />
 		</div>
-  		<div class="col-xs-6 text-right"><g:link action="list" params="[ground: gameInstance?.groupName]">Gruppe ${gameInstance?.groupName}</g:link></div>
+		<div class="col-xs-4 text-center">
+			<bg:gameStatus game="${gameInstance}"/>
+		</div>
+  		<div class="col-xs-4 text-right"><g:link action="list" params="[ground: gameInstance?.groupName]">Gruppe ${gameInstance?.groupName}</g:link></div>
   	</div>
 	</div>
 	
@@ -61,6 +64,8 @@
 	</div>
 	</div>
 </div>
+
+<bg:gameBets game="${gameInstance}" />
 
 </div>
 </section>
