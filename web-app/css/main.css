@@ -12,6 +12,11 @@ footer.footer {
     background-color: #eee;
 }
 
+div.panel > div.row {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
 /*
 * Big Messages (Errors, etc.)
 */

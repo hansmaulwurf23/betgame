@@ -2,7 +2,6 @@ package de.betgame
 
 
 import static org.springframework.http.HttpStatus.*
-import de.betgame.sportdb.Games;
 import grails.plugins.springsecurity.Secured
 import grails.transaction.Transactional
 

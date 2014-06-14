@@ -46,10 +46,10 @@
 		<g:else>
 			<div class="col-xs-12 text-center">
 			<sec:ifNotLoggedIn>
-				<g:link controller='login' action='auth'><g:message code="not.logged.in" default="Not Logged In" /></g:link>
+				<g:link controller='login' action='auth'><g:message code="not.logged.in" default="Nicht angemeldet" /></g:link>
 			</sec:ifNotLoggedIn>
 			<sec:ifLoggedIn>
-				<g:link controller="bet" action='create' params="['game.id': gameInstance.id]" ><g:message code="no.bet" default="No bet yet" /></g:link>
+				<g:link controller="bet" action='create' params="['game.id': gameInstance.id]" ><g:message code="no.bet" default="Noch kein Tipp abegeben" /></g:link>
 			</sec:ifLoggedIn>
 			</div>
 		</g:else>

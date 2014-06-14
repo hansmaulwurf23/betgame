@@ -15,16 +15,16 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 			<div class="row">
-				<div class="col-xs-5 text-right">
+				<div class="col-xs-4 text-right">
 					<g:link controller="team" action="show" id="${nextGame?.team1?.id}">
 						${nextGame?.team1?.name?.encodeAsHTML()}
 					</g:link>
 					<bg:flag net="${nextGame.team1.net}" />
 				</div>
-				<div class="col-xs-2 text-center">
+				<div class="col-xs-4 text-center">
 					${nextGame.score1} : ${nextGame.score2}
 				</div>
-				<div class="col-xs-5">
+				<div class="col-xs-4">
 					<bg:flag net="${nextGame.team2.net}" />
 					<g:link controller="team" action="show" id="${nextGame?.team2?.id}">
 						${nextGame?.team2?.name?.encodeAsHTML()}
@@ -40,10 +40,10 @@
 			<g:else>
 				<div class="col-xs-12 text-center">
 				<sec:ifNotLoggedIn>
-					<g:link controller='login' action='auth'><g:message code="not.logged.in" default="Not Logged In" /></g:link>
+					<g:link controller='login' action='auth'><g:message code="not.logged.in" default="Nicht angemeldet" /></g:link>
 				</sec:ifNotLoggedIn>
 				<sec:ifLoggedIn>
-					<g:link controller="bet" action='create' params="['game.id': nextGame.id]" ><g:message code="no.bet" default="No bet yet" /></g:link>
+					<g:link controller="bet" action='create' params="['game.id': nextGame.id]" ><g:message code="no.bet" default="Noch kein Tipp abegeben" /></g:link>
 				</sec:ifLoggedIn>
 				</div>
 			</g:else>

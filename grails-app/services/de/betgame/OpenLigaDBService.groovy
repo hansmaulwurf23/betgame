@@ -6,10 +6,6 @@ import groovy.sql.Sql;
 
 import org.grails.plugins.wsclient.service.WebService
 
-import de.betgame.sportdb.Games;
-import de.betgame.sportdb.SqliteSequence;
-import de.betgame.sportdb.Teams;
-
 /**
  * OpenLigaDBService
  * A service class encapsulates the core business logic of a Grails application
@@ -138,6 +134,8 @@ class OpenLigaDBService {
 		}
 	}
 	
+	// fuck sqlite. -> removed opensportdb code
+	/*
 	def postProcessingTeams() {
 		Sql sql = new Sql(dataSource_betgame)
 		def teams = Team.findAllByNetIsNull()
@@ -180,5 +178,6 @@ class OpenLigaDBService {
 			}
 		}
 	}
+	*/
 }
 

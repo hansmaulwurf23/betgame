@@ -4,7 +4,12 @@
 		<g:each status="i" var="logicalPropertyName" in="${['home', 'game', 'bet', 'team', 'stats']}">
 			<li class="controller${params.controller == logicalPropertyName ? " active" : ""}">
 				<g:link controller="${logicalPropertyName}" action="index">
-					<g:message code="${logicalPropertyName}.label" default="${logicalPropertyName.capitalize()}"/>
+					<g:if test="${logicalPropertyName == 'home'}">
+						<i class="glyphicon glyphicon-home"></i>
+					</g:if>
+					<g:else>
+						<g:message code="${logicalPropertyName}.label" default="${logicalPropertyName.capitalize()}"/>
+					</g:else>
 				</g:link>
 			</li>
 		</g:each>
