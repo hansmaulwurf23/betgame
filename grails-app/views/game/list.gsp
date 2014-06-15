@@ -12,7 +12,7 @@
 <body>
 <ul id="Menu" class="nav nav-pills margin-top-small">
 <g:each in="${groups}" var="g">
-	<li class="${ g == group ? 'active' : '' }">
+	<li class="${ g == group ? 'active' : '' }" style="margin: 5px 0px;">
 		<g:link action="list" params="[group:g]">${g}</g:link>
 	</li>
 </g:each>
@@ -25,7 +25,7 @@
 		</thead>
 		<tbody>
 		<g:each in="${gameInstanceList}" status="i" var="gameInstance">
-			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+			<tr class="${gameInstance.matchIsFinished ? 'active' : ''}">
 			
 				<td><g:link action="show" id="${gameInstance.id}">
 					<g:formatDate date="${gameInstance?.playAt}" formatName="default.gamedate.format" />

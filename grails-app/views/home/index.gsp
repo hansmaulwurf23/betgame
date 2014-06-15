@@ -14,7 +14,7 @@
 				<g:if test="${nextGames}">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseNextGames"> <g:message code="next.games" default="Nächste Spiele" /> (<g:formatDate formatName="default.weekdate.format" date="${nextGames[0].playAt}" /> - <g:formatDate formatName="default.weekdate.format" date="${nextGames[-1].playAt}" />)
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseNextGames"> <g:message code="next.games" default="Nächste Spiele" /> <br/>(<g:formatDate formatName="default.weekdate.format" date="${nextGames[0].playAt}" /> - <g:formatDate formatName="default.weekdate.format" date="${nextGames[-1].playAt}" />)
 							</a>
 						</h4>
 					</div>
@@ -26,10 +26,12 @@
 						</div>
 					</div>
 				</g:if>
+			</div>
+			<div class="panel panel-default">
 				<g:if test="${lastGames}">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseLastGames"> <g:message code="last.games" default="Letzte Spiele" /> (<g:formatDate formatName="default.weekdate.format" date="${lastGames[0].playAt}" />-<g:formatDate formatName="default.weekdate.format" date="${lastGames[-1].playAt}" />)
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseLastGames"> <g:message code="last.games" default="Letzte Spiele" /> <br/>(<g:formatDate formatName="default.weekdate.format" date="${lastGames[0].playAt}" />-<g:formatDate formatName="default.weekdate.format" date="${lastGames[-1].playAt}" />)
 							</a>
 						</h4>
 					</div>

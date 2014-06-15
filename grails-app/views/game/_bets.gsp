@@ -13,7 +13,7 @@
 		</div>
 	</div>
 	<g:each in="${betInstances}" var="betInstance">
-	<div class="row panel-body${betInstance.user==currentUser?' current-user':''}">
+	<div class="row condensed panel-body ${betInstance.user==currentUser?' current-user':''}">
 		<div class="col-xs-4 text-right">
 			${betInstance.user.givenname}
 		</div>
