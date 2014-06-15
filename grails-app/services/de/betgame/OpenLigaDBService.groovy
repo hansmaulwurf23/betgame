@@ -113,11 +113,12 @@ class OpenLigaDBService {
 	
 	def updateGameScore(gameID, force = false) {
 		Game game = Game.get(gameID)
+		log.debug "fetching game data for ${gameID}..."
 		if (game) {
 			def matchData = getProxy().GetMatchByMatchID(gameID)
 			if (matchData.matchID != -1) {
 				def endErgeb = matchData?.matchResults?.matchResult?.find { it.resultName == 'Endergebnis' }
-				log.info matchData.properties
+				log.info "Endergebnis: $endErgeb"
 				if (endErgeb) {
 					int s1 = endErgeb.pointsTeam1?.toInteger()
 					int s2 = endErgeb.pointsTeam2?.toInteger()
