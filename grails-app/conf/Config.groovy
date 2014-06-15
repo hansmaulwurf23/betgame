@@ -88,7 +88,11 @@ grails.plugins.twitterbootstrap.fixtaglib = true
 grails.plugins.twitterbootstrap.defaultBundle = 'bundle_bootstrap'
 
 grails.assets.plugin."twitter-bootstrap".excludes	["**/*.less"]
-grails.assets.plugin."twitter-bootstrap".includes	["bootstrap.less"]
+grails.assets.excludes = ["**/*.less"]
+grails.assets.includes = ["/application.less"]
+
+//grails.assets.plugin."twitter-bootstrap".includes	["bootstrap.less"]
+//grails.assets.less.compiler = 'less4j'
 
 de.betgame.sportdb.event.key = 'world.2014'
 

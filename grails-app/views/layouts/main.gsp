@@ -57,8 +57,6 @@
 		<g:render template="/_common/modals/registerDialog" model="[item: item]"/>
 	</g:else>
 	
-	<!-- Included Javascript files and other resources -->
-	<asset:javascript src="application.js"/>
 </body>
 
 </html>
