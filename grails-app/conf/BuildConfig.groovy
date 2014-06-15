@@ -64,11 +64,9 @@ grails.project.dependency.resolution = {
 
 		// use once on project start:
 		//compile ":kickstart-with-bootstrap:1.1.0"
-		//compile ":twitter-bootstrap:3.1.1"
-		//compile ":lesscss-resources:1.3.3"
-		//compile ":less-resources:1.3.3.2"
-		compile ":twitter-bootstrap:3.0.0"
-		compile ":less-resources:1.3.3.2"
+		compile ":asset-pipeline:1.8.11"
+		compile ":less-asset-pipeline:1.7.0"
+		compile ":twitter-bootstrap:3.1.1.3"
 		
 		compile ":ws-client:1.0"
 		
@@ -91,10 +89,5 @@ grails.project.dependency.resolution = {
         runtime ":hibernate:3.6.10.7" // or ":hibernate4:4.1.11.1"
         runtime ":database-migration:1.3.8"
         runtime ":jquery:1.10.2.2"
-        runtime ":resources:1.2.1"
-        // Uncomment these (or add new ones) to enable additional resources capabilities
-        //runtime ":zipped-resources:1.0.1"
-        //runtime ":cached-resources:1.1"
-        //runtime ":yui-minify-resources:0.1.5"
     }
 }

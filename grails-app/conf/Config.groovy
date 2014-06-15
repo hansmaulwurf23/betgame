@@ -34,9 +34,6 @@ grails.mime.types = [
 // URL Mapping Cache Max Size, defaults to 5000
 //grails.urlmapping.cache.maxsize = 1000
 
-// What URL patterns should be processed by the resources plugin
-grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
-
 // Legacy setting for codec used to encode data with ${}
 grails.views.default.codec = "html"
 
@@ -90,6 +87,9 @@ grails.plugin.reveng.packageName = "de.betgame.sportdb"
 grails.plugins.twitterbootstrap.fixtaglib = true
 grails.plugins.twitterbootstrap.defaultBundle = 'bundle_bootstrap'
 
+grails.assets.plugin."twitter-bootstrap".excludes	["**/*.less"]
+grails.assets.plugin."twitter-bootstrap".includes	["bootstrap.less"]
+
 de.betgame.sportdb.event.key = 'world.2014'
 
 // set per-environment serverURL stem for creating absolute links
@@ -136,9 +136,6 @@ log4j = {
            'org.codehaus.groovy.grails.commons',            // core / classloading
            'org.codehaus.groovy.grails.plugins',            // plugins
            'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
-		   'grails.app.service.org.grails.plugin.resource',
-		   'grails.app.taglib.org.grails.plugin.resource',
-		   'grails.app.resourceMappers.org.grails.plugin.resource',
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
