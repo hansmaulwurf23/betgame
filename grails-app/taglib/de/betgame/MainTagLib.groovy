@@ -38,8 +38,7 @@ class MainTagLib {
 	
 	def gameBets = { attrs, body ->
 		if (attrs.game) {
-			def now = new Date()
-			def showBets =  attrs.showBets?:attrs.game.playAt>now?false:true
+			def showBets = (attrs.game.playAt < new Date())
 			def betInstances = Bet.findAllByGame(attrs.game)
 			def stats = [:]
 			stats.totalCount = betInstances.size()

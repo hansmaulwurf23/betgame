@@ -23,7 +23,7 @@
 <div class="container">
 
 <g:render template="/game/full" model="[gameInstance:gameInstance, myBet:myBet]"></g:render>
-<bg:gameBets game="${gameInstance}" showBets="t"/>
+<bg:gameBets game="${gameInstance}" />
 
 </div>
 </section>
