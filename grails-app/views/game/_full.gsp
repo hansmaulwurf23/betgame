@@ -53,7 +53,8 @@
 	<div class="panel-footer">
 		<div class="row">
 			<div class="col-xs-12">
-				<small>updated: <g:formatDate date="${gameInstance?.lastUpdated}" formatName="default.gamedate.format" /></small>
+				<small>updated: <g:formatDate date="${gameInstance?.lastUpdated}" formatName="default.gamedate.format" /></small> 
+				<sec:ifAnyGranted roles="ROLE_IDMADMIN"><g:link action="edit" id="${gameInstance.id}">Edit</g:link></sec:ifAnyGranted>
 			</div>
 		</div>
 	</div>

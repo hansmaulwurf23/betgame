@@ -1,6 +1,7 @@
 package de.betgame
 
 import grails.plugins.springsecurity.Secured
+import grails.transaction.Transactional;
 
 @Secured(['ROLE_EMPLOYEE_191'])
 class GameController {
@@ -34,7 +35,21 @@ class GameController {
 		}
         respond gameInstance, model: [myBet:myBet]
     }
+	
+	def edit(Game gameInstance) {
+		[gameInstance:gameInstance]
+	}
 
+	@Secured(['ROLE_IDMADMIN'])
+	@Transactional
+	def update(Game gameInstance) {
+	
+		gameInstance.save(flush:true, failOnError:true)
+
+		redirect(action:'show', params:[id:gameInstance.id])
+	}
+	
+	
     protected void notFound() {
         request.withFormat {
             form {
