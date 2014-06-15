@@ -18,10 +18,12 @@ class UpdateGameScoresJob {
 		Game.withTransaction {
 			def lastGames = Game.findAllByPlayAtLessThan(new Date())
 			lastGames.each { game ->
-				openLigaDBService.updateGameScore(game.id)
+				if (!game.matchIsFinished) {
+					openLigaDBService.updateGameScore(game.id)
+				}
 			}
 		}
 		
-		log.info "OptListStatsJob took ${System.currentTimeMillis() - start}ms"
+		log.info "UpdateGameScoresJob took ${System.currentTimeMillis() - start}ms"
 	}
 }
