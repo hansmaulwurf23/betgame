@@ -1,5 +1,8 @@
 //= require jquery/jquery-1.10.2.min.js
 //= require bootstrap
+//= require_self
+//= require_tree .
+//= require_full_tree .
 
 console.log("My javascript goes here");
 

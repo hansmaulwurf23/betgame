@@ -56,8 +56,7 @@ class StatsService {
 				score = 3
 			} else if (game.score1-game.score2 == bet.score1-bet.score2) {
 				score = 2
-			// maybe we use Integer.signum() for this, too ;-)
-			} else if (((game.score1-game.score2)<0)==((bet.score1-bet.score2)<0) && game.score1-game.score2 != 0) {
+			} else if (Integer.signum(game.score1-game.score2)==Integer.signum(bet.score1-bet.score2)) {
 				score = 1
 			}
 		}
