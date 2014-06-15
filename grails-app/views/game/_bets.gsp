@@ -15,7 +15,7 @@
 	<g:each in="${betInstances}" var="betInstance">
 	<div class="row condensed panel-body ${betInstance.user==currentUser?' current-user':''}">
 		<div class="col-xs-4 text-right">
-			${betInstance.user.givenname}
+			${nameMap[betInstance.user]}
 		</div>
 		<div class="col-xs-4 text-center">
 			${showBets?betInstance.score1:'*'}:${showBets?betInstance.score2:'*'}
