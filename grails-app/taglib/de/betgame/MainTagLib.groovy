@@ -15,12 +15,10 @@ class MainTagLib {
 	
 	def flag = { attrs, body ->
 		def imgLink
-		def imgBaseDir = '/images/flags/'
 		def countryCode = attrs.net		
 		
 		if (countryCode) {
-			imgLink = g.resource(dir:imgBaseDir,file:"${countryCode}.png")
-			out << "<img src='${imgLink}' alt='${attrs.name}'/>"
+			out << "<img src='${assetPath(src: 'flags/'+countryCode+'.png')}' alt='${attrs.name}'/>"
 		}
 	}
 	

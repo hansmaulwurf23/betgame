@@ -10,19 +10,14 @@
     <meta name="description"	content="">
     <meta name="author"			content="Martin Fischer">
     
-	<link rel="shortcut icon"		href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
-	
 	<link rel="apple-touch-icon"	href="assets/ico/apple-touch-icon.png">
     <link rel="apple-touch-icon"	href="assets/ico/apple-touch-icon-72x72.png"	sizes="72x72">
     <link rel="apple-touch-icon"	href="assets/ico/apple-touch-icon-114x114.png"	sizes="114x114">
 	
 	<%-- Manual switch for the skin can be found in /view/_menu/_config.gsp --%>
-	<r:require modules="jquery"/> <%-- jQuery is required for Bootstrap! --%>
-	<r:require modules="bootstrap-js"/>
-	<r:require modules="custom-bootstrap"/>
-
-	<r:layoutResources />
-	<g:layoutHead />
+	<asset:javascript src="application.js"/>
+	<asset:stylesheet src="application.css"/>
+	<asset:link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
 
 	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
 	<!--[if lt IE 9]>
@@ -63,7 +58,7 @@
 	</g:else>
 	
 	<!-- Included Javascript files and other resources -->
-	<r:layoutResources />
+	<asset:javascript src="application.js"/>
 </body>
 
 </html>
