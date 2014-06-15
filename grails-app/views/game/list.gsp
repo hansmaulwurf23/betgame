@@ -28,17 +28,24 @@
 			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 			
 				<td><g:link action="show" id="${gameInstance.id}">
-					<bg:localizedGameDate game="${gameInstance}" type="datetime" timeStyle="SHORT" dateStyle="SHORT" />
+					<g:formatDate date="${gameInstance?.playAt}" formatName="default.gamedate.format" />
 				</g:link></td>
+				<g:if test="${group=='all'}"><td><g:link action="list" params="[group: gameInstance?.groupName]">${gameInstance?.groupName}</g:link></td></g:if>
 				<td style="text-align: right;">${gameInstance.team1.code} <bg:flag net="${gameInstance.team1.net}" /></td>
 				<td style="text-align: center;">${gameInstance.score1} : ${gameInstance.score2}</td>
 				<td><bg:flag net="${gameInstance.team2.net}" /> ${gameInstance.team2.code}</td>
-			
 			</tr>
 		</g:each>
 		</tbody>
 	</table>
 </section>
+<g:if test="${group!='all'}">
+<g:link controller="game" action="list" params="[group:'all']">
+	<button type="button" class="btn btn-default">
+		<span class="glyphicon glyphicon-list"></span> Alle Gruppen
+	</button>
+</g:link>
+</g:if>
 
 </body>
 

@@ -53,3 +53,7 @@ section#Error {
     margin: 0 1.0em;
 	text-decoration: none;
 }
+.current-user {
+	color: #F0AD4E;
+	font-weight: bold;
+}
