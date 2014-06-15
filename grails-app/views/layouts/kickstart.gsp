@@ -19,9 +19,6 @@
 	<asset:stylesheet src="application.css"/>
 	<asset:link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
 
-	<r:layoutResources />
-	<g:layoutHead />
-
 	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
 	<!--[if lt IE 9]>
 		<script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -60,8 +57,6 @@
 		<g:render template="/_common/modals/registerDialog" model="[item: item]"/>
 	</g:else>
 	
-	<!-- Included Javascript files and other resources -->
-	<asset:javascript src="application.js"/>
 </body>
 
 </html>

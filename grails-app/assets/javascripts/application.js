@@ -1,4 +1,5 @@
 //= require jquery/jquery-1.10.2.min.js
+//= require bootstrap
 
 console.log("My javascript goes here");
 
