@@ -38,7 +38,14 @@
 						<span class="help-inline">${hasErrors(bean: gameInstance, field: 'score2', 'error')}</span>
 					</div>
 				</div>
-			
+				
+				<div class="row panel-body">	
+					<div class="col-xs-12">
+						<label for="score1">Finished?</label>
+						<g:checkBox name="matchIsFinished" value="${gameInstance.matchIsFinished}"/>
+					</div>
+				</div>
+				
 			</div>
 			
 			<div class="form-actions margin-top-medium">
