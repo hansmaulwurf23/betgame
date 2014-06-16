@@ -16,7 +16,7 @@
 				${gameInstance.score1}:${gameInstance.score2}
 				<bg:flag net="${gameInstance.team2.net}" />
 			</div>
-			<div class="col-xs-3">
+			<div class="col-xs-4">
 				<g:link controller="team" action="show" id="${gameInstance?.team2?.id}">
 					${gameInstance?.team2?.code}
 				</g:link>

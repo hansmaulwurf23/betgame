@@ -132,6 +132,8 @@ class OpenLigaDBService {
 						game.save(flush:true, failOnError:true)
 					}
 				}
+			} else {
+				log.error "Could not fetch all match data: ${matchData.properties}"
 			}
 		}
 	}

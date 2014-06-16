@@ -29,7 +29,7 @@ class GameController {
     def show(Game gameInstance) {
 		def user = springSecurityService.currentUser
 		def myBet
-		log.info "Looking for bet from user ${user} and game ${gameInstance}"
+		log.info "Looking for bet from user ${user.username} and game ${gameInstance}"
 		if (user) {
 			myBet = Bet.findByUserAndGame(user, gameInstance)
 		}
@@ -43,8 +43,12 @@ class GameController {
 	@Secured(['ROLE_IDMADMIN'])
 	@Transactional
 	def update(Game gameInstance) {
-	
-		gameInstance.save(flush:true, failOnError:true)
+		if (game.playAt > new Date()) {
+			flash.message = "Das Spiel hat noch nichtmal angefangen!"
+			gameInstance.discard()
+		} else {
+			gameInstance.save(flush:true, failOnError:true)
+		}
 
 		redirect(action:'show', params:[id:gameInstance.id])
 	}

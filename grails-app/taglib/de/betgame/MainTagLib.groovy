@@ -10,6 +10,8 @@ class MainTagLib {
 	
 	static namespace = "bg"
 	
+	static scoreColors = ['', 'success', 'warning', 'danger']
+	
 	def springSecurityService
 	def statsService
 	
@@ -47,10 +49,21 @@ class MainTagLib {
 		}
 	}
 	
+	// FIXME getScore() is now part of Bet domain class
 	def score = { attrs, body ->
 		if (attrs.game && attrs.bet) {
 			def score = statsService.getScore(attrs.game, attrs.bet)
 			out << (score!=null?score:g.message(code:'na´', default:'na'))
+		}
+	}
+	
+	def scoreCell = { attrs, body ->
+		if (attrs.bet) {
+			def score = attrs.bet.getScore()
+			def cellClass = scoreColors[score]
+			out << "<td class='$cellClass'>$score</td>"
+		} else {
+			out << "<td class='active'>-</td>"
 		}
 	}
 	

@@ -32,6 +32,20 @@ class Bet {
 		lastUpdated nullable:true
     }
 	
+	transient public int getScore() {
+		def score = 0
+		if (game.score1 != null && game.score2 != null) {
+			if (game.score1 == this.score1 && game.score2 == this.score2) {
+				score = 3
+			} else if (game.score1 - game.score2 == this.score1 - this.score2) {
+				score = 2
+			} else if (Integer.signum(game.score1 - game.score2) == Integer.signum(this.score1 - this.score2)) {
+				score = 1
+			}
+		}
+		return score
+	}
+	
 	/*
 	 * Methods of the Domain Class
 	 */

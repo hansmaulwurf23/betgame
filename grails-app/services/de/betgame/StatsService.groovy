@@ -49,6 +49,12 @@ class StatsService {
 		return rows
 	}
 	
+	def getScores() {
+		def allFinishedGames = Game.findAllByMatchIsFinished(true)
+		def allBets = Bet.findAllByGameInList(allFinishedGames, [sort:'game.playAt']).groupBy([{ it.game.id },{ it.user.id }])
+		return allBets
+	}
+	
 	def getScore(game, bet) {
 		def score = 0
 		if (game.score1 != null && game.score2 != null) {

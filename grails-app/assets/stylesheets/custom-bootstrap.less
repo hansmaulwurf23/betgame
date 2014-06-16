@@ -2,13 +2,31 @@
 @import "variables.less";
 
 div.row {
-	padding: @padding-base-vertical @padding-base-horizontal;
+	/*padding: @padding-base-vertical @padding-base-horizontal;*/
+	padding: 0;
+	margin: 0;
 
-	margin-top: @padding-base-vertical;
+	/*margin-top: @padding-base-vertical;*/
 
 	&.gray         { background-color: @gray; }
 	&.gray-light   { background-color: @gray-light; }
 	&.gray-lighter { background-color: @gray-lighter; }
+}
+
+.panel-heading, .panel-footer {
+	padding: 5px 0px;
+}
+
+#accordion > .panel > .panel-heading {
+	padding: 5px 10px;
+}
+
+.table-responsive>.fixed-column {
+    position: absolute;
+    display: inline-block;
+    width: auto;
+    border-right: 1px solid #ddd;
+    z-index:100;
 }
 
 @media (min-width: 768px) {
