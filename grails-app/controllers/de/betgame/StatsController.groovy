@@ -43,17 +43,6 @@ class StatsController {
 		def users = Bet.executeQuery("select distinct user from Bet b")
 		def nameMap = NameUtil.buildNameMap(users).sort { it.value }
 		
-		nameMap.each { u ->
-			result.each { r ->
-				r.value.each { us, b ->
-					println "$us - > $b"
-				}
-				def usr = u.key.id
-				println r.value.get(usr)?.getAt(0)	
-			}
-		}
-		
-		println result
 		[nameMap:nameMap, result:result]
 	}
 }

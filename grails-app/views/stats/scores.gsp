@@ -35,7 +35,6 @@
                 <td>${u.value}</td>
                 <g:each in="${result}" status="i" var="r">
                 <bg:scoreCell bet="${r.value.get(u.key.id)?.getAt(0)}"></bg:scoreCell>
-<%--                <td class="success"></td>--%>
                 </g:each>
             </tr>
             </g:each>
