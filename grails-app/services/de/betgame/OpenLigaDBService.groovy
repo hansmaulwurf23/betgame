@@ -119,6 +119,10 @@ class OpenLigaDBService {
 			if (matchData.matchID != -1) {
 				def endErgeb = matchData?.matchResults?.matchResult?.find { it.resultName == 'Endergebnis' }
 				log.info "Endergebnis: $endErgeb"
+				if (!endErgeb) {
+					log.info "No Endergebnis... trying Halbzeitergebnis"
+					endErgeb = matchData?.matchResults?.matchResult?.find { it.resultName == 'Halbzeitergebnis' }
+				}
 				if (endErgeb) {
 					int s1 = endErgeb.pointsTeam1?.toInteger()
 					int s2 = endErgeb.pointsTeam2?.toInteger()

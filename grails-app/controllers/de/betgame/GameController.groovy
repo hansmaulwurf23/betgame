@@ -43,7 +43,7 @@ class GameController {
 	@Secured(['ROLE_IDMADMIN'])
 	@Transactional
 	def update(Game gameInstance) {
-		if (game.playAt > new Date()) {
+		if (gameInstance.playAt > new Date()) {
 			flash.message = "Das Spiel hat noch nichtmal angefangen!"
 			gameInstance.discard()
 		} else {
