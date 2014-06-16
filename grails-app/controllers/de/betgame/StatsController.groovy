@@ -37,4 +37,13 @@ class StatsController {
 		
 		[luckyShots : luckyShots, nameMap: nameMap]
 	}
+	
+	def scores() {
+		def result = statsService.getLuckers()
+		def luckyShots = result.sort { it.givenname }.sort { -it.anz }
+		
+		def nameMap = NameUtil.buildNameMap(luckyShots)
+		
+		[luckyShots : luckyShots, nameMap: nameMap]
+	}
 }
