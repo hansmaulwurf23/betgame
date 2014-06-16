@@ -5,4 +5,7 @@
 	<li class="${ params.action == "luckers" ? 'active' : '' }">
 		<g:link action="luckers"><i class="glyphicon glyphicon-thumbs-up"></i> Luckers</g:link>
 	</li>
+	<li class="${ params.action == "scores" ? 'active' : '' }">
+		<g:link action="scores"><i class="glyphicon glyphicon-thumbs-up"></i> Scores</g:link>
+	</li>
 </ul>
