@@ -8,7 +8,7 @@
 <body>
 
 	<section id="intro" class="first">
-		<h2>Betgame <asset:image src="flags/de.png"/></h2>
+		<h2>Betgame</h2>
 		<div class="panel-group" id="accordion">
 			<div class="panel panel-default">
 				<g:if test="${nextGames}">

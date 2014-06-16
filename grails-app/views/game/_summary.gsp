@@ -40,9 +40,11 @@
 					</g:link>
 				</sec:ifNotLoggedIn>
 				<sec:ifLoggedIn>
-					<g:link controller="bet" action='create' params="['game.id': gameInstance.id]">
-						<g:message code="no.bet" default="Noch kein Tipp abegeben" />
+					<div class="alert alert-danger" style="margin-bottom:0px;">
+					<g:link controller="bet" action='create' params="['game.id': gameInstance.id]" class="alert-link">
+						<g:message code="no.bet" default="Noch kein Tipp abgegeben" />
 					</g:link>
+					</div>
 				</sec:ifLoggedIn>
 			</div>
 		</g:else>
