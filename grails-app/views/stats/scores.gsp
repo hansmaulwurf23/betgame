@@ -6,11 +6,6 @@
 	<title>Scores</title>
 	<g:set var="layout_nosecondarymenu"	value="${true}" scope="request"/>
 	
-	<style type="text/css">
-		table tr th:first-child, table tr td:first-child {
-			background-color: #FFF;
-		}
-	</style>
 </head>
 
 <body>
@@ -25,16 +20,16 @@
             <tr>
                 <th>Name</th>
                 <g:each in="${result}" status="i" var="r">
-                	<th>${i+1}</th>
+                	<th class="text-center"><g:link controller="game" action="show" id="${r.key}">${i+1}</g:link></th>
                 </g:each>
             </tr>
         </thead>
         <tbody>
-        	<g:each in="${nameMap}" var="u">
+        	<g:each in="${users}" var="u">
             <tr>
-                <td>${u.value}</td>
+                <td>${u.display} (${userScores[(u.id)] ?: 0})</td>
                 <g:each in="${result}" status="i" var="r">
-                <bg:scoreCell bet="${r.value.get(u.key.id)?.getAt(0)}"></bg:scoreCell>
+                	<bg:scoreCell bet="${r.value.get(u.id)?.getAt(0)}"></bg:scoreCell>
                 </g:each>
             </tr>
             </g:each>
@@ -50,6 +45,7 @@ $fixedColumn.find('th:not(:first-child),td:not(:first-child)').remove();
 
 $fixedColumn.find('tr').each(function (i, elem) {
     $(this).height($table.find('tr:eq(' + i + ')').height());
+    $(this).css('background-color', '#FFF');
 });
 </script>
 </body>

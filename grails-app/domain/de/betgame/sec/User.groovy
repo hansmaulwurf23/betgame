@@ -9,6 +9,7 @@ class User {
 	String email
 	String givenname
 	String surname
+	String display
 	boolean enabled = true
 	boolean accountExpired
 	boolean accountLocked
@@ -22,6 +23,7 @@ class User {
 		email nullable: true
 		givenname nullable: true
 		surname nullable: true
+		display nullable: true
 	}
 
 	static mapping = {

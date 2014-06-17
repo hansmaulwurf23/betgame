@@ -49,6 +49,7 @@ class SecurityService {
 			email: user.email,
 			givenname: user.givenname,
 			surname: user.surname,
+			display: user.givenname,
 			enabled: true).save(failOnError: true)
 			
 			

@@ -25,7 +25,7 @@
 		<tbody>
 		<g:each in="${luckyShots}" var="p" status="i">
 			<tr class="${(i % 2) == 0 ? '' : 'active'}">
-				<td>${nameMap[p]}</td>
+				<td>${p.display}</td>
 				<td>${p.anz}</td>
 			</tr>
 		</g:each>

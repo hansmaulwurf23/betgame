@@ -15,13 +15,13 @@
 	<g:each in="${betInstances}" var="betInstance">
 	<div class="row condensed panel-body ${betInstance.user==currentUser?' current-user':''}">
 		<div class="col-xs-4 text-right">
-			${nameMap[betInstance.user]}
+			${betInstance.user.display}
 		</div>
 		<div class="col-xs-4 text-center">
 			${showBets?betInstance.score1:'*'}:${showBets?betInstance.score2:'*'}
 		</div>
 		<div class="col-xs-4">
-			<g:if test="${!gameInstance.matchIsFinished}">(</g:if><bg:score game="${gameInstance}" bet="${betInstance}"/><g:if test="${!gameInstance.matchIsFinished}">)</g:if>
+			<g:if test="${!gameInstance.matchIsFinished}">(</g:if><bg:score bet="${betInstance}"/><g:if test="${!gameInstance.matchIsFinished}">)</g:if>
 		</div>
 	</div>
 	</g:each>
