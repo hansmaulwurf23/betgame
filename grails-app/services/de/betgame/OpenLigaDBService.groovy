@@ -117,6 +117,17 @@ class OpenLigaDBService {
 		if (game) {
 			def matchData = getProxy().GetMatchByMatchID(gameID)
 			if (matchData.matchID != -1) {
+				def goals = matchData.goals?.goal
+				if (goals) {
+					def infos = []
+					goals.each { g->
+						infos << [score1: g.goalScoreTeam1, score2: g.goalScoreTeam2, getter: g.goalGetterName, minute: g.goalMatchMinute, ownGoal: g.goalOwnGoal, penalty: g.goalPenalty, overtime: g.goalOvertime]
+					}
+					
+					game.goals = (infos as JSON)
+					game.save(flush:true)
+				}
+				
 				def endErgeb = matchData?.matchResults?.matchResult?.find { it.resultName == 'Endergebnis' }
 				log.info "Endergebnis: $endErgeb"
 				if (!endErgeb) {

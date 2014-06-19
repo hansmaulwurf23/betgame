@@ -26,6 +26,28 @@
 
 	<g:render template="gameDivRow" />
 
+	<g:if test="${gameInstance.goalInfos()}">
+		<hr />
+		<g:each in="${gameInstance.goalInfos()}" status="i" var="g">
+		<div class="row">
+			<div class="col-xs-10">
+				<span class="badge">${g.minute}.</span> ${g.score1}:${g.score2} ${g.getter}
+			</div>
+			<div class="col-xs-2 text-right">
+				<bg:goalInfos goal="${g}" />
+			</div>
+		</div>
+		</g:each>
+		<g:if test="${gameInstance.numberOfViewers}">
+		<div class="row" style="margin-top:15px;">
+			<div class="col-xs-12">
+				<g:message code="spectators" default="Zuschauer"/>: ${gameInstance.numberOfViewers}
+			</div>
+		</div>
+		</g:if>
+		<hr />
+	</g:if>
+
 	<div class="row">
 		<g:if test="${myBet}">
 			<div class="col-xs-12 text-center">
@@ -54,7 +76,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<small>updated: <g:formatDate date="${gameInstance?.lastUpdated}" formatName="default.gamedate.format" /></small> 
-				<sec:ifAnyGranted roles="ROLE_IDMADMIN"><g:link action="edit" id="${gameInstance.id}">Edit</g:link></sec:ifAnyGranted>
+				<sec:ifAnyGranted roles="ROLE_IDMADMIN"><g:link action="edit" id="${gameInstance.id}">Manually Edit Score</g:link></sec:ifAnyGranted>
 			</div>
 		</div>
 	</div>

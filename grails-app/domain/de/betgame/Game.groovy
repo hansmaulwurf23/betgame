@@ -1,5 +1,7 @@
 package de.betgame
 
+import grails.converters.JSON;
+
 
 class Game {
 
@@ -13,6 +15,7 @@ class Game {
 	Integer numberOfViewers
 	Boolean matchIsFinished
 	String groupName
+	String goals
 	
 	/* Automatic timestamping of GORM */
 	Date	dateCreated
@@ -22,6 +25,7 @@ class Game {
 		datasource 'betgame'
 		id column:"Game_id", generator: "assigned"
 		autoTimestamp true
+		goals type:'text'
 		version false
     }
     
@@ -33,6 +37,11 @@ class Game {
 		lastUpdated nullable: true
 		numberOfViewers nullable: true
 		groupName nullable: true
+		goals nullable: true
     }
 	
+	transient goalInfos() {
+		def goalsList = JSON.parse(goals)
+		return goalsList  
+	}
 }

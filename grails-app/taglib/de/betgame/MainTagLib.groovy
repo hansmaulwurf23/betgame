@@ -37,6 +37,18 @@ class MainTagLib {
 		}
 	}
 	
+	def goalInfos = { attrs, body ->
+		if (attrs.goal) {
+			def goal = attrs.goal
+			if (goal.ownGoal)
+				out << '<span class="label label-warning">ET</span>'
+			if (goal.penalty)
+				out << '<span class="label label-danger">EM</span>'
+			if (goal.overtime)
+				out << '<span class="label label-primary">NZ</span>'
+		}
+	}
+	
 	def gameBets = { attrs, body ->
 		if (attrs.game) {
 			def showBets = (attrs.game.playAt < new Date())
@@ -47,6 +59,9 @@ class MainTagLib {
 			betInstances.sort { a,b -> b.getScore() <=> a.getScore() ?: a.user.givenname <=> b.user.givenname}
 			def nameMap = NameUtil.buildNameMap(betInstances*.user)
 			out << render(template:"/game/bets", model:[gameInstance: attrs.game, showBets: showBets, betInstances:betInstances, stats:stats, currentUser:springSecurityService.currentUser, nameMap:nameMap])
+
+			def betDistr = betInstances.countBy { "${it.score1}:${it.score2}" }.sort { -it.value }
+			out << render(template:"/game/betDistr", model:[betDistr: betDistr, total: stats.totalCount])
 		}
 	}
 	
