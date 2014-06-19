@@ -60,8 +60,10 @@ class MainTagLib {
 			def nameMap = NameUtil.buildNameMap(betInstances*.user)
 			out << render(template:"/game/bets", model:[gameInstance: attrs.game, showBets: showBets, betInstances:betInstances, stats:stats, currentUser:springSecurityService.currentUser, nameMap:nameMap])
 
-			def betDistr = betInstances.countBy { "${it.score1}:${it.score2}" }.sort { -it.value }
-			out << render(template:"/game/betDistr", model:[betDistr: betDistr, total: stats.totalCount])
+			if (attrs.game.playAt < new Date()) {
+				def betDistr = betInstances.countBy { "${it.score1}:${it.score2}" }.sort { -it.value }
+				out << render(template:"/game/betDistr", model:[betDistr: betDistr, total: stats.totalCount])
+			}
 		}
 	}
 	
