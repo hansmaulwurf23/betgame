@@ -41,7 +41,11 @@ class Game {
     }
 	
 	transient goalInfos() {
-		def goalsList = JSON.parse(goals)
-		return goalsList  
+		if (goals) {
+			def goalsList = JSON.parse(goals)
+			return goalsList
+		} else {
+			return null
+		}  
 	}
 }
