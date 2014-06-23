@@ -27,7 +27,7 @@
         <tbody>
         	<g:each in="${users}" var="u">
             <tr>
-                <td>${u.display} (${userScores[(u.id)] ?: 0})</td>
+                <td style="min-width:120px;">${u.display} (${userScores[(u.id)] ?: 0})</td>
                 <g:each in="${result}" status="i" var="r">
                 	<bg:scoreCell bet="${r.value.get(u.id)?.getAt(0)}"></bg:scoreCell>
                 </g:each>
@@ -45,7 +45,7 @@ $fixedColumn.find('th:not(:first-child),td:not(:first-child)').remove();
 
 $fixedColumn.find('tr').each(function (i, elem) {
     $(this).height($table.find('tr:eq(' + i + ')').height());
-    $(this).css('background-color', '#FFF');
+    $(this).css('background-color', '#FFF').css('min-width', '120px');
 });
 </script>
 </body>
