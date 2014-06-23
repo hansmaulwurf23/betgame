@@ -4,8 +4,6 @@
 //= require_tree .
 //= require_full_tree .
 
-console.log("My javascript goes here");
-
 if (typeof jQuery !== 'undefined') {
 	(function($) {
 		$('#spinner').ajaxStart(function() {

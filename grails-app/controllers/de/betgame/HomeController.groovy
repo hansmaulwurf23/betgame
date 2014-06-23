@@ -14,8 +14,8 @@ class HomeController {
 //			openLigaDBService.updateGameScore(g.id, true)
 //		}
 		def today = (new Date()).clearTime()
-		def nextGames = Game.findAllByMatchIsFinished(false, [sort:'playAt', max:3])
-		def lastGames = Game.findAllByMatchIsFinished(true, [sort:'playAt', order:'desc', max:3])
+		def nextGames = Game.findAllByMatchIsFinished(false, [sort:'playAt', max:4])
+		def lastGames = Game.findAllByMatchIsFinished(true, [sort:'playAt', order:'desc', max:4])
 		def user = springSecurityService.currentUser
 		def myBets
 		if (user) {

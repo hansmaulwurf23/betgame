@@ -64,6 +64,16 @@ class MainTagLib {
 				def betDistr = betInstances.countBy { "${it.score1}:${it.score2}" }.sort { -it.value }
 				out << render(template:"/game/betDistr", model:[betDistr: betDistr, total: stats.totalCount])
 			}
+			
+			if (attrs.game.playAt < new Date()) {
+				def quote = betInstances.countBy { it.score1 <=> it.score2 }.sort { it.key }
+				def wiloQuote = [:]
+				wiloQuote[(attrs.game.team2.code)] = quote[(-1)]
+				wiloQuote['Unentschieden'] = quote[(0)]
+				wiloQuote[(attrs.game.team1.code)] = quote[(1)]
+				println wiloQuote
+				out << render(template:"/game/wiloQuote", model:[wiloQuote: wiloQuote, total: stats.totalCount])
+			}
 		}
 	}
 	
