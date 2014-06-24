@@ -16,14 +16,15 @@ class GameController {
         redirect(action:'list')
     }
 
-	def list(String group) {
-		// FIXME nonbrainer
-		if (!group) {
-			group = 'all'
+	def list(String group, String phase) {
+		def games
+		if (!phase) {
+			games = !group ? Game.list([sort:'playAtUTC']) : Game.findAllByGroupName(group, [sort:'playAtUTC'])
+		} else {
+			games = Game.findAllByPhaseNot('Vorrunde', [sort:'playAtUTC'])
 		}
-		def games = group=='all'?Game.list([sort:'playAtUTC']):Game.findAllByGroupName(group, [sort:'playAtUTC'])
-		def groups = Game.executeQuery("select distinct groupName from Game order by groupName")
-        [gameInstanceList:games, groups:groups, group:group, layout_nosecondarymenu:true]
+		def groups = Game.executeQuery("select distinct groupName from Game where groupName is not null order by groupName")
+        [gameInstanceList:games, groups:groups, group:group, layout_nosecondarymenu:true, phase:phase]
     }
 
     def show(Game gameInstance) {

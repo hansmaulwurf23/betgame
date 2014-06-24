@@ -12,7 +12,27 @@ class StatsController {
 	}
 	
 	def ranking() {
-		def result = statsService.getRanking()
+		def model = calcRanking(3, 2, 1)
+		return model
+	}
+	
+	def kicktippRanking() {
+		def model = calcRanking(3, 2, 2)
+		render(view: 'altranking', model:model)
+	}
+	
+	def kickerRanking() {
+		def model = calcRanking(3, 1, 1)
+		render(view: 'altranking', model:model)
+	}
+	
+	def rawRanking() {
+		def model = calcRanking(1, 1, 1)
+		render(view: 'altranking', model:model)
+	}
+	
+	private calcRanking(ergebnisPunkte, tordiffPunkte, tendenzPunkte) {
+		def result = statsService.getRanking(ergebnisPunkte, tordiffPunkte, tendenzPunkte)
 		def punkte = result.sort { it.givenname }.sort { -it.punkte }
 		
 		def positions = punkte.groupBy { it.punkte }.sort { -it.key }
@@ -25,7 +45,7 @@ class StatsController {
 		}
 		
 		// get the difference to yesterdays ranking
-		def yResult = statsService.getYesterdaysRanking()
+		def yResult = statsService.getYesterdaysRanking(ergebnisPunkte, tordiffPunkte, tendenzPunkte)
 		def yPunkte = yResult.sort { it.givenname }.sort { -it.punkte }
 		def yPositions = yPunkte.groupBy { it.punkte }.sort { -it.key }
 		def yPosMap = [:]
@@ -57,13 +77,15 @@ class StatsController {
 			betStats[uid] = [:]
 			finishedBets[uid].each { bet ->
 				def score = bet.getScore()
-				if (score == 3) { betStats[uid]['E'] = (betStats[uid]['E'] ?: 0) + 1 }
-				if (score == 2) { betStats[uid]['T'] = (betStats[uid]['T'] ?: 0) + 1 }
-				if (score == 1) { betStats[uid]['S'] = (betStats[uid]['S'] ?: 0) + 1 }
+				if (score == ergebnisPunkte) { betStats[uid]['E'] = (betStats[uid]['E'] ?: 0) + 1 }
+				if (score == tordiffPunkte)  { betStats[uid]['T'] = (betStats[uid]['T'] ?: 0) + 1 }
+				if (score == tendenzPunkte)  { betStats[uid]['S'] = (betStats[uid]['S'] ?: 0) + 1 }
 			}
 		}
 		
-		[punkte : punkte, posMap : posMap, betStats : betStats, posChangeMap : posChangeMap]
+		def wertung = ['E': ergebnisPunkte, 'T': tordiffPunkte, 'S': tendenzPunkte]
+		
+		[punkte : punkte, posMap : posMap, betStats : betStats, posChangeMap : posChangeMap, wertung: wertung]
 	}
 	
 	def luckers() {

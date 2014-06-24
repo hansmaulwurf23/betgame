@@ -69,10 +69,10 @@ class MainTagLib {
 				def quote = betInstances.countBy { it.score1 <=> it.score2 }.sort { it.key }
 				def wiloQuote = [:]
 				wiloQuote[(attrs.game.team2.code)] = quote[(-1)]
-				wiloQuote['Unentschieden'] = quote[(0)]
+				wiloQuote['Remis'] = quote[(0)]
 				wiloQuote[(attrs.game.team1.code)] = quote[(1)]
 				println wiloQuote
-				out << render(template:"/game/wiloQuote", model:[wiloQuote: wiloQuote, total: stats.totalCount])
+				out << render(template:"/game/wiloQuote", model:[distrData: wiloQuote, total: stats.totalCount, titel:'Verteilung'])
 			}
 		}
 	}

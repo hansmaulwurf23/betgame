@@ -8,7 +8,8 @@ class HomeController {
 	def springSecurityService
 	
     def index = { 
-		//openLigaDBService.fetchTeamsAndGamesAndLocations()
+		//openLigaDBService.fetchGroups()
+		//openLigaDBService.fetchTeamsAndGamesAndLocationsForKnockouts()
 //		def finished = Game.findAllByMatchIsFinished(true)
 //		finished.each { g ->
 //			openLigaDBService.updateGameScore(g.id, true)

@@ -1,6 +1,7 @@
 package de.betgame
 
 import grails.converters.JSON;
+import grails.converters.XML;
 import grails.transaction.Transactional
 import groovy.sql.Sql;
 
@@ -34,9 +35,36 @@ class OpenLigaDBService {
 			println it
 		}
 		def matchData = JSON.parse(getProxy().GetMatchdataByGroupLeagueSaisonJSON(1, "WM-2014", "2014"))
-		
+	}
+	
+	def fetchGroups() {
+		def groups = getProxy().GetAvailGroups(leagueShortcut, leagueSaison)
+		println groups.group.each { g ->
+			println g.properties
+		}
+	}
+	
+	def fetchTeamsAndGamesAndLocationsDryRun() {
+		def matchData = JSON.parse(getProxy().GetMatchdataByGroupLeagueSaisonJSON(2, leagueShortcut, leagueSaison))
+		//matchData.findAll { it.groupName != 'Vorrunde' }.each { m ->
 		matchData.each { m ->
 			println m
+		}
+		println matchData.size()
+	}
+	
+	def fetchTeamsAndGamesAndLocationsForKnockouts() {
+		(2..6).each { groupOrderID ->
+			def matchData = JSON.parse(getProxy().GetMatchdataByGroupLeagueSaisonJSON(groupOrderID, leagueShortcut, leagueSaison))
+			
+			println matchData
+			
+			matchData.each { match ->
+				if (match.matchID != -1) {
+					log.info "Processing Match: $match"
+					createOrUpdateGame(match)
+				}
+			}
 		}
 	}
 	
@@ -53,8 +81,8 @@ class OpenLigaDBService {
 			createOrUpdateGame(match)
 		}
 		
-		postProcessingTeams()
-		postProcessingGames()
+		//postProcessingTeams()
+		//postProcessingGames()
 	}
 	
 	def createOrUpdateLocations(matchData) {
@@ -107,6 +135,7 @@ class OpenLigaDBService {
 		g.playAtUTC = match.matchDateTimeUTC
 		g.matchIsFinished = match.matchIsFinished
 		g.numberOfViewers = match.NumberOfViewers ?: null
+		g.phase = match.groupName.replaceAll(" ", "")
 		
 		g.save(failOnError: true)
 	}

@@ -8,7 +8,11 @@ class StatsService {
 
 	def dataSource_betgame
 	
-    def getRanking() {
+	def getRanking() {
+		return getRanking(3, 2, 1)
+	}
+	
+    def getRanking(ergebnisPunkte, tordiffPunkte, tendenzPunkte) {
 		Sql sql = new Sql(dataSource_betgame)
 		def rows = sql.rows("""
 
@@ -18,9 +22,9 @@ class StatsService {
 				from (
 					select *,
 					CASE
-						WHEN g.score1 = b.score1 AND g.score2 = b.score2 THEN 3
-						WHEN g.score1 - g.score2 = b.score1 - b.score2 THEN 2
-						WHEN sign(g.score1 - g.score2) = sign(b.score1 - b.score2) THEN 1
+						WHEN g.score1 = b.score1 AND g.score2 = b.score2 THEN ${ergebnisPunkte}
+						WHEN g.score1 - g.score2 = b.score1 - b.score2 THEN ${tordiffPunkte}
+						WHEN sign(g.score1 - g.score2) = sign(b.score1 - b.score2) THEN ${tendenzPunkte}
 						ELSE 0 
 						END as punkte
 					from game g join bet b using (game_id) 
@@ -34,6 +38,10 @@ class StatsService {
     }
 	
 	def getYesterdaysRanking() {
+		return getYesterdaysRanking(3, 2, 1)
+	}
+	
+	def getYesterdaysRanking(ergebnisPunkte, tordiffPunkte, tendenzPunkte) {
 		Sql sql = new Sql(dataSource_betgame)
 		def rows = sql.rows("""
 
@@ -43,9 +51,9 @@ class StatsService {
 				from (
 					select *,
 					CASE
-						WHEN g.score1 = b.score1 AND g.score2 = b.score2 THEN 3
-						WHEN g.score1 - g.score2 = b.score1 - b.score2 THEN 2
-						WHEN sign(g.score1 - g.score2) = sign(b.score1 - b.score2) THEN 1
+						WHEN g.score1 = b.score1 AND g.score2 = b.score2 THEN ${ergebnisPunkte}
+						WHEN g.score1 - g.score2 = b.score1 - b.score2 THEN ${tordiffPunkte}
+						WHEN sign(g.score1 - g.score2) = sign(b.score1 - b.score2) THEN ${tendenzPunkte}
 						ELSE 0 
 						END as punkte
 					from game g join bet b using (game_id) 

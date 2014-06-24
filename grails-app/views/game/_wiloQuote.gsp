@@ -2,25 +2,27 @@
 <asset:stylesheet src="jquery.jqplot.min.css"/>
 <asset:javascript src="jqplot.js"/>
 
+<g:set var="divID" value="${UUID.randomUUID()}" />
+
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="row">
 			<div class="col-xs-12">
-				${message(code: 'distribution', default: 'Verteilung')}
+				${titel}
 			</div>
 		</div>
 	</div>
-	<div class="row condensed panel-body" id='chart1'></div>
+	<div class="row condensed panel-body" id='${divID}'></div>
 </div>
 
 <script>
 $(document).ready(function(){
   var data = [
-    <g:each in="${wiloQuote}" var="q">
+    <g:each in="${distrData}" var="q">
     	['${q.key}', ${q.value}],
     </g:each>
   ];
-  var plot1 = jQuery.jqplot ('chart1', [data],
+  var plot1 = jQuery.jqplot ('${divID}', [data],
     {
       seriesDefaults: {
         // Make this a pie chart.
@@ -29,10 +31,11 @@ $(document).ready(function(){
           startAngle: -90,
           // Put data labels on the pie slices.
           // By default, labels show the percentage of the slice.
-          showDataLabels: true
+          showDataLabels: true,
+          shadow: false
         }
       },
-      seriesColors:['#428bca', '#5cb85c', '#d9534f'],
+      seriesColors:['#428bca', '#5cb85c', '#d9534f', '#f0ad4e'],
       grid: {
     	    drawGridLines: true,        // wether to draw lines across the grid or not.
     	        gridLineColor: '#000',   // CSS color spec of the grid lines.

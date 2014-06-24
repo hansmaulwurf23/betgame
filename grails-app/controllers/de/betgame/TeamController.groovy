@@ -23,7 +23,7 @@ class TeamController {
     }
 
     def show(Team teamInstance) {
-		def games = Game.findAllByTeam1OrTeam2(teamInstance, teamInstance)
+		def games = Game.findAllByTeam1OrTeam2(teamInstance, teamInstance, [sort:'playAt'])
 		def myBets = Bet.findAllByGameInListAndUser(games, springSecurityService.currentUser).collectEntries { [it.game, it] }
         respond teamInstance, model: [games:games, myBets:myBets]
     }

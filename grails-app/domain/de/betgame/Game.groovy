@@ -16,6 +16,7 @@ class Game {
 	Boolean matchIsFinished
 	String groupName
 	String goals
+	String phase
 	
 	/* Automatic timestamping of GORM */
 	Date	dateCreated
@@ -37,7 +38,9 @@ class Game {
 		lastUpdated nullable: true
 		numberOfViewers nullable: true
 		groupName nullable: true
+		location nullable: true
 		goals nullable: true
+		phase nullable: true
     }
 	
 	transient goalInfos() {

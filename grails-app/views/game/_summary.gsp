@@ -58,8 +58,12 @@
 				<bg:gameStatus game="${gameInstance}" />
 			</div>
 			<div class="col-xs-5 text-right">
-				<g:link controller="game" action="list" params="[group: gameInstance?.groupName]">Gruppe ${gameInstance?.groupName}
-				</g:link>
+				<g:if test="${gameInstance?.groupName}" >
+					<g:link controller="game" action="list" params="[group: gameInstance?.groupName]">Gruppe ${gameInstance?.groupName}</g:link>
+				</g:if>
+				<g:else>
+					<g:link controller="game" action="list" params="[phase: 'KO']"><g:message code="ko.phase.${gameInstance?.phase}"/></g:link>
+				</g:else>
 			</div>
 		</div>
 	</div>

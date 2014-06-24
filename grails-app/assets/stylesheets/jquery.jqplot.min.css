@@ -129,7 +129,8 @@ table.jqplot-table-legend td {
 }
 
 td.jqplot-table-legend {
-	vertical-align: middle
+	vertical-align: middle;
+	background-color: #FFF;
 }
 
 td.jqplot-seriesToggle:hover,td.jqplot-seriesToggle:active {
