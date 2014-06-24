@@ -17,7 +17,7 @@
 	</li>
 </g:each>
 <li class="${ phase ? 'active' : '' }" style="margin: 5px 0px;">
-	<g:link action="list" params="[phase:'KO']">K.O. Runde</g:link>
+	<g:link action="list" params="[phase:'KO']">K.O.</g:link>
 </li>
 </ul>
 
