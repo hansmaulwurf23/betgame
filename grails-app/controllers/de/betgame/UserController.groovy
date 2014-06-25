@@ -21,11 +21,6 @@ class UserController {
 			scoreDistr[(pointNames[k])] = v
 		}
 		
-		def gameDistr = [:]
-		bets.countBy { it.score2 <=> it.score1 }.sort { it.key }.each { k,v ->
-			gameDistr[(gameNames[k])] = v
-		}
-		
 		def history = []
 		def avgHistory = []
 		allBets = allBets.groupBy { it.game.playAt.clone().clearTime() }
@@ -37,6 +32,6 @@ class UserController {
 		
 		def betPerc = (bets.size().toDouble() / finishedGames.size() * 100)
 		
-		[user: user, scoreDistr: scoreDistr, gameDistr:gameDistr, betPerc:betPerc, barData:barData]
+		[user: user, scoreDistr: scoreDistr, betPerc:betPerc, barData:barData, bets:bets.sort { it.game.playAt }]
 	}	
 }
