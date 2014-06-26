@@ -3,7 +3,7 @@ package de.betgame
 class FetchKORoundGamesJob {
 	
 	static triggers = {
-		cron name: 'FetchKORoundGamesJobTrigger', cronExpression: "0 * */2 * * ?"
+		cron name: 'FetchKORoundGamesJobTrigger', cronExpression: "0 0 */2 * * ?"
 	}
 	
 	def group = "main"
