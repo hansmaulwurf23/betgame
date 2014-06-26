@@ -57,7 +57,7 @@ class OpenLigaDBService {
 		(2..6).each { groupOrderID ->
 			def matchData = JSON.parse(getProxy().GetMatchdataByGroupLeagueSaisonJSON(groupOrderID, leagueShortcut, leagueSaison))
 			
-			println matchData
+			log.info matchData
 			
 			matchData.each { match ->
 				if (match.matchID != -1) {
