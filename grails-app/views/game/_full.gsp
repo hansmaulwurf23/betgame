@@ -69,7 +69,7 @@
 				</sec:ifNotLoggedIn>
 				<sec:ifLoggedIn>
 					<g:link controller="bet" action='create' params="['game.id': gameInstance.id]">
-						<g:message code="no.bet" default="Noch kein Tipp abegeben" />
+						<g:message code="no.bet" default="Noch kein Tipp abgegeben" />
 					</g:link>
 				</sec:ifLoggedIn>
 			</div>
