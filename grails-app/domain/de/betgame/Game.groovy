@@ -46,7 +46,7 @@ class Game {
 	transient goalInfos() {
 		if (goals) {
 			def goalsList = JSON.parse(goals)
-			return goalsList
+			return goalsList?.sort { it.minute?.toInteger() }
 		} else {
 			return null
 		}  

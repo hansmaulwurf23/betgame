@@ -10,6 +10,7 @@ class HomeController {
     def index = { 
 		//openLigaDBService.fetchGroups()
 		//openLigaDBService.fetchTeamsAndGamesAndLocationsForKnockouts()
+		//openLigaDBService.updateGameScore(27785, true)
 //		def finished = Game.findAllByMatchIsFinished(true)
 //		finished.each { g ->
 //			openLigaDBService.updateGameScore(g.id, true)

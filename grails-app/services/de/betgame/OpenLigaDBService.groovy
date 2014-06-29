@@ -157,12 +157,18 @@ class OpenLigaDBService {
 					game.save(flush:true)
 				}
 				
-				def endErgeb = matchData?.matchResults?.matchResult?.find { it.resultName == 'Endergebnis' }
-				log.info "Endergebnis: $endErgeb"
-				if (!endErgeb) {
-					log.info "No Endergebnis... trying Halbzeitergebnis"
-					endErgeb = matchData?.matchResults?.matchResult?.find { it.resultName == 'Halbzeitergebnis' }
+				def endErgeb
+				// this seems to be the better way to fetch latest result
+				if (matchData?.matchResults?.matchResult?.size() > 0) {
+					endErgeb = matchData?.matchResults?.matchResult[-1]
 				}
+				log.info "matchResult[-1]: ${endErgeb?.properties}"
+				
+//				endErgeb = matchData?.matchResults?.matchResult?.find { it.resultName == 'Endergebnis' }
+//				if (!endErgeb) {
+//					log.info "No Endergebnis... trying Halbzeitergebnis"
+//					endErgeb = matchData?.matchResults?.matchResult?.find { it.resultName == 'Halbzeitergebnis' }
+//				}
 				if (endErgeb) {
 					int s1 = endErgeb.pointsTeam1?.toInteger()
 					int s2 = endErgeb.pointsTeam2?.toInteger()
