@@ -15,7 +15,9 @@ class FetchKORoundGamesJob {
 	def execute(context) {
 		long start = System.currentTimeMillis()
 
-		openLigaDBService.fetchTeamsAndGamesAndLocationsForKnockouts()
+		Game.withTransaction {
+			openLigaDBService.fetchTeamsAndGamesAndLocationsForKnockouts()
+		}
 		
 		log.info "FetchKORoundGamesJob took ${System.currentTimeMillis() - start}ms"
 	}

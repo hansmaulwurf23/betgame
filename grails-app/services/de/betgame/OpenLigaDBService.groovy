@@ -128,9 +128,6 @@ class OpenLigaDBService {
 		g.team1 = t1
 		g.team2 = t2
 		g.location = l
-		g.score1 = match.pointsTeam1 < 0 ? null : match.pointsTeam1 
-		g.score2 = match.pointsTeam2 < 0 ? null : match.pointsTeam2
-		g.lastUpdated = match.lastUpdate
 		g.playAt = match.matchDateTime
 		g.playAtUTC = match.matchDateTimeUTC
 		g.matchIsFinished = match.matchIsFinished
