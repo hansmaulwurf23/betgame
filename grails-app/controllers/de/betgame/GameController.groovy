@@ -18,6 +18,9 @@ class GameController {
 
 	def list(String group, String phase) {
 		def games
+		if (Game.countByPlayAtGreaterThanAndPhase(new Date(), 'Vorrunde') == 0) {
+			phase = phase ?: 'KO'
+		}
 		if (!phase) {
 			games = !group ? Game.list([sort:'playAtUTC']) : Game.findAllByGroupName(group, [sort:'playAtUTC'])
 		} else {

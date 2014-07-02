@@ -8,6 +8,8 @@ class StatsController {
 	def statsService
 	
 	def index() { 
+		//(select trim(json_array_elements(goals::json)->>'getter') as goalgetter from game where goals is not null) as X where goalgetter is not null or goalgetter != '' group by goalgetter order by 2 desc
+		//select * from (select json_array_elements(goals::json)->>'minute' as goalminute, json_array_elements(goals::json)->>'penalty' as penalty from game where goals is not null) as X where goalminute is not null
 		redirect(action:'ranking')
 	}
 	

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<meta name="layout" content="kickstart" />
+	<meta name="layout" content="phat" />
 	<title>Scores</title>
 	<g:set var="layout_nosecondarymenu"	value="${true}" scope="request"/>
 	
