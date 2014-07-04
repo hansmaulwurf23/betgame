@@ -43,6 +43,9 @@ class StatsService {
 	
 	def getYesterdaysRanking(ergebnisPunkte, tordiffPunkte, tendenzPunkte) {
 		Sql sql = new Sql(dataSource_betgame)
+		
+		def lastGameDate = sql.rows("select date_trunc('day', play_at) as lastDatum from game where play_at < now() order by play_at desc limit 1")[0]
+		
 		def rows = sql.rows("""
 
 			select punkte, username, givenname, surname, display, user_id
@@ -57,12 +60,12 @@ class StatsService {
 						ELSE 0 
 						END as punkte
 					from game g join bet b using (game_id) 
-					where play_at < (now() - INTERVAL '1 day') and g.score1 is not null and g.score2 is not null
+					where play_at < :lastDatum and g.score1 is not null and g.score2 is not null
 				) as punkte
 				group by user_id
 			) as punktesummen join "users" u  on punktesummen.user_id = u.id
 
-		""")
+		""", lastGameDate)
 		return rows
 	}
 	
