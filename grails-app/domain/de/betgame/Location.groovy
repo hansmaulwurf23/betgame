@@ -28,6 +28,7 @@ class Location {
     }
     
 	static	constraints = {
+		city nullable:true
 		stadium nullable:true
 		groundKey nullable:true
 		capacity nullable:true

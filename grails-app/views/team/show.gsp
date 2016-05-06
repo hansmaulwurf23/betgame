@@ -35,13 +35,13 @@
 				<g:link controller="team" action="show" id="${gameInstance?.team1?.id}">
 					${gameInstance?.team1?.code?.encodeAsHTML()}
 				</g:link>
-				<bg:flag net="${gameInstance.team1.net}" />
+				<bg:flag team="${gameInstance.team1}" />
 			</div>
 			<div class="col-xs-2 text-center">
 				${gameInstance.score1}:${gameInstance.score2}
 			</div>
 			<div class="col-xs-4">
-				<bg:flag net="${gameInstance.team2.net}" />
+				<bg:flag team="${gameInstance.team2}" />
 				<g:link controller="team" action="show" id="${gameInstance?.team2?.id}">
 					${gameInstance?.team2?.code?.encodeAsHTML()}
 				</g:link>

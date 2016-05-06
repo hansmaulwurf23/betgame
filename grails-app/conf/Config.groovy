@@ -87,14 +87,13 @@ grails.plugin.reveng.packageName = "de.betgame.sportdb"
 grails.plugins.twitterbootstrap.fixtaglib = true
 grails.plugins.twitterbootstrap.defaultBundle = 'bundle_bootstrap'
 
-grails.assets.plugin."twitter-bootstrap".excludes	["**/*.less"]
 grails.assets.excludes = ["**/*.less"]
 grails.assets.includes = ["**/application.less"]
 
-//grails.assets.plugin."twitter-bootstrap".includes	["bootstrap.less"]
-//grails.assets.less.compiler = 'less4j'
+grails.assets.less.compiler = 'less4j'
 
-de.betgame.sportdb.event.key = 'world.2014'
+grails.assets.minifyJs = false
+grails.assets.minifyCss = false
 
 // set per-environment serverURL stem for creating absolute links
 environments {
@@ -152,10 +151,29 @@ log4j = {
 
 
 
-
-
 // Added by the Spring Security Core plugin:
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'de.betgame.sec.User'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'de.betgame.sec.UserRole'
 grails.plugins.springsecurity.authority.className = 'de.betgame.sec.Role'
 grails.plugins.springsecurity.securityConfigType = grails.plugins.springsecurity.SecurityConfigType.Annotation
+
+
+openligadb.soap.url="http://www.OpenLigaDB.de/Webservices/Sportsdata.asmx"
+
+cxf {
+	client {
+		openligaDBServiceClient {
+			//used in wsdl2java
+			//namespace = "cxf.client.openligadb"
+			//client = false //defaults to false
+			//bindingFile = "grails-app/conf/bindings.xml"
+			//outputDir = "src/java"
+			//allowChunking = true //false
+
+			//used for invoking service
+			clientInterface = de.msiggi.sportsdata.webservices.SportsdataSoap
+			serviceEndpointAddress = "${openligadb.soap.url}"
+			wsdl = "${openligadb.soap.url}?WSDL"
+		}
+	}
+}

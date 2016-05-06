@@ -12,9 +12,9 @@
 				</g:link>
 			</div>
 			<div class="col-xs-4 text-center">
-				<bg:flag net="${gameInstance.team1.net}" />
+				<bg:flag team="${gameInstance.team1}" />
 				${gameInstance.score1}:${gameInstance.score2}
-				<bg:flag net="${gameInstance.team2.net}" />
+				<bg:flag team="${gameInstance.team2}" />
 			</div>
 			<div class="col-xs-4">
 				<g:link controller="team" action="show" id="${gameInstance?.team2?.id}">

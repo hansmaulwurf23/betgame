@@ -60,6 +60,7 @@ class UserRole implements Serializable {
 
 	static mapping = {
 		id composite: ['role', 'user']
+		table schema:'sec'
 		version false
 		datasource 'betgame'
 	}

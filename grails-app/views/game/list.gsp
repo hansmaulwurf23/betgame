@@ -41,9 +41,9 @@
 					<td><g:message code="ko.phase.${gameInstance?.phase}"/></td>
 				</g:else>
 				</g:if>
-				<td style="text-align: right;">${gameInstance.team1.code} <bg:flag net="${gameInstance.team1.net}" /></td>
+				<td style="text-align: right;">${gameInstance.team1.code} <bg:flag team="${gameInstance.team1}" /></td>
 				<td style="text-align: center;">${gameInstance.score1} : ${gameInstance.score2}</td>
-				<td><bg:flag net="${gameInstance.team2.net}" /> ${gameInstance.team2.code}</td>
+				<td><bg:flag team="${gameInstance.team2}" /> ${gameInstance.team2.code}</td>
 			</tr>
 		</g:each>
 		</tbody>

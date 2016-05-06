@@ -18,10 +18,10 @@ class MainTagLib {
 	
 	def flag = { attrs, body ->
 		def imgLink
-		def countryCode = attrs.net		
+		def team = attrs.team		
 		
-		if (countryCode) {
-			out << "<img src='${assetPath(src: 'flags/'+countryCode+'.png')}' alt='${attrs.name}'/>"
+		if (team) {
+			out << "<img src='${assetPath(src: 'flags/'+team.code?.toLowerCase()+'.png')}' alt='${attrs.name}'/>"
 		}
 	}
 	

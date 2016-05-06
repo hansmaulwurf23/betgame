@@ -1,8 +1,7 @@
-//= require jquery/jquery-1.10.2.min.js
+//= require jquery
 //= require bootstrap
 //= require_self
-//= require_tree .
-//= require_full_tree .
+//= encoding UTF-8
 
 if (typeof jQuery !== 'undefined') {
 	(function($) {

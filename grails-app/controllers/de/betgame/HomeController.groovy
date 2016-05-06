@@ -1,6 +1,7 @@
 package de.betgame
 
 import de.betgame.sec.User;
+import de.msiggi.sportsdata.webservices.SportsdataSoap;
 
 class HomeController {
 
@@ -8,13 +9,14 @@ class HomeController {
 	def springSecurityService
 	
     def index = { 
-		//openLigaDBService.fetchGroups()
+		//openLigaDBService.fetchTeamsAndGamesAndLocations()
 		//openLigaDBService.fetchTeamsAndGamesAndLocationsForKnockouts()
 		//openLigaDBService.updateGameScore(27785, true)
 //		def finished = Game.findAllByMatchIsFinished(true)
 //		finished.each { g ->
 //			openLigaDBService.updateGameScore(g.id, true)
 //		}
+		
 		def today = (new Date()).clearTime()
 		def nextGames = Game.findAllByMatchIsFinished(false, [sort:'playAt', max:4])
 		def lastGames = Game.findAllByMatchIsFinished(true, [sort:'playAt', order:'desc', max:4])

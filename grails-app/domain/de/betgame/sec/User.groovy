@@ -27,7 +27,7 @@ class User {
 	}
 
 	static mapping = {
-		table name: 'users'
+		table name: 'users', schema:'sec'
 		password column: '`password`'
 		datasource 'betgame'
 	}

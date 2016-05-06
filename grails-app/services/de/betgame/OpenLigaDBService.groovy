@@ -5,7 +5,7 @@ import grails.converters.XML;
 import grails.transaction.Transactional
 import groovy.sql.Sql;
 
-import org.grails.plugins.wsclient.service.WebService
+import de.msiggi.sportsdata.webservices.SportsdataSoap;
 
 /**
  * OpenLigaDBService
@@ -14,38 +14,28 @@ import org.grails.plugins.wsclient.service.WebService
 @Transactional
 class OpenLigaDBService {
 	
-	WebService webService
 	def dataSource_betgame
 	
-	def leagueShortcut = "WM-2014"
-	def leagueSaison = "2014"
-
-    def getProxy() {
-		def proxy = webService.getClient("http://www.OpenLigaDB.de/Webservices/Sportsdata.asmx?WSDL")
-		if (proxy) {
-			return proxy
-		} else {
-			throw new RuntimeException("Failed to initialize WebService")
-		}
-    }
+	SportsdataSoap openligaDBServiceClient
 	
+	def leagueShortcut = "em2016"
+	def leagueSaison = "2016"
+
 	def test() {
-		println getProxy().GetAvailGroups(leagueShortcut, leagueSaison).group.each {
-			println it.properties
-			println it
-		}
-		def matchData = JSON.parse(getProxy().GetMatchdataByGroupLeagueSaisonJSON(1, "WM-2014", "2014"))
+		def res = openligaDBServiceClient.getAvailLeagues()
+		log.warn res
+		//def matchData = JSON.parse(openligaDBServiceClient.GetMatchdataByGroupLeagueSaisonJSON(1, leagueShortcut, leagueSaison))
 	}
 	
 	def fetchGroups() {
-		def groups = getProxy().GetAvailGroups(leagueShortcut, leagueSaison)
+		def groups = openligaDBServiceClient.getAvailGroups(leagueShortcut, leagueSaison)
 		println groups.group.each { g ->
 			println g.properties
 		}
 	}
 	
 	def fetchTeamsAndGamesAndLocationsDryRun() {
-		def matchData = JSON.parse(getProxy().GetMatchdataByGroupLeagueSaisonJSON(2, leagueShortcut, leagueSaison))
+		def matchData = JSON.parse(openligaDBServiceClient.getMatchdataByGroupLeagueSaisonJSON(2, leagueShortcut, leagueSaison))
 		//matchData.findAll { it.groupName != 'Vorrunde' }.each { m ->
 		matchData.each { m ->
 			println m
@@ -55,7 +45,7 @@ class OpenLigaDBService {
 	
 	def fetchTeamsAndGamesAndLocationsForKnockouts() {
 		(2..6).each { groupOrderID ->
-			def matchData = JSON.parse(getProxy().GetMatchdataByGroupLeagueSaisonJSON(groupOrderID, leagueShortcut, leagueSaison))
+			def matchData = JSON.parse(openligaDBServiceClient.getMatchdataByGroupLeagueSaisonJSON(groupOrderID, leagueShortcut, leagueSaison))
 			
 			log.info matchData
 			
@@ -69,26 +59,33 @@ class OpenLigaDBService {
 	}
 	
 	def fetchTeamsAndGamesAndLocations() {
-		def matchData = JSON.parse(getProxy().GetMatchdataByGroupLeagueSaisonJSON(1, leagueShortcut, leagueSaison))
-		
-		createOrUpdateLocations(matchData)
-		
-		matchData.each { match ->
-			log.info "Processing Match: $match"
-			
-			createOrUpdateTeam(match.idTeam1, match.nameTeam1, match.iconUrlTeam1)
-			createOrUpdateTeam(match.idTeam2, match.nameTeam2, match.iconUrlTeam2)
-			createOrUpdateGame(match)
+		def groups = openligaDBServiceClient.getAvailGroups(leagueShortcut, leagueSaison)
+		groups.group.each { grp ->
+			if (grp.groupOrderID) {
+				log.warn "Processing ${grp.groupOrderID}"
+				def matchData = JSON.parse(openligaDBServiceClient.getMatchdataByGroupLeagueSaisonJSON(grp.groupOrderID, leagueShortcut, leagueSaison))
+				
+				createOrUpdateLocations(matchData)
+				
+				matchData.findAll { it.matchID > 0 }.each { match ->
+					log.info "Processing Match: $match"
+					
+					createOrUpdateTeam(match.idTeam1, match.nameTeam1, match.iconUrlTeam1)
+					createOrUpdateTeam(match.idTeam2, match.nameTeam2, match.iconUrlTeam2)
+					createOrUpdateGame(match)
+				}
+			} else {
+				log.error "Skipping grp"
+			}
 		}
-		
-		//postProcessingTeams()
+		postProcessingTeams()
 		//postProcessingGames()
 	}
 	
 	def createOrUpdateLocations(matchData) {
 		def locations = matchData*.location.unique()
 		
-		locations.each { loc ->
+		locations.findAll { it.locationCity != null }.each { loc ->
 			log.info "Processing Location: $loc"
 			Location l
 			l = Location.get(loc.locationID)
@@ -111,6 +108,9 @@ class OpenLigaDBService {
 		}
 		t.name = name
 		t.iconUrl = iconUrl
+		
+		
+		
 		t.save(failOnError : true)
 	}
 	
@@ -132,7 +132,8 @@ class OpenLigaDBService {
 		g.playAtUTC = match.matchDateTimeUTC
 		g.matchIsFinished = match.matchIsFinished
 		g.numberOfViewers = match.NumberOfViewers ?: null
-		g.phase = match.groupName.replaceAll(" ", "")
+		g.groupName = match.groupName ? match.groupName.replace("Gruppe ", "") : null
+		g.phase = match.groupName?.startsWith("Gruppe ") ? 'Vorrunde' : match.groupName.replaceAll(" ", "")
 		
 		g.save(failOnError: true)
 	}
@@ -141,7 +142,7 @@ class OpenLigaDBService {
 		Game game = Game.get(gameID)
 		log.debug "fetching game data for ${gameID}..."
 		if (game) {
-			def matchData = getProxy().GetMatchByMatchID(gameID)
+			def matchData = openligaDBServiceClient.getMatchByMatchID(gameID)
 			if (matchData.matchID != -1) {
 				def goals = matchData.goals?.goal
 				if (goals) {
@@ -185,50 +186,10 @@ class OpenLigaDBService {
 		}
 	}
 	
-	// fuck sqlite. -> removed opensportdb code
-	/*
 	def postProcessingTeams() {
 		Sql sql = new Sql(dataSource_betgame)
-		def teams = Team.findAllByNetIsNull()
-		teams.each { t ->
-			def englishName = sql.rows("""
-				select name from "countryNames" where locale != 'de_DE' and code = (select code from "countryNames" where locale = 'de_DE' and name = ${t.name})
-			""")[0]
-
-			if (englishName) {
-				def sprtDBTeam = Teams.findByTitle(englishName.name)
-				if (sprtDBTeam) {
-					t.code = sprtDBTeam.code
-					t.net = sprtDBTeam.country.net
-					t.save(failOnError:true)
-					log.warn "Found OpenSportDB Team: $sprtDBTeam and updated Team: $t"
-				} else {
-					log.warn "No OpenSportDB Team found for english name $englishName"
-				}
-			} else {
-				log.warn "No english name found for ${t.name}"
-			}
-		}
+		sql.execute("""update team t set code = (select code from "countryNames" cn where t.name = cn.name limit 1) where code is null""")
 	}
 	
-	def postProcessingGames() {
-		def games = Game.findAllByGroupNameIsNull()
-		games.each { g ->
-			Teams t1 = Teams.findByCode(g.team1.code)
-			Teams t2 = Teams.findByCode(g.team2.code)
-			if (t1 && t2) {
-				def sprtDBGames = Games.findAllByTeam1AndTeam2(t1, t2)
-				def groupNames = sprtDBGames*.group*.title
-				if (groupNames && groupNames.size() == 1) {
-					log.warn "Found Group info for game $g : ${groupNames[0]}"
-					g.groupName = groupNames[0][-1]
-					g.save(failOnError: true)
-				} else {
-					log.warn "Found nothing/too much: $groupNames for game ${g.properties}"
-				}
-			}
-		}
-	}
-	*/
 }
 

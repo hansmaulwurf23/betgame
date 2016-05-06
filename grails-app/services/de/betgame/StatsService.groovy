@@ -31,7 +31,7 @@ class StatsService {
 					where play_at < now() and g.score1 is not null and g.score2 is not null
 				) as punkte
 				group by user_id
-			) as punktesummen join "users" u  on punktesummen.user_id = u.id
+			) as punktesummen join sec."users" u  on punktesummen.user_id = u.id
 
 		""")
 		return rows
@@ -44,10 +44,10 @@ class StatsService {
 	def getYesterdaysRanking(ergebnisPunkte, tordiffPunkte, tendenzPunkte) {
 		Sql sql = new Sql(dataSource_betgame)
 		
-		def lastGameDate = sql.rows("select date_trunc('day', play_at) as lastDatum from game where play_at < now() order by play_at desc limit 1")?.get(0)
+		def lastGameDate = sql.rows("select date_trunc('day', play_at) as lastDatum from game where play_at < now() order by play_at desc limit 1")[0]
 		
 		if (!lastGameDate) {
-			lastGameDate = [lastDatum: (new Date() - 1)]
+			lastGameDate = new Date() - 1
 		}
 		
 		def rows = sql.rows("""
@@ -64,12 +64,12 @@ class StatsService {
 						ELSE 0 
 						END as punkte
 					from game g join bet b using (game_id) 
-					where play_at < :lastDatum and g.score1 is not null and g.score2 is not null
+					where play_at < ${new java.sql.Date(lastGameDate.time)} and g.score1 is not null and g.score2 is not null
 				) as punkte
 				group by user_id
-			) as punktesummen join "users" u  on punktesummen.user_id = u.id
+			) as punktesummen join sec."users" u  on punktesummen.user_id = u.id
 
-		""", lastGameDate)
+		""")
 		return rows
 	}
 	
@@ -83,7 +83,7 @@ class StatsService {
 					from game g join bet b using (game_id) 
 					where play_at < now() and g.score1 is not null and g.score2 is not null and g.score1 = b.score1 and g.score2 = b.score2
 					group by user_id
-				) as luckers join "users" u on luckers.user_id = u.id
+				) as luckers join sec."users" u on luckers.user_id = u.id
 
 		""")
 		return rows

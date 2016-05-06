@@ -1,5 +1,5 @@
 ${betInstance?.game?.team1?.code?.encodeAsHTML()}
-<bg:flag net="${betInstance?.game?.team1?.net}" />
+<bg:flag team="${betInstance?.game?.team1}" />
 ${betInstance.score1} : ${betInstance.score2}
-<bg:flag net="${betInstance?.game?.team2?.net}" />
+<bg:flag team="${betInstance?.game?.team2}" />
 ${betInstance?.game?.team2?.code?.encodeAsHTML()}
