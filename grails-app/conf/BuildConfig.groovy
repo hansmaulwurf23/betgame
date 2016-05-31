@@ -70,7 +70,7 @@ grails.project.dependency.resolution = {
 		compile ":asset-pipeline:2.6.10"
 		compile ":less-asset-pipeline:2.6.7"
 		
-		compile ":ws-client:1.0"
+		//compile ":ws-client:1.0"
 		compile ":cxf-client:2.1.2"
 		
 		//compile ":spring-security-core:2.0-RC2"
@@ -84,7 +84,7 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.8'
 		
 		compile ":quartz:1.0.2"
-		compile ":quartz-monitor:1.0"
+		//compile ":quartz-monitor:1.0"
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.18"
