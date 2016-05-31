@@ -19,7 +19,9 @@
 			<b class="caret"></b>
 		</a>
 		<ul class="dropdown-menu" role="menu">
+		
 			<!-- TODO: Only show menu items based on permissions -->
+			<!-- 
 			<li class=""><a href="${createLink(uri: '/')}">
 				<i class="glyphicon glyphicon-user"></i>
 				<g:message code="user.show.label"/>
@@ -30,6 +32,7 @@
 			</a></li>
 			
 			<li class="divider"></li>
+			 -->
 			<li class=""><g:link controller="logout">
 				<i class="glyphicon glyphicon-off"></i>
 				<g:message code="security.signoff.label"/>

@@ -3,8 +3,7 @@
 
 <head>
 	<meta name="layout" content="kickstart" />
-	<g:set var="entityName" value="${message(code: 'teams.label', default: 'Teams')}" />
-	<title><g:message code="default.list.label" args="[entityName]" /></title>
+	<title><g:message code="teams.label" /></title>
 	
 	<g:set var="layout_nosecondarymenu"	value="${true}" scope="request"/>
 </head>

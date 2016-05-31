@@ -1,6 +1,6 @@
 /*
+*= require bootstrap/bootstrap.css
 *= require custom-bootstrap
-*= require application
 *= require_self
 *= encoding UTF-8
 */

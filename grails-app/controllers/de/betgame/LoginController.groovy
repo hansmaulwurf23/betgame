@@ -60,7 +60,9 @@ class LoginController {
 	 */
 	def auth = {
 		def casConfig = grailsApplication.config.grails.plugins.springsecurity.cas
-		redirect(url:createLink(url:casConfig.serverUrlPrefix + casConfig.loginUri + '?' + casConfig.serviceParameter + '=' + casConfig.serviceUrl))
+		if (!params.login_error) {
+			redirect(url:createLink(url:casConfig.serverUrlPrefix + casConfig.loginUri + '?' + casConfig.serviceParameter + '=' + casConfig.serviceUrl))
+		}
 //		def config = SpringSecurityUtils.securityConfig
 //
 //		if (springSecurityService.isLoggedIn()) {

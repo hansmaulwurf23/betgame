@@ -24,38 +24,40 @@
 		<script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
+	<g:layoutHead/>
+
 	<%-- For Javascript see end of body --%>
 </head>
 
 <body>
-	<g:render template="/_menu/navbar"/>														
+	<div id="wrapper">
 
-	<!-- Enable to overwrite Header by individual page -->
-	<g:if test="${ pageProperty(name:'page.header') }">
-   		<g:pageProperty name="page.header" />
-	</g:if>
-	<g:else>
-		<g:render template="/layouts/header"/>														
-	</g:else>
-
-	<g:render template="/layouts/content"/>														
-
-	<!-- Enable to overwrite Footer by individual page -->
-	<g:if test="${ pageProperty(name:'page.footer') }">
-	    <g:pageProperty name="page.footer" />
-	</g:if>
-	<g:else>
-		<g:render template="/layouts/footer"/>														
-	</g:else>
-
-	<!-- Enable to insert additional components (e.g., modals, javascript, etc.) by any individual page -->
-	<g:if test="${ pageProperty(name:'page.include.bottom') }">
-   		<g:pageProperty name="page.include.bottom" />
-	</g:if>
-	<g:else>
-		<!-- Insert a modal dialog for registering (for an open site registering is possible on any page) -->
-		<g:render template="/_common/modals/registerDialog" model="[item: item]"/>
-	</g:else>
+		<g:render template="/_menu/navbar"/>														
+	
+		<!-- Enable to overwrite Header by individual page -->
+		<g:if test="${ pageProperty(name:'page.header') }">
+	   		<g:pageProperty name="page.header" />
+		</g:if>
+		<g:else>
+			<g:render template="/layouts/header"/>														
+		</g:else>
+	
+		<g:render template="/layouts/content"/>														
+	
+		<!-- Enable to overwrite Footer by individual page -->
+		<g:if test="${ pageProperty(name:'page.footer') }">
+		    <g:pageProperty name="page.footer" />
+		</g:if>
+		<g:else>
+			<g:render template="/layouts/footer"/>														
+		</g:else>
+	
+		<!-- Enable to insert additional components (e.g., modals, javascript, etc.) by any individual page -->
+		<g:if test="${ pageProperty(name:'page.include.bottom') }">
+	   		<g:pageProperty name="page.include.bottom" />
+		</g:if>
+		
+	</div>
 	
 </body>
 

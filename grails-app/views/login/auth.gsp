@@ -19,7 +19,7 @@
 			<div class="panel panel-default">
 	
 		
-				<div class="panel-heading ${hasErrors(bean: _DemoPageInstance, field: 'name', 'error')} ">
+				<div class="panel-heading ">
 					<h3> <g:message code="springSecurity.login.header"/> </h3>
 				</div>
 				
@@ -36,13 +36,6 @@
 					<label for='password' class="control-label"><g:message code="springSecurity.login.password.label"/>:</label>
 					<div class="controls">
 						<input type='password' class='form-control col-md-4' name='j_password' id='password'/>
-					</div>
-				</div>
-				
-				<div id="remember_me_holder" class="">
-					<label for='remember_me' class="control-label"><g:message code="springSecurity.login.remember.me.label"/></label>
-					<div class="controls">
-						<bs:checkBox class="form-control col-md-4" name="${rememberMeParameter}" value="${hasCookie}" />
 					</div>
 				</div>
 				

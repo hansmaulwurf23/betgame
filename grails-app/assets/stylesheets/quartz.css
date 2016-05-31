@@ -1,0 +1,11 @@
+/*
+*= require quartz/jquery.clock.css
+*= require quartz/jquery.countdown.css
+*= require quartz/quartz-monitor.css
+*= require_self
+*= encoding UTF-8
+*/
+
+#god {
+	visible:none;
+}

@@ -7,6 +7,8 @@
 
 <body>
 
+	<div style="background-color: rgba(255,255,255,0.5); border-radius: 5px; padding:10px;">
+
 	<content tag="header">
 		<header class="jumbotron masthead" id="Header">
 			<div class="container">
@@ -16,7 +18,7 @@
 	</content>
 	
 	<section id="resources">
-	    <h1><g:message code="default.systeminfo.resources"/></h1>
+	    <h1 style="margin-top: 10px;"><g:message code="default.systeminfo.resources"/></h1>
 	    <ul>
 			<li>Web Layout: <a href ="http://twitter.github.com/bootstrap/">Bootstrap</a>, from Twitter 
 	        	Licensed under the Apache License v2.0. Documentation licensed under CC BY 3.0. 
@@ -25,6 +27,8 @@
 	        	Copyright 2012 Stefan Petre, Improvements by Andrew Rowls, Licensed under the Apache License v2.0</li>
 			<li>Flag Icons: <a href="http://www.famfamfam.com/lab/icons/flags/">FamFamFam Flag Icons</a> by Mark James. They are 
 				<i>"available for free use for any purpose with no requirement for attribution"</i>.</li>
+			<li>Background Image: <a href="https://www.pexels.com/photo/field-stadium-soccer-argentina-61143/">
+				Green Grass Across Beige Red Open Sports Stadium during Daytime</a> CC0 License</li>
 	     </ul>
 	</section>
 	
@@ -54,6 +58,8 @@
 	         </g:each>
 	     </ul>
 	</section>
+	
+	</div>
 
 </body>
 

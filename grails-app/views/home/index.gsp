@@ -1,14 +1,14 @@
 <html>
 
 <head>
-	<title><g:message code="default.welcome.title" args="[meta(name:'app.name')]"/> </title>
+	<title>Betgame</title>
 	<meta name="layout" content="kickstart" />
 </head>
 
 <body>
 
 	<section id="intro" class="first">
-		<h2>Betgame</h2>
+		<h2>EM 2016</h2>
 		<div class="panel-group" id="accordion">
 			<div class="panel panel-default">
 				<g:if test="${nextGames}">
