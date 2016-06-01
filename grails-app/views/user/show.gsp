@@ -45,7 +45,7 @@
 	</g:each>
 	<div class="panel-footer">
 	<div class="row">
-		<div class="col-xs-12"><small>Punkteschnitt: ${(bets*.getScore().sum().toDouble() / bets.size()).round(2)}</small></div>
+		<div class="col-xs-12"><small>Punkteschnitt: ${bets ? (bets*.getScore().sum().toDouble() / bets.size()).round(2) : '-'}</small></div>
 	</div>
 	</div>
 </div>

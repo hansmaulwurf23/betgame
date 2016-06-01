@@ -3,8 +3,8 @@ package de.betgame
 class UpdateGameScoresJob {
 	
 	static triggers = {
-		cron name: 'UpdateGameScoresJobTrigger', cronExpression: "0 */5 15-1 * * ?"
-		cron name: 'UpdateGameScoresJobNightlyTrigger', cronExpression: "0 0 1-14 * * ?"
+		cron name: 'UpdateGameScoresJobTrigger', cronExpression: "0 */5 15-23 * * ?"
+		cron name: 'UpdateGameScoresJobNightlyTrigger', cronExpression: "0 0 0-14 * * ?"
 	}
 	
 	def group = "main"

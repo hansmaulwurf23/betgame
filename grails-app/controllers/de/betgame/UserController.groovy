@@ -30,7 +30,7 @@ class UserController {
 		}
 		def barData = [labels:['Punkte pro Spieltag', 'durchschn. Punkte des Spieltags'], data:[history, avgHistory]]
 		
-		def betPerc = (bets.size().toDouble() / finishedGames.size() * 100)
+		def betPerc = finishedGames ? (bets.size().toDouble() / finishedGames.size() * 100) : 0.toDouble()
 		
 		[user: user, scoreDistr: scoreDistr, betPerc:betPerc, barData:barData, bets:bets.sort { it.game.playAt }]
 	}	

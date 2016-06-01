@@ -118,13 +118,25 @@ environments {
 // log4j configuration
 log4j = {
     appenders {
-        console name:'stdout', layout:new util.log4j.ANSIPatternLayout(conversionPattern: '%d{yyyyMMdd_HHmmss.SSS}  %5p %c{1} - %m%n')
-		
+		console name: 'stdout',
+			layout:new util.log4j.ANSIPatternLayout(conversionPattern: '%d{yyyyMMdd_HHmmss,SSS} [%X{username}] %5p %c{1} - %m%n')
+
 		rollingFile name: 'file',
 			file: "/var/log/grails/betgame.log",
-			layout:new util.log4j.ANSIPatternLayout(conversionPattern: '%d{yyyy-MM-dd HH:mm:ss.SSS}  %5p %c{1} - %m%n'),
+			layout:new util.log4j.ANSIPatternLayout(conversionPattern: '%d{yyyyMMdd_HHmmss,SSS} [%X{username}] %5p %c{1} - %m%n'),
 			maxFileSize:"2000MB",
 			maxBackupIndex: 10
+			
+		appender new org.apache.log4j.net.SMTPAppender(
+				name: "smtpAppender",
+				layout:pattern(conversionPattern: '%d{yyyy-MM-dd HH:mm:ss,SSSS} [%X{appVersion}] [%X{username}] %5p %c{1} - %X{marker} %m%n'),
+				threshold: error,
+				subject:"[BETGAME ERROR] liam::Log4j message",
+				to: "martin.fischer@fau.de, oliver.maurer@fau.de",
+				from: "no-reply@rrze.fau.de",
+				smtpHost: "smtp.uni-erlangen.de",
+				bufferSize: 10
+		)
     }
 	
 	debug  'grails.app',
@@ -145,7 +157,13 @@ log4j = {
 		   
     warn    'org.apache.cxf'
 		   
-	root { info 'stdout', 'file'}
+	root { info 'file', 'smtpAppender'}
+	
+	environments {
+		development {
+			root { info 'stdout', 'file'}
+		}
+	}
 }
 
 

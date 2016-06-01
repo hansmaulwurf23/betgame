@@ -19,7 +19,7 @@ class OpenLigaDBService {
 	SportsdataSoap openligaDBServiceClient
 	
 	def leagueShortcut = "em2016"
-	def leagueSaison = "2016"
+	def leagueSeason = "2016"
 
 	def test() {
 		def res = openligaDBServiceClient.getAvailLeagues()
@@ -28,14 +28,14 @@ class OpenLigaDBService {
 	}
 	
 	def fetchGroups() {
-		def groups = openligaDBServiceClient.getAvailGroups(leagueShortcut, leagueSaison)
+		def groups = openligaDBServiceClient.getAvailGroups(leagueShortcut, leagueSeason)
 		println groups.group.each { g ->
 			println g.properties
 		}
 	}
 	
 	def fetchTeamsAndGamesAndLocationsDryRun() {
-		def matchData = JSON.parse(openligaDBServiceClient.getMatchdataByGroupLeagueSaisonJSON(2, leagueShortcut, leagueSaison))
+		def matchData = JSON.parse(openligaDBServiceClient.getMatchdataByGroupLeagueSaisonJSON(2, leagueShortcut, leagueSeason))
 		//matchData.findAll { it.groupName != 'Vorrunde' }.each { m ->
 		matchData.each { m ->
 			println m
@@ -45,7 +45,7 @@ class OpenLigaDBService {
 	
 	def fetchTeamsAndGamesAndLocationsForKnockouts() {
 		(2..6).each { groupOrderID ->
-			def matchData = JSON.parse(openligaDBServiceClient.getMatchdataByGroupLeagueSaisonJSON(groupOrderID, leagueShortcut, leagueSaison))
+			def matchData = JSON.parse(openligaDBServiceClient.getMatchdataByGroupLeagueSaisonJSON(groupOrderID, leagueShortcut, leagueSeason))
 			
 			log.info matchData
 			
@@ -59,11 +59,11 @@ class OpenLigaDBService {
 	}
 	
 	def fetchTeamsAndGamesAndLocations() {
-		def groups = openligaDBServiceClient.getAvailGroups(leagueShortcut, leagueSaison)
+		def groups = openligaDBServiceClient.getAvailGroups(leagueShortcut, leagueSeason)
 		groups.group.each { grp ->
 			if (grp.groupOrderID) {
 				log.warn "Processing ${grp.groupOrderID}"
-				def matchData = JSON.parse(openligaDBServiceClient.getMatchdataByGroupLeagueSaisonJSON(grp.groupOrderID, leagueShortcut, leagueSaison))
+				def matchData = JSON.parse(openligaDBServiceClient.getMatchdataByGroupLeagueSaisonJSON(grp.groupOrderID, leagueShortcut, leagueSeason))
 				
 				createOrUpdateLocations(matchData)
 				

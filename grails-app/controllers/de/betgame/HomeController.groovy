@@ -10,12 +10,6 @@ class HomeController {
 	
     def index = { 
 		//openLigaDBService.fetchTeamsAndGamesAndLocations()
-		//openLigaDBService.fetchTeamsAndGamesAndLocationsForKnockouts()
-		//openLigaDBService.updateGameScore(27785, true)
-//		def finished = Game.findAllByMatchIsFinished(true)
-//		finished.each { g ->
-//			openLigaDBService.updateGameScore(g.id, true)
-//		}
 		
 		def today = (new Date()).clearTime()
 		def nextGames = Game.findAllByMatchIsFinished(false, [sort:'playAt', max:4])

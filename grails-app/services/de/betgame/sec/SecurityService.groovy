@@ -41,8 +41,6 @@ class SecurityService {
     }
 	
 	def updateUserGroups(user, groups) {
-		log.warn "BLAAAAAAAA"
-		
 		def dbUser = User.findByUsername(user.username) ?: new User(
 			username: user.username,
 			password: 'CAS_NO_PASS',
