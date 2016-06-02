@@ -3,7 +3,7 @@ package de.betgame
 import grails.plugins.springsecurity.Secured
 import grails.transaction.Transactional;
 
-@Secured(['ROLE_EMPLOYEE_191'])
+@Secured(['ROLE_EMPLOYEE_191', 'ROLE_STUDENTASSISTENT_191'])
 class GameController {
 
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]

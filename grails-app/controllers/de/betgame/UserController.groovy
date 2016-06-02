@@ -3,7 +3,7 @@ package de.betgame
 import grails.plugins.springsecurity.Secured;
 import de.betgame.sec.User;
 
-@Secured(['ROLE_EMPLOYEE_191'])
+@Secured(['ROLE_EMPLOYEE_191', 'ROLE_STUDENTASSISTENT_191'])
 class UserController {
 
 	static pointNames = [0: 'Falsch', 1: 'Tendenz', 2:'Tordiff.', 3:'Ergebnis']

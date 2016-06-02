@@ -2,7 +2,7 @@ package de.betgame
 
 import grails.plugins.springsecurity.Secured
 
-@Secured(['ROLE_EMPLOYEE_191'])
+@Secured(['ROLE_EMPLOYEE_191', 'ROLE_STUDENTASSISTENT_191'])
 class TeamController {
 
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]

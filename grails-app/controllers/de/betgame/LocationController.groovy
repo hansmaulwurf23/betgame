@@ -6,7 +6,7 @@ import grails.transaction.Transactional
 
 import grails.plugins.springsecurity.Secured
 
-@Secured(['ROLE_EMPLOYEE_191'])
+@Secured(['ROLE_EMPLOYEE_191', 'ROLE_STUDENTASSISTENT_191'])
 @Transactional(readOnly = true)
 class LocationController {
 
