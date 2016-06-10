@@ -142,7 +142,7 @@ class OpenLigaDBService {
 		Game game = Game.get(gameID)
 		log.debug "fetching game data for ${gameID}..."
 		if (game) {
-			def matchData = openligaDBServiceClient.getMatchByMatchID(gameID)
+			def matchData = openligaDBServiceClient.getMatchByMatchID(gameID.toInteger())
 			if (matchData.matchID != -1) {
 				def goals = matchData.goals?.goal
 				if (goals) {

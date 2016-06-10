@@ -45,10 +45,10 @@ class StatsService {
 		Sql sql = new Sql(dataSource_betgame)
 		
 		def lastGameDate = sql.rows("select date_trunc('day', play_at) as lastDatum from game where play_at < now() order by play_at desc limit 1")[0]
-		
-		if (!lastGameDate) {
+		// fixme, if not null not a date tho
+		//if (!lastGameDate) {
 			lastGameDate = new Date() - 1
-		}
+		//}
 		
 		def rows = sql.rows("""
 
