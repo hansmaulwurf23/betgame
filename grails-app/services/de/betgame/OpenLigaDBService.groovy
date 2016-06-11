@@ -158,15 +158,15 @@ class OpenLigaDBService {
 				def endErgeb
 				// this seems to be the better way to fetch latest result
 				if (matchData?.matchResults?.matchResult?.size() > 0) {
-					endErgeb = matchData?.matchResults?.matchResult[-1]
+					// nach Nachspielzeit
+					endErgeb = matchData.matchResults.matchResult.find { it.resultTypeId == 3 }
+					if (!endErgeb) {
+						// ordered last result 
+						endErgeb = matchData.matchResults.matchResult.findAll { it.resultTypeId <= 3 }.sort { it.resultOrderID }[-1] 
+					}
 				}
-				log.info "matchResult[-1]: ${endErgeb?.properties}"
+				log.info "endErgeb: ${endErgeb?.properties}"
 				
-//				endErgeb = matchData?.matchResults?.matchResult?.find { it.resultName == 'Endergebnis' }
-//				if (!endErgeb) {
-//					log.info "No Endergebnis... trying Halbzeitergebnis"
-//					endErgeb = matchData?.matchResults?.matchResult?.find { it.resultName == 'Halbzeitergebnis' }
-//				}
 				if (endErgeb) {
 					int s1 = endErgeb.pointsTeam1?.toInteger()
 					int s2 = endErgeb.pointsTeam2?.toInteger()
@@ -178,6 +178,11 @@ class OpenLigaDBService {
 						game.numberOfViewers = matchData.numberOfViewers
 						game.matchIsFinished = matchData.matchIsFinished
 						game.save(flush:true, failOnError:true)
+					}
+				} else {
+					log.warn "No valid results found! Raw response:"
+					matchData?.matchResults?.matchResult.each {
+						log.warn it.properties
 					}
 				}
 			} else {
