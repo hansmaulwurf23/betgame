@@ -44,11 +44,8 @@ class StatsService {
 	def getYesterdaysRanking(ergebnisPunkte, tordiffPunkte, tendenzPunkte) {
 		Sql sql = new Sql(dataSource_betgame)
 		
-		def lastGameDate = sql.rows("select date_trunc('day', play_at) as lastDatum from game where play_at < now() order by play_at desc limit 1")[0]
-		// fixme, if not null not a date tho
-		//if (!lastGameDate) {
-			lastGameDate = new Date() - 1
-		//}
+		def lastGameDateResult = sql.rows("select date_trunc('day', play_at) as lastDatum from game where play_at < now() order by play_at desc limit 1")[0]
+		def lastGameDate = lastGameDateResult?.lastDatum ?: (new Date() - 1)
 		
 		def rows = sql.rows("""
 

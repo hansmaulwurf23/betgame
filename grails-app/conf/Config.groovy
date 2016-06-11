@@ -157,11 +157,13 @@ log4j = {
 		   
     warn    'org.apache.cxf'
 		   
-	root { info 'file', 'smtpAppender'}
-	
 	environments {
 		development {
 			root { info 'stdout', 'file'}
+		}
+		
+		production {
+			root { info 'file', 'smtpAppender'}
 		}
 	}
 }
