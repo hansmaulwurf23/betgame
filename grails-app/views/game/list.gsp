@@ -28,9 +28,9 @@
 		<tbody>
 		<g:each in="${gameInstanceList}" status="i" var="gameInstance">
 			<tr class="${gameInstance.matchIsFinished ? 'active' : ''}">
-			
-				<td><g:link action="show" id="${gameInstance.id}">
-					<g:formatDate date="${gameInstance?.playAt}" formatName="default.gamedate.format" />
+				<g:set var="notbet" value="${!(gameInstance.id in gameIDsFromBets) }" />
+				<td><g:link action="show" id="${gameInstance.id}" class="${notbet ? 'text-danger' : ''}">
+					<g:formatDate date="${gameInstance?.playAt}" formatName="default.gamedate.format" />${notbet ? ' !' : ''}
 				</g:link></td>
 				<g:if test="${!group}">
 				<g:if test="${!phase && gameInstance?.groupName}">
