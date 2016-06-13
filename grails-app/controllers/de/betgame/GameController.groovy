@@ -9,6 +9,7 @@ class GameController {
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	
 	def springSecurityService
+	def openLigaDBService
 	
 	def beforeInterceptor = { }
 
@@ -57,6 +58,12 @@ class GameController {
 		redirect(action:'show', params:[id:gameInstance.id])
 	}
 	
+	@Secured(['ROLE_IDMADMIN'])
+	@Transactional
+	def forceFetch(Game gameInstance) {
+		openLigaDBService.updateGameScore(gameInstance.id, true)
+		redirect(action:'show', params:[id:gameInstance.id])
+	}
 	
     protected void notFound() {
         request.withFormat {
