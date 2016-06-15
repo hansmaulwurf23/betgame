@@ -32,13 +32,13 @@
 	<g:each in="${bets}" var="betInstance">
 	<div class="row condensed panel-body ${betInstance.user==currentUser?' current-user':''}">
 		<div class="col-xs-3 text-right">
-			<bg:flag team="${betInstance.game.team1}" /> ${betInstance.game.team1.code}
+			${betInstance.game.team1.code} <bg:flag team="${betInstance.game.team1}" />
 		</div>
-		<div class="col-xs-1 text-center">${betInstance.game.score1}:${betInstance.game.score2}</div>
+		<div class="col-xs-2 text-center">${betInstance.game.score1}:${betInstance.game.score2}</div>
 		<div class="col-xs-3 text-left">
-			${betInstance.game.team2.code} <bg:flag team="${betInstance.game.team2}" />
+			<bg:flag team="${betInstance.game.team2}" /> ${betInstance.game.team2.code}
 		</div>
-		<div class="col-xs-4 text-center">
+		<div class="col-xs-3 text-center">
 			${betInstance.score1}:${betInstance.score2} <bg:score bet="${betInstance}"/>
 		</div>
 	</div>
