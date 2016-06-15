@@ -24,7 +24,7 @@
 		<g:each in="${betInstanceList}" status="i" var="betInstance">
 			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 				<td><g:link action="show" id="${betInstance.id}"><i class="glyphicon glyphicon-search"></i></g:link></td>
-				<td><g:render template="betRow" model="[betInstance:betInstance, games:games]" /></td>
+				<td><bg:score bet="${betInstance}"/> <g:render template="betRow" model="[betInstance:betInstance, games:games]" /></td>
 			</tr>
 		</g:each>
 		</tbody>

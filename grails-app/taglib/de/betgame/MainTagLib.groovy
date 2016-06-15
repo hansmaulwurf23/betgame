@@ -81,7 +81,11 @@ class MainTagLib {
 	def score = { attrs, body ->
 		if (attrs.bet) {
 			def score = attrs.bet.getScore()
-			out << (score!=null?score:g.message(code:'na´', default:'na'))
+			if (score != null) {
+				out << "<span class='score score_${score}'>${score}</span>"
+			} else {
+				out << "<span class='score'>${g.message(code:'na´', default:'na')}</span>"
+			}
 		}
 	}
 	

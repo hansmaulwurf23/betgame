@@ -31,23 +31,24 @@
 	
   	<g:each in="${games}" var="gameInstance">
   		<div class="row">
-			<div class="col-xs-4 text-right">
+			<div class="col-xs-3 text-right">
 				<g:link controller="team" action="show" id="${gameInstance?.team1?.id}">
 					${gameInstance?.team1?.code?.encodeAsHTML()}
 				</g:link>
 				<bg:flag team="${gameInstance.team1}" />
 			</div>
-			<div class="col-xs-2 text-center">
+			<div class="col-xs-3 text-center">
 				${gameInstance.score1}:${gameInstance.score2}
 			</div>
-			<div class="col-xs-4">
+			<div class="col-xs-3">
 				<bg:flag team="${gameInstance.team2}" />
 				<g:link controller="team" action="show" id="${gameInstance?.team2?.id}">
 					${gameInstance?.team2?.code?.encodeAsHTML()}
 				</g:link>
 			</div>
-			<div class="col-xs-2 text-center">
+			<div class="col-xs-3 text-center">
 				<g:if test="${myBets[gameInstance]}">
+					<bg:score bet="${myBets[gameInstance]}"></bg:score>
 					${myBets[gameInstance].score1}:${myBets[gameInstance].score2}
 				</g:if>
 				<g:else>

@@ -35,7 +35,7 @@ $(document).ready(function(){
           shadow: false
         }
       },
-      seriesColors:['#428bca', '#5cb85c', '#d9534f', '#f0ad4e'],
+      seriesColors:['#d9534f', '#f0ad4e', '#5cb85c', '#aaa'],
       grid: {
     	    drawGridLines: true,        // wether to draw lines across the grid or not.
     	        gridLineColor: '#000',   // CSS color spec of the grid lines.

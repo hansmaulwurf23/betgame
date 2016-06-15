@@ -39,7 +39,7 @@
 			${betInstance.game.team2.code} <bg:flag team="${betInstance.game.team2}" />
 		</div>
 		<div class="col-xs-4 text-center">
-			${betInstance.score1}:${betInstance.score2} (<bg:score bet="${betInstance}"/>) <span style="display:inline-block; min-width:15px; background-color:${['#f0ad4e', '#d9534f', '#5cb85c', '#428bca'].get(betInstance.getScore())}">&nbsp;</span>
+			${betInstance.score1}:${betInstance.score2} <bg:score bet="${betInstance}"/>
 		</div>
 	</div>
 	</g:each>

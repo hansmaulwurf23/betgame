@@ -27,6 +27,9 @@
 		<g:if test="${myBets && myBets[gameInstance]}">
 			<g:set var="myBet" value="${myBets[gameInstance][0]}" />
 			<div class="col-xs-12 text-center">
+				<g:if test="${gameInstance.matchIsFinished}">
+					<bg:score bet="${myBet}"/>
+				</g:if>
 				<g:link controller="bet" action='edit' id="${myBet.id}">
 					${myBet.score1}:${myBet.score2}
 				</g:link>
