@@ -46,6 +46,14 @@ class Bet {
 		return score
 	}
 	
+	transient public Integer getGoalDiff() {
+		if (game.matchStarted) {
+			return score1 - score2
+		} else {
+			return null
+		}
+	}
+	
 	/*
 	 * Methods of the Domain Class
 	 */

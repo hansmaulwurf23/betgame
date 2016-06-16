@@ -56,4 +56,8 @@ class Game {
 			return null
 		}  
 	}
+	
+	transient boolean isMatchStarted() {
+		return (playAt < new Date())
+	} 
 }

@@ -1,3 +1,4 @@
+<%@page import="java.lang.Math"%>
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="row">
@@ -13,15 +14,16 @@
 		</div>
 	</div>
 	<g:each in="${betInstances}" var="betInstance">
-	<div class="row condensed panel-body ${betInstance.user==currentUser?' current-user':''}">
+	<div class="row condensed panel-body ${betInstance.user==currentUser?' current-user':''}" style="padding: 2px 0px;">
 		<div class="col-xs-4 text-right">
 			<g:link controller="user" action="show" id="${betInstance.user.id}">${betInstance.user.display}</g:link>
+<%--			<g:if test="${gameInstance.matchStarted}"><span class="goaldiff goaldiff_${Math.signum(betInstance.goalDiff?.toDouble() ?: 0.0).toInteger() + 2}"></span></g:if>--%>
 		</div>
-		<div class="col-xs-4 text-center">
+		<div class="col-xs-4 text-center ${gameInstance.matchStarted ? 'goaldiff_' + (Math.signum(betInstance.goalDiff?.toDouble() ?: 0.0).toInteger() + 2).toString() : ''}">
 			${showBets?betInstance.score1:'*'}:${showBets?betInstance.score2:'*'}
 		</div>
 		<div class="col-xs-4">
-			<g:if test="${!gameInstance.matchIsFinished}">(</g:if><bg:score bet="${betInstance}"/><g:if test="${!gameInstance.matchIsFinished}">)</g:if>
+			<g:if test="${gameInstance.matchStarted}"><bg:score bet="${betInstance}"/></g:if>
 		</div>
 	</div>
 	</g:each>

@@ -56,16 +56,14 @@ class MainTagLib {
 			def stats = [:]
 			stats.totalCount = betInstances.size()
 			stats.averagePoints = betInstances.sum { it.getScore() }?.div(betInstances.size())
-			betInstances.sort { a,b -> b.getScore() <=> a.getScore() ?: a.user.givenname <=> b.user.givenname}
+			betInstances.sort { a,b -> b.getScore() <=> a.getScore() ?: a.goalDiff <=> b.goalDiff ?: a.user.givenname <=> b.user.givenname}
 			def nameMap = NameUtil.buildNameMap(betInstances*.user)
 			out << render(template:"/game/bets", model:[gameInstance: attrs.game, showBets: showBets, betInstances:betInstances, stats:stats, currentUser:springSecurityService.currentUser, nameMap:nameMap])
 
-			if (attrs.game.playAt < new Date()) {
+			if (attrs.game.matchStarted) {
 				def betDistr = betInstances.countBy { "${it.score1}:${it.score2}" }.sort { -it.value }
 				out << render(template:"/game/betDistr", model:[betDistr: betDistr, total: stats.totalCount])
-			}
 			
-			if (attrs.game.playAt < new Date()) {
 				def quote = betInstances.countBy { it.score1 <=> it.score2 }.sort { it.key }
 				def wiloQuote = [:]
 				wiloQuote[(attrs.game.team2.code)] = quote[(-1)]
