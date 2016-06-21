@@ -5,7 +5,7 @@
 		</g:link>
 	</div>
 	<div class="col-xs-4 text-center">
-		<bg:flag team="${gameInstance.team1}" /> ${gameInstance.score1}:${gameInstance.score2} <bg:flag team="${gameInstance.team2}" />
+		<bg:flag team="${gameInstance.team1}" /> ${gameInstance.finalScore1}:${gameInstance.finalScore2} <bg:flag team="${gameInstance.team2}" />
 	</div>
 	<div class="col-xs-4">
 		<g:link controller="team" action="show" id="${gameInstance?.team2?.id}">

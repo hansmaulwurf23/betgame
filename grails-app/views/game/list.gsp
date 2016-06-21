@@ -43,7 +43,7 @@
 				</g:else>
 				</g:if>
 				<td style="text-align: right;">${gameInstance.team1.code ?: gameInstance.team1.name} <bg:flag team="${gameInstance.team1}" /></td>
-				<td style="text-align: center;">${gameInstance.score1} : ${gameInstance.score2}</td>
+				<td style="text-align: center;">${gameInstance.finalScore1}:${gameInstance.finalScore2}</td>
 				<td><bg:flag team="${gameInstance.team2}" /> ${gameInstance.team2.code ?: gameInstance.team2.name}</td>
 			</tr>
 		</g:each>

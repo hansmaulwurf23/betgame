@@ -9,6 +9,8 @@ class Game {
 	Team team2
 	Integer score1
 	Integer score2
+	Integer finalScore1
+	Integer finalScore2
 	Location location
 	Date playAt
 	Date playAtUTC
@@ -27,6 +29,8 @@ class Game {
 		id column:"Game_id", generator: "assigned"
 		autoTimestamp true
 		goals type:'text'
+		finalScore1 column:'fscore1'
+		finalScore2 column:'fscore2'
 		version false
     }
     
@@ -34,6 +38,8 @@ class Game {
 		matchIsFinished nullable: true
 		score1 nullable: true
 		score2 nullable: true
+		finalScore1 nullable: true
+		finalScore2 nullable: true
 		dateCreated nullable: true
 		lastUpdated nullable: true
 		numberOfViewers nullable: true
@@ -59,5 +65,9 @@ class Game {
 	
 	transient boolean isMatchStarted() {
 		return (playAt < new Date())
-	} 
+	}
+	
+	transient boolean isSameAsFinalScore() {
+		return (score1 == finalScore1 && score2 == finalScore2)
+	}
 }

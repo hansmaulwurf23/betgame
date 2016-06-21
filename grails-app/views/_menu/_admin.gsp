@@ -10,5 +10,11 @@
 				<g:message code="default.systeminfo.label"/>
 			</a>
 		</li>
+		
+		<sec:ifAnyGranted roles="ROLE_MAILADMIN">
+			<li class="controller${params.controller == 'quartz' ? " active" : ""}">
+				<g:link controller="quartz" action="list"><i class="glyphicon glyphicon-time"></i> Quartz</g:link>
+			</li>
+		</sec:ifAnyGranted>
 	</ul>
 </li>

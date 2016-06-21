@@ -21,12 +21,11 @@ class BetController {
         redirect(action:'list')
     }
 
-	def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
+	def list() {
 		params.sort = 'game.playAt'
 		def bets = Bet.findAllByUser(springSecurityService.currentUser, params)
 		def games = Game.findAllByIdInList(bets*.game*.id).collectEntries { [ it.id, it] } 
-        [betInstanceList: bets, games:games, betInstanceCount: Bet.countByUser(springSecurityService.currentUser)]
+        [betInstanceList: bets, games:games]
     }
 
     def show(Bet betInstance) {

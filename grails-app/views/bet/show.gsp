@@ -21,13 +21,31 @@
 		<g:render template="/game/gameDivRow" />
 	</div>
 
-	<div class="row panel-body">	
+	<g:if test="${!betInstance.game.sameAsFinalScore}">
+		<div class="row panel-body text-center">
+			(${betInstance.game?.score1}:${betInstance.game?.score2})
+		</div>
+	</g:if>
+	
+	<div class="row panel-body">
 		<div class="col-xs-5 text-right">
 			${betInstance.score1}
 		</div>
 		<div class="col-xs-2 text-center"> : </div>
 		<div class="col-xs-5">
 			${betInstance.score2}
+		</div>
+	</div>
+	
+	<div class="row panel-body text-center">
+		<bg:score bet="${betInstance}" />
+	</div>
+	
+	<div class="panel-footer">
+		<div class="row">
+			<div class="col-xs-12">
+				<g:link controller="game" action="show" id="${betInstance.game.id}">zu Spiel wechseln</g:link>
+			</div>
 		</div>
 	</div>
 

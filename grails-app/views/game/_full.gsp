@@ -29,6 +29,12 @@
 	</div>
 
 	<g:render template="gameDivRow" />
+	
+	<g:if test="${!gameInstance.sameAsFinalScore}" >
+		<div class="col-xs-12 text-center">
+			(${gameInstance?.score1}:${gameInstance?.score2})
+		</div>
+	</g:if>
 
 	<g:if test="${gameInstance.goalInfos()}">
 		<hr />
@@ -80,7 +86,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<small>updated: <g:formatDate date="${gameInstance?.lastUpdated}" formatName="default.gamedate.format" /></small> 
-				<sec:ifAnyGranted roles="ROLE_IDMADMIN">
+				<sec:ifAnyGranted roles="ROLE_MAILADMIN">
 					<g:link action="edit" id="${gameInstance.id}">Edit Score</g:link>
 					<g:link action="forceFetch" id="${gameInstance.id}">Fetch</g:link>
 				</sec:ifAnyGranted>

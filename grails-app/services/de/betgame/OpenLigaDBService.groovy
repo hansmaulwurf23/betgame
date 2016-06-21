@@ -156,25 +156,39 @@ class OpenLigaDBService {
 				}
 				
 				def endErgeb
+				def finalErgeb
 				// this seems to be the better way to fetch latest result
 				if (matchData?.matchResults?.matchResult?.size() > 0) {
 					// nach Nachspielzeit
 					endErgeb = matchData.matchResults.matchResult.find { it.resultTypeId == 3 }
+					
+					def maxResultOrder = matchData.matchResults.matchResult*.resultOrderID.max()
+					finalErgeb = matchData.matchResults.matchResult.find { it.resultOrderID == maxResultOrder }
 					if (!endErgeb) {
 						// ordered last result 
 						endErgeb = matchData.matchResults.matchResult.findAll { it.resultTypeId <= 3 }.sort { it.resultOrderID }[-1] 
 					}
 				}
-				log.info "endErgeb: ${endErgeb?.properties}"
+				log.info "endErgeb: ${endErgeb?.properties} / finalErgeb: ${finalErgeb?.properties}"
 				
-				if (endErgeb) {
-					int s1 = endErgeb.pointsTeam1?.toInteger()
-					int s2 = endErgeb.pointsTeam2?.toInteger()
-					log.debug "fetched game data for ${gameID}: $s1 : $s2 (finished = ${matchData.matchIsFinished})"
-					if (force || game.score1 != s1 || game.score2 != s2 || game.numberOfViewers != matchData.numberOfViewers || game.matchIsFinished != matchData.matchIsFinished) {
+				if (endErgeb || finalErgeb) {
+					Integer s1 = endErgeb?.pointsTeam1?.toInteger()
+					Integer s2 = endErgeb?.pointsTeam2?.toInteger()
+					Integer f1 = finalErgeb?.pointsTeam1?.toInteger()
+					Integer f2 = finalErgeb?.pointsTeam2?.toInteger()
+					
+					log.debug "fetched game data for ${gameID}: $s1 : $s2 ($f1 : $f2) (finished = ${matchData.matchIsFinished})"
+					if (force || 
+							game.score1 != s1 || game.score2 != s2 || 
+							game.finalScore1 != f1 || game.finalScore2 != f2 ||
+							game.numberOfViewers != matchData.numberOfViewers || 
+							game.matchIsFinished != matchData.matchIsFinished) {
+							
 						log.warn "UPDATING GAME SCORE FOR GAME ${gameID}: $s1 - $s2"
 						game.score1 = s1 
 						game.score2 = s2
+						game.finalScore1 = f1
+						game.finalScore2 = f2
 						game.numberOfViewers = matchData.numberOfViewers
 						game.matchIsFinished = matchData.matchIsFinished
 						game.save(flush:true, failOnError:true)

@@ -3,6 +3,18 @@
 <head>
 	<title>Betgame</title>
 	<meta name="layout" content="kickstart" />
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.panel-default').on('show.bs.collapse', function () {
+		         $(this).addClass('active');
+		    });
+
+		    $('.panel-default').on('hide.bs.collapse', function () {
+		         $(this).removeClass('active');
+		    });
+		});
+	</script>
 </head>
 
 <body>
@@ -14,7 +26,7 @@
 				<g:if test="${nextGames}">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseNextGames"> <g:message code="next.games" default="Nächste Spiele" /> <br/>(<g:formatDate formatName="default.weekdate.format" date="${nextGames[0].playAt}" /> - <g:formatDate formatName="default.weekdate.format" date="${nextGames[-1].playAt}" />)
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseNextGames"> <g:message code="next.games" default="Nächste Spiele" /> (<g:formatDate format="EE dd.MM." date="${nextGames[0].playAt}" /> - <g:formatDate format="EE dd.MM." date="${nextGames[-1].playAt}" />)
 							</a>
 						</h4>
 					</div>
@@ -31,7 +43,7 @@
 				<g:if test="${lastGames}">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseLastGames"> <g:message code="last.games" default="Letzte Spiele" /> <br/>(<g:formatDate formatName="default.weekdate.format" date="${lastGames[0].playAt}" /> - <g:formatDate formatName="default.weekdate.format" date="${lastGames[-1].playAt}" />)
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseLastGames"> <g:message code="last.games" default="Letzte Spiele" /> (<g:formatDate format="EE dd.MM." date="${lastGames[0].playAt}" /> - <g:formatDate format="EE dd.MM." date="${lastGames[-1].playAt}" />)
 							</a>
 						</h4>
 					</div>
