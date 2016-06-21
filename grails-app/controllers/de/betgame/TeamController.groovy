@@ -16,7 +16,7 @@ class TeamController {
     }
 
 	def list(Integer max) {
-		def teams = Team.list(sort:'name')
+		def teams = Team.findAllByCodeIsNotNull(sort:'name')
 		def games = Game.list()
 		def groupMap = (games.collectEntries( { [it.team1.code, it.groupName] } ) + games.collectEntries( { [it.team2.code, it.groupName] } ))
 		[teamsInstanceList :  teams, groupMap : groupMap]

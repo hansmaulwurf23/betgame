@@ -2,6 +2,13 @@ package de.betgame
 
 class NameUtil {
 
+	static koPhaseShortcuts = [
+			'Achtelfinale':'&#8539;',
+			'Viertelfinale':'&#188;',
+			'Halbfinale':'&#189;',
+			'Finale':'F'
+		]
+	
 	/**
 	 * buildNameMap creates a map for unique names out of a collection  
 	 * @param data must be a collection of maps, holding givenname and surname
@@ -44,6 +51,14 @@ class NameUtil {
 		}
 		
 		return nameMap
+	}
+	
+	static convertGroupName(String groupName) {
+		if (groupName in koPhaseShortcuts.keySet()) {
+			return koPhaseShortcuts[groupName]
+		} else {
+			return groupName
+		}
 	}
 	
 }

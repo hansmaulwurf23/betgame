@@ -28,6 +28,8 @@ class GameController {
 			games = Game.findAllByPhaseNot('Vorrunde', [sort:'playAtUTC'])
 		}
 		def groups = Game.executeQuery("select distinct groupName from Game where groupName is not null order by groupName")
+		groups = groups.findAll { !(it in NameUtil.koPhaseShortcuts) }
+		log.warn groups
 		
 		def user = springSecurityService.currentUser
 		def gameIDsFromBets = Bet.executeQuery("select b.game.id as gameID from Bet b where b.user = :u", [u:user])

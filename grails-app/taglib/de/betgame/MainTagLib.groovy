@@ -20,7 +20,7 @@ class MainTagLib {
 		def imgLink
 		def team = attrs.team		
 		
-		if (team) {
+		if (team && team.code) {
 			out << "<img src='${assetPath(src: 'flags/'+team.code?.toLowerCase()+'.png')}' alt='${attrs.name}'/>"
 		}
 	}

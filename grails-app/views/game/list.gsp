@@ -1,5 +1,7 @@
 
 <%@ page import="de.betgame.Game" %>
+<%@ page import="de.betgame.NameUtil" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -30,19 +32,19 @@
 			<tr class="${gameInstance.matchIsFinished ? 'active' : ''}">
 				<g:set var="notbet" value="${!(gameInstance.id in gameIDsFromBets) }" />
 				<td><g:link action="show" id="${gameInstance.id}" class="${notbet ? 'text-danger' : ''}">
-					<g:formatDate date="${gameInstance?.playAt}" formatName="default.gamedate.format" />${notbet ? ' !' : ''}
+					<g:formatDate date="${gameInstance?.playAt}" formatName="default.gamedate.format" />${notbet ? '!' : ''}
 				</g:link></td>
 				<g:if test="${!group}">
 				<g:if test="${!phase && gameInstance?.groupName}">
-					<td><g:link action="list" params="[group: gameInstance?.groupName]">${gameInstance?.groupName}</g:link></td>
+					<td><g:link action="list" params="[group: gameInstance?.groupName]">${raw(NameUtil.convertGroupName(gameInstance.groupName))}</g:link></td>
 				</g:if>
 				<g:else>
 					<td><g:message code="ko.phase.${gameInstance?.phase}"/></td>
 				</g:else>
 				</g:if>
-				<td style="text-align: right;">${gameInstance.team1.code} <bg:flag team="${gameInstance.team1}" /></td>
+				<td style="text-align: right;">${gameInstance.team1.code ?: gameInstance.team1.name} <bg:flag team="${gameInstance.team1}" /></td>
 				<td style="text-align: center;">${gameInstance.score1} : ${gameInstance.score2}</td>
-				<td><bg:flag team="${gameInstance.team2}" /> ${gameInstance.team2.code}</td>
+				<td><bg:flag team="${gameInstance.team2}" /> ${gameInstance.team2.code ?: gameInstance.team2.name}</td>
 			</tr>
 		</g:each>
 		</tbody>
