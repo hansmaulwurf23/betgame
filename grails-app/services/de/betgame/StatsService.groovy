@@ -87,8 +87,9 @@ class StatsService {
 	}
 	
 	def getScores() {
-		def allFinishedGames = Game.findAllByMatchIsFinished(true)
-		def allBets = Bet.findAllByGameInList(allFinishedGames, [sort:'game.playAt']).groupBy([{ it.game.id },{ it.user.id }])
+		//def matchingGames = Game.findAllByMatchIsFinished(true)
+		def matchingGames = Game.executeQuery("from Game where playAt < :t", [t: new Date()])
+		def allBets = Bet.findAllByGameInList(matchingGames, [sort:'game.playAt']).groupBy([{ it.game.id },{ it.user.id }])
 		return allBets
 	}
 	
