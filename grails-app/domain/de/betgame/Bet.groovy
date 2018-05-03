@@ -19,7 +19,6 @@ class Bet {
 	
 	
     static	mapping = {
-		datasource 'betgame'
 		id column: "bet_id"
 		autoTimestamp true
 		version false

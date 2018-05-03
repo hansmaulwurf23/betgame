@@ -6,19 +6,19 @@
 <html>
 
 <head>
-	<meta name="layout" content="kickstart" />
+	<meta name="layout" content="main" />
 	<title><g:message code="games.label" /></title>
 </head>
 
 <body>
 <ul id="Menu" class="nav nav-pills margin-top-small groups">
 <g:each in="${groups}" var="g">
-	<li class="${ g == group ? 'active' : '' }" style="margin: 5px 0px;">
-		<g:link action="list" params="[group:g]">${g}</g:link>
+	<li class="nav-item">
+		<g:link class="nav-link ${ g == group ? 'active' : '' }" action="list" params="[group:g]">${g}</g:link>
 	</li>
 </g:each>
-<li class="${ phase ? 'active' : '' }" style="margin: 5px 0px;">
-	<g:link action="list" params="[phase:'KO']">K.O.</g:link>
+<li class="nav-item">
+	<g:link class="nav-link ${ phase ? 'active' : '' }" action="list" params="[phase:'KO']">K.O.</g:link>
 </li>
 </ul>
 

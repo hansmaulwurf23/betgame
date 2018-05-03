@@ -2,7 +2,7 @@ package de.betgame
 
 
 import static org.springframework.http.HttpStatus.*
-import grails.plugins.springsecurity.Secured
+import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 
 /**
@@ -24,8 +24,11 @@ class BetController {
 	def list() {
 		params.sort = 'game.playAt'
 		def bets = Bet.findAllByUser(springSecurityService.currentUser, params)
-		def games = Game.findAllByIdInList(bets*.game*.id).collectEntries { [ it.id, it] } 
-        [betInstanceList: bets, games:games]
+		def games
+		if (bets) {
+			games = Game.findAllByIdInList(bets*.game*.id).collectEntries { [it.id, it] }
+		}
+		[betInstanceList: bets, games:games]
     }
 
     def show(Bet betInstance) {

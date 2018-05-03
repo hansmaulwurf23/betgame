@@ -1,14 +1,17 @@
 package de.betgame
 
 import de.betgame.sec.User;
-import de.msiggi.sportsdata.webservices.SportsdataSoap;
+import de.msiggi.sportsdata.webservices.SportsdataSoap
+import grails.plugin.springsecurity.annotation.Secured
+import grails.transaction.Transactional;
 
+@Transactional
 class HomeController {
 
 	def openLigaDBService
 	def springSecurityService
 	
-    def index = { 
+    def index() {
 		//openLigaDBService.fetchTeamsAndGamesAndLocations()
 		def today = (new Date()).clearTime()
 		def nextGames = Game.findAllByMatchIsFinished(false, [sort:'playAt', max:4])
@@ -26,6 +29,11 @@ class HomeController {
 		
 		[nextGames:nextGames, lastGames:lastGames, myBets:myBets, countBets: countBets, userCount:userCount, betters:betters]
 	}
+    
+    @Secured('isFullyAuthenticated()')
+    def auth() {
+        redirect(action:'index')
+    }
 	
 	def fixdisplay() {
 		def users = User.executeQuery("from User u where u in (select distinct b.user from Bet b)")

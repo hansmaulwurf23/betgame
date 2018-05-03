@@ -1,14 +1,13 @@
 package de.betgame.sec
 
+import grails.transaction.Transactional
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils;
-import de.betgame.security.*
+import grails.plugin.springsecurity.SpringSecurityUtils;
 
+@Transactional
 class SecurityService {
 
-    static transactional = true
-	
 	def springSecurityService
 
 	def getPrincipal() {

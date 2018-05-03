@@ -21,7 +21,6 @@ class Location {
 //	static	mappedBy	= []	// specifies which property should be used in a mapping 
 	
     static	mapping = {
-		datasource 'betgame'
 		id column: "location_id", generator: "assigned"
 		autoTimestamp true
 		version false

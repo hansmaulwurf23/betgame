@@ -1,8 +1,10 @@
 package de.betgame
 
-import grails.plugins.springsecurity.Secured;
+import grails.plugin.springsecurity.annotation.Secured
+import grails.transaction.Transactional;
 
 @Secured(['ROLE_EMPLOYEE_191', 'ROLE_STUDENTASSISTENT_191'])
+@Transactional
 class StatsController {
 
 	def statsService

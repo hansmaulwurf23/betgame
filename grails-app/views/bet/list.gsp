@@ -4,7 +4,7 @@
 <html>
 
 <head>
-	<meta name="layout" content="kickstart" />
+	<meta name="layout" content="main" />
 	<title><g:message code="bets.label"  /></title>
 	<g:set var="layout_nosecondarymenu"	value="${true}" scope="request"/>
 </head>

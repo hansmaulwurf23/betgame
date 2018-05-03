@@ -25,7 +25,6 @@ class Game {
 	Date	lastUpdated
 	
     static	mapping = {
-		datasource 'betgame'
 		id column:"Game_id", generator: "assigned"
 		autoTimestamp true
 		goals type:'text'

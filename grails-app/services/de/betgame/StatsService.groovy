@@ -6,14 +6,14 @@ import groovy.sql.Sql;
 @Transactional
 class StatsService {
 
-	def dataSource_betgame
+	def dataSource
 	
 	def getRanking() {
 		return getRanking(3, 2, 1)
 	}
 	
     def getRanking(ergebnisPunkte, tordiffPunkte, tendenzPunkte) {
-		Sql sql = new Sql(dataSource_betgame)
+		Sql sql = new Sql(dataSource)
 		def rows = sql.rows("""
 
 			select punkte, username, givenname, surname, display, user_id
@@ -42,7 +42,7 @@ class StatsService {
 	}
 	
 	def getYesterdaysRanking(ergebnisPunkte, tordiffPunkte, tendenzPunkte) {
-		Sql sql = new Sql(dataSource_betgame)
+		Sql sql = new Sql(dataSource)
 		
 		def lastGameDateResult = sql.rows("select date_trunc('day', play_at) as lastDatum from game where play_at < now() order by play_at desc limit 1")[0]
 		def lastGameDate = lastGameDateResult?.lastDatum ?: (new Date() - 1)
@@ -71,7 +71,7 @@ class StatsService {
 	}
 	
 	def getLuckers() {
-		Sql sql = new Sql(dataSource_betgame)
+		Sql sql = new Sql(dataSource)
 		def rows = sql.rows("""
 
 			select anz, username, givenname, surname, display, user_id
@@ -89,7 +89,12 @@ class StatsService {
 	def getScores() {
 		//def matchingGames = Game.findAllByMatchIsFinished(true)
 		def matchingGames = Game.executeQuery("from Game where playAt < :t", [t: new Date()])
-		def allBets = Bet.findAllByGameInList(matchingGames, [sort:'game.playAt']).groupBy([{ it.game.id },{ it.user.id }])
+		def allBets
+		if (matchingGames) {
+			allBets = Bet.findAllByGameInList(matchingGames, [sort: 'game.playAt']).groupBy([{ it.game.id }, {
+				it.user.id
+			}])
+		}
 		return allBets
 	}
 	

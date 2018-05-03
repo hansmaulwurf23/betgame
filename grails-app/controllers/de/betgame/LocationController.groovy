@@ -4,7 +4,7 @@ package de.betgame
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-import grails.plugins.springsecurity.Secured
+import grails.plugin.springsecurity.annotation.Secured
 
 @Secured(['ROLE_EMPLOYEE_191', 'ROLE_STUDENTASSISTENT_191'])
 @Transactional(readOnly = true)

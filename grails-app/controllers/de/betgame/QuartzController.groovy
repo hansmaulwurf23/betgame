@@ -2,7 +2,7 @@ package de.betgame
 
 import static org.quartz.impl.matchers.GroupMatcher.jobGroupEquals
 import grails.plugins.quartz.QuartzMonitorJobFactory;
-import grails.plugins.springsecurity.Secured;
+import grails.plugin.springsecurity.annotation.Secured;
 
 import org.quartz.CronTrigger
 import org.quartz.Scheduler

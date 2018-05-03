@@ -2,7 +2,7 @@
 
 <head>
     <title><g:message code="default.contact.title"/></title>
-    <meta name="layout" content="kickstart" />
+    <meta name="layout" content="main" />
 </head>
 
 <body>

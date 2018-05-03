@@ -7,7 +7,6 @@ class Role {
 	static mapping = {
 		cache true
 		table schema:'sec'
-		datasource 'betgame'
 	}
 
 	static constraints = {

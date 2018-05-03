@@ -62,6 +62,5 @@ class UserRole implements Serializable {
 		id composite: ['role', 'user']
 		table schema:'sec'
 		version false
-		datasource 'betgame'
 	}
 }

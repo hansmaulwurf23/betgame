@@ -1,9 +1,11 @@
 package de.betgame
 
-import grails.plugins.springsecurity.Secured;
-import de.betgame.sec.User;
+import grails.plugin.springsecurity.annotation.Secured;
+import de.betgame.sec.User
+import grails.transaction.Transactional;
 
 @Secured(['ROLE_EMPLOYEE_191', 'ROLE_STUDENTASSISTENT_191'])
+@Transactional
 class UserController {
 
 	static pointNames = [0: 'Falsch', 1: 'Tendenz', 2:'Tordiff.', 3:'Ergebnis']

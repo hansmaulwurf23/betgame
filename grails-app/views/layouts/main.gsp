@@ -30,9 +30,9 @@
 </head>
 
 <body>
-	<g:render template="/_menu/navbar"/>														
-
 	<div id="wrapper">
+	
+		<g:render template="/_menu/navbar"/>														
 	
 		<!-- Enable to overwrite Header by individual page -->
 		<g:if test="${ pageProperty(name:'page.header') }">
@@ -56,7 +56,7 @@
 		<g:if test="${ pageProperty(name:'page.include.bottom') }">
 	   		<g:pageProperty name="page.include.bottom" />
 		</g:if>
-	
+		
 	</div>
 	
 </body>

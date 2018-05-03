@@ -1,6 +1,6 @@
 package de.betgame
 
-import grails.plugins.springsecurity.Secured
+import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional;
 
 @Secured(['ROLE_EMPLOYEE_191', 'ROLE_STUDENTASSISTENT_191'])
@@ -29,7 +29,7 @@ class GameController {
 		}
 		def groups = Game.executeQuery("select distinct groupName from Game where groupName is not null order by groupName")
 		groups = groups.findAll { !(it in NameUtil.koPhaseShortcuts) }
-		log.warn groups
+		log.warn "$groups"
 		
 		def user = springSecurityService.currentUser
 		def gameIDsFromBets = Bet.executeQuery("select b.game.id as gameID from Bet b where b.user = :u", [u:user])

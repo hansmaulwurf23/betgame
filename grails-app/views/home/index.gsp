@@ -2,7 +2,7 @@
 
 <head>
 	<title>Betgame</title>
-	<meta name="layout" content="kickstart" />
+	<meta name="layout" content="main" />
 	
 	<script type="text/javascript">
 		$(document).ready(function() {

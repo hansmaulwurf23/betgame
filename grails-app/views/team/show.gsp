@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<meta name="layout" content="kickstart" />
+	<meta name="layout" content="main" />
 	<g:set var="entityName" value="${message(code: 'teams.label', default: 'Teams')}" />
 	<title><g:message code="default.show.label" args="[entityName]" /></title>
 	

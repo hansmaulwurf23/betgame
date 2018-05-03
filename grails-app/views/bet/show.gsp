@@ -4,7 +4,7 @@
 <html>
 
 <head>
-	<meta name="layout" content="kickstart" />
+	<meta name="layout" content="main" />
 	<g:set var="entityName" value="${message(code: 'bet.label', default: 'Bet')}" />
 	<title><g:message code="default.show.label" args="[entityName]" /></title>
 </head>

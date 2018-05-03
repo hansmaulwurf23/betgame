@@ -3,7 +3,7 @@
 	
 <sec:ifNotLoggedIn>
 
-		<g:link controller="login" action="casauth">
+		<g:link controller="home" action="auth">
 			<!-- TODO: integrate Springsource Security etc. and show User's name ... -->
     		<i class="glyphicon glyphicon-user"></i>
     		<g:message code="security.signin.label"/>
