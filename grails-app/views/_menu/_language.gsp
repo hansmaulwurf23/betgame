@@ -3,19 +3,10 @@
 
 <%--<ul class="nav secondary-nav language-dropdown pull-right">--%>
 	<li class="dropdown dropdown-btn js-language-dropdown">
-		<a class="dropdown-toggle" role="button" data-toggle="dropdown" data-target="#" href="javascript:;">
+		<a class="dropdown-toggle" data-toggle="collapse" href="#langCollapse" role="button" aria-expanded="false" aria-controls="langCollapse">
 			<asset:image class="" src="lang/${lang.toString()}.png" />
 		</a>
-		<ul class="dropdown-menu dropdown-menu-dark" role="menu">
-
-			<!-- assuming that the default locale is English -->
-			<li><a class="js-language-link" title="English" data-lang-code="en" href="${currentURL+'?lang=en'}">
-				<asset:image class="" src="lang/en.png" />
-				<g:message code="language.en" default="en"/> ${currentlURL }
-			</a></li>
-
-			<li class="divider"></li>
-
+		<ul class="collapse" role="menu" id="langCollapse">
 			<g:set var="allLocales" value="${['en', 'de']}"/>
 			<g:each status="i" var="locale" in="${allLocales}">
 				<li><a class="js-language-link" title="${message(code: 'language.'+locale, default: locale)}" data-lang-code="${locale}" href="${currentURL+'?lang='+locale}">

@@ -1,4 +1,4 @@
-<nav id="Navbar" class="navbar navbar-fixed-top navbar-dark bg-dark" role="navigation">
+<nav id="Navbar" class="navbar navbar-fixed-top navbar-dark bg-dark navbar-expand-md" role="navigation">
 	<div class="container">
 	
 	    <div class="navbar-header">
@@ -15,17 +15,15 @@
 
 		<div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
 
-		<ul class="nav navbar-nav">
-			<g:render template="/_menu/controller"/>
-		</ul>
+			<ul class="navbar-nav mr-auto">
+				<g:render template="/_menu/controller"/>
+			</ul>
 
-    	<ul class="nav navbar-nav navbar-right">
- 			<g:render template="/_menu/search"/> 
-			<g:render template="/_menu/admin"/>														
-			<g:render template="/_menu/info"/>														
-			<g:render template="/_menu/user"/><!-- NOTE: the renderDialog for the "Register" modal dialog MUST be placed outside the NavBar (at least for Bootstrap 2.1.1): see bottom of main.gsp -->
-			<g:render template="/_menu/language"/>														
-	    </ul>			
+			<ul class="navbar-nav">
+				<g:render template="/_menu/admin"/>
+				<g:render template="/_menu/user"/><!-- NOTE: the renderDialog for the "Register" modal dialog MUST be placed outside the NavBar (at least for Bootstrap 2.1.1): see bottom of main.gsp -->
+				<g:render template="/_menu/language"/>
+			</ul>
 
 		</div>
 	</div>

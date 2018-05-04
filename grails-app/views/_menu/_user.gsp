@@ -12,13 +12,13 @@
 </sec:ifNotLoggedIn>
 <sec:ifLoggedIn>
 
-		<a class="dropdown-toggle" role="button" data-toggle="dropdown" data-target="#" href="#">
+		<a class="dropdown-toggle"  data-toggle="collapse" href="#userCollapse" role="button" aria-expanded="false" aria-controls="userCollapse">
 			<!-- TODO: Only show menu items based on permissions (e.g., Guest has no account page) -->
 			<i class="glyphicon glyphicon-user icon-white"></i>
 			<sec:loggedInUserInfo field="username"/>
 			<b class="caret"></b>
 		</a>
-		<ul class="dropdown-menu" role="menu">
+		<ul class="collapse" role="menu" id="userCollapse">
 		
 			<!-- TODO: Only show menu items based on permissions -->
 			<!-- 
