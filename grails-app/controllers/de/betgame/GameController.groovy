@@ -44,7 +44,7 @@ class GameController {
 		if (user) {
 			myBet = Bet.findByUserAndGame(user, gameInstance)
 		}
-        respond gameInstance, model: [myBet:myBet]
+        [gameInstance: gameInstance, myBet: myBet]
     }
 	
 	def edit(Game gameInstance) {

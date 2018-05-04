@@ -3,137 +3,186 @@ package de.betgame
 import grails.converters.JSON;
 import grails.converters.XML;
 import grails.transaction.Transactional
-import groovy.sql.Sql;
+import groovy.sql.Sql
+import groovyx.net.http.FromServer
+import groovyx.net.http.HttpBuilder
+import org.springframework.beans.factory.InitializingBean
+import org.springframework.security.access.method.P
 
-import de.msiggi.sportsdata.webservices.SportsdataSoap;
+import java.nio.charset.StandardCharsets;
+
+import static groovyx.net.http.HttpBuilder.configure
 
 /**
  * OpenLigaDBService
  * A service class encapsulates the core business logic of a Grails application
+ *
+ * Example for MatchData:
+ *
+ * {
+ *     "Goals": [],
+ *     "Group": {
+ *         "GroupID": 31086,
+ *         "GroupName": "Vorrunde",
+ *         "GroupOrderID": 1
+ *     },
+ *     "LastUpdateDateTime": "2018-05-02T09:48:28.303",
+ *     "LeagueId": 4231,
+ *     "LeagueName": "WM Rus 2018",
+ *     "Location": {
+ *         "LocationCity": "Moskau",
+ *         "LocationID": 367,
+ *         "LocationStadium": "Luzhniki Stadion"*
+ *     },
+ *     "MatchDateTime": "2018-06-14T17:00:00",
+ *     "MatchDateTimeUTC": "2018-06-14T15:00:00Z",
+ *     "MatchID": 50449,
+ *     "MatchIsFinished": false,
+ *     "MatchResults": [],
+ *     "NumberOfViewers": null,
+ *     "Team1": {
+ *         "ShortName": "",
+ *         "TeamIconUrl": "http://www.dfs-wappen.de/media/land/wappen_fl/dfs_fl_russland.gif",
+ *         "TeamId": 2926,
+ *         "TeamName": "Russsland"
+ *     },
+ *     "Team2": {
+ *         "ShortName": "",
+ *         "TeamIconUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/20px-Flag_of_Saudi_Arabia.svg.png",
+ *         "TeamId": 2408,
+ *         "TeamName": "Saudi-Arabien"
+ *     },
+ *     "TimeZoneID": "W. Europe StandardTime"
+ * }
+ *
+ *
  */
 @Transactional
-class OpenLigaDBService {
+class OpenLigaDBService implements InitializingBean {
 	
-	def dataSource_betgame
+	def dataSource
 	
-	SportsdataSoap openligaDBServiceClient
+	HttpBuilder httpBuilder
+	static final String openLigaDBURL = "https://www.openligadb.de/api/"
+	//SportsdataSoap openligaDBServiceClient
 	
-	def leagueShortcut = "em2016"
-	def leagueSeason = "2016"
-
-	def test() {
-		def res = openligaDBServiceClient.getAvailLeagues()
-		log.warn res
-		//def matchData = JSON.parse(openligaDBServiceClient.GetMatchdataByGroupLeagueSaisonJSON(1, leagueShortcut, leagueSaison))
+	def leagueShortcut = "fifa18"
+	def leagueSeason = "2018"
+	
+	@Override
+	void afterPropertiesSet() throws Exception {
+		httpBuilder = configure {
+			request.uri = openLigaDBURL
+			request.accept = 'application/json'
+		}
 	}
 	
 	def fetchGroups() {
-		def groups = openligaDBServiceClient.getAvailGroups(leagueShortcut, leagueSeason)
-		println groups.group.each { g ->
-			println g.properties
-		}
-	}
-	
-	def fetchTeamsAndGamesAndLocationsDryRun() {
-		def matchData = JSON.parse(openligaDBServiceClient.getMatchdataByGroupLeagueSaisonJSON(2, leagueShortcut, leagueSeason))
-		//matchData.findAll { it.groupName != 'Vorrunde' }.each { m ->
-		matchData.each { m ->
-			println m
-		}
-		println matchData.size()
-	}
-	
-	def fetchTeamsAndGamesAndLocationsForKnockouts() {
-		(2..6).each { groupOrderID ->
-			def matchData = JSON.parse(openligaDBServiceClient.getMatchdataByGroupLeagueSaisonJSON(groupOrderID, leagueShortcut, leagueSeason))
-			
-			log.info matchData
-			
-			matchData.each { match ->
-				if (match.matchID != -1) {
-					log.info "Processing Match: $match"
-					createOrUpdateGame(match)
-				}
-			}
-		}
+		def groups = invokeWebserviceMethod("getavailablegroups")
+		log.warn "${groups}"
+		return groups
 	}
 	
 	def fetchTeamsAndGamesAndLocations() {
-		def groups = openligaDBServiceClient.getAvailGroups(leagueShortcut, leagueSeason)
-		groups.group.each { grp ->
-			if (grp.groupOrderID) {
-				log.warn "Processing ${grp.groupOrderID}"
-				def matchData = JSON.parse(openligaDBServiceClient.getMatchdataByGroupLeagueSaisonJSON(grp.groupOrderID, leagueShortcut, leagueSeason))
-				
-				createOrUpdateLocations(matchData)
-				
-				matchData.findAll { it.matchID > 0 }.each { match ->
-					log.info "Processing Match: $match"
+		Team.withTransaction {
+			def groups = fetchGroups()
+			groups.each { grp ->
+				if (grp.GroupOrderID) {
+					log.warn "Processing ${grp.GroupOrderID}"
+					def matchData = invokeWebserviceMethod("getmatchdata", [grp.GroupOrderID])
+					log.warn "$matchData"
 					
-					createOrUpdateTeam(match.idTeam1, match.nameTeam1, match.iconUrlTeam1)
-					createOrUpdateTeam(match.idTeam2, match.nameTeam2, match.iconUrlTeam2)
-					createOrUpdateGame(match)
+					createOrUpdateLocations(matchData)
+					
+					matchData.findAll { it.MatchID > 0 }.each { match ->
+						log.info "Processing Match: $match"
+						
+						createOrUpdateTeam(match.Team1)
+						createOrUpdateTeam(match.Team2)
+						createOrUpdateGame(match)
+					}
+				} else {
+					log.error "Skipping grp"
 				}
-			} else {
-				log.error "Skipping grp"
 			}
 		}
 		postProcessingTeams()
 		//postProcessingGames()
 	}
 	
+	/**
+	 * Example:
+	 *
+	 * "Location": {
+	 *     "LocationCity": "Moskau",
+	 *     "LocationID": 367,
+	 *     "LocationStadium": "Luzhniki Stadion"
+	 * },
+	 */
 	def createOrUpdateLocations(matchData) {
-		def locations = matchData*.location.unique()
+		def locations = matchData*.Location.unique()
 		
-		locations.findAll { it.locationCity != null }.each { loc ->
+		locations.findAll { it.LocationCity != null }.each { loc ->
 			log.info "Processing Location: $loc"
 			Location l
-			l = Location.get(loc.locationID)
+			l = Location.get(loc.LocationID)
 			if (!l) {
 				l = new Location()
-				l.id = loc.locationID
+				l.id = loc.LocationID
 			}
-			l.city = loc.locationCity
-			l.stadium = loc.locationStadium
+			l.city = loc.LocationCity
+			l.stadium = loc.LocationStadium
 			
 			l.save(failOnError:true)
 		}
 	}
 	
-	def createOrUpdateTeam(Integer id, String name, String iconUrl) {
-		Team t = Team.get(id)
+	/**
+	 * Example:
+	 *
+	 * "Team1": {
+	 *    "ShortName": "",
+	 *    "TeamIconUrl": "http://www.dfs-wappen.de/media/land/wappen_fl/dfs_fl_russland.gif",
+	 *    "TeamId": 2926,
+	 *    "TeamName": "Russland"
+	 * },
+	 */
+	def createOrUpdateTeam(Map teamData) {
+		log.debug "Upsert Team: ${teamData}"
+		Team t = Team.get(teamData.TeamId)
 		if (!t) {
 			t = new Team()
-			t.id = id
+			t.id = teamData.TeamId
 		}
-		t.name = name
-		t.iconUrl = iconUrl
-		
-		
+		t.name = teamData.TeamName
+		t.iconUrl = teamData.TeamIconUrl
 		
 		t.save(failOnError : true)
 	}
 	
+	/**
+	 * Example: see big one above
+	 */
 	def createOrUpdateGame(match) {
-		Location l = Location.get(match.location.locationID)
-		Team t1 = Team.get(match.idTeam1)
-		Team t2 = Team.get(match.idTeam2)
+		Location l = Location.get(match.Location.LocationID)
+		Team t1 = Team.get(match.Team1.TeamId)
+		Team t2 = Team.get(match.Team2.TeamId)
 		
-		Game g = Game.get(match.matchID)
+		Game g = Game.get(match.MatchID)
 		if (!g) {
 			g = new Game()
-			g.id = match.matchID
+			g.id = match.MatchID
 		}
 		
 		g.team1 = t1
 		g.team2 = t2
 		g.location = l
-		g.playAt = match.matchDateTime
-		g.playAtUTC = match.matchDateTimeUTC
-		g.matchIsFinished = match.matchIsFinished
+		g.playAt = Date.parse("yyyy-MM-dd'T'HH:mm:ss", match.MatchDateTime)
+		g.playAtUTC = Date.parse("yyyy-MM-dd'T'HH:mm:ss", match.MatchDateTimeUTC)
+		g.matchIsFinished = match.MatchIsFinished
 		g.numberOfViewers = match.NumberOfViewers ?: null
-		g.groupName = match.groupName ? match.groupName.replace("Gruppe ", "") : null
-		g.phase = match.groupName?.startsWith("Gruppe ") ? 'Vorrunde' : match.groupName.replaceAll(" ", "")
+		g.groupName = match.Group.GroupName ? match.Group.GroupName.replace("Gruppe ", "") : null
+		g.phase = match.Group.GroupName?.startsWith("Gruppe ") ? 'Vorrunde' : match.Group.GroupName.replaceAll(" ", "")
 		
 		g.save(failOnError: true)
 	}
@@ -206,8 +255,39 @@ class OpenLigaDBService {
 	}
 	
 	def postProcessingTeams() {
-		Sql sql = new Sql(dataSource_betgame)
+		Sql sql = new Sql(dataSource)
 		sql.execute("""update team t set code = (select code from "countryNames" cn where t.name = cn.name limit 1) where code is null""")
+	}
+	
+	def deleteAllData() {
+		log.warn "DELETING ALL DATA!"
+		Sql sql = new Sql(dataSource)
+		sql.execute("delete from bet")
+		sql.execute("delete from game")
+		sql.execute("delete from location")
+		sql.execute("delete from team")
+		log.warn "Done."
+	}
+	
+	
+	private invokeWebserviceMethod(String methodName, List extraParams = null) {
+		httpBuilder.get {
+			request.uri.path = "/api/$methodName/$leagueShortcut/$leagueSeason/${extraParams?.join('/') ?: ''}"
+			request.charset = StandardCharsets.UTF_8
+			
+			response.success { FromServer fs, responseJson ->
+				if (fs.headers.find { it.key == 'Content-Type' }?.getValue()?.contains('json')) {
+					return responseJson
+				} else {
+					log.error "No JSON was returned in method ${request.uri.getPath()} Status: ${fs.statusCode}"
+					return null
+				}
+			}
+			
+			response.failure { x, rawResponseBody ->
+				log.error "Post-Request failed! ${rawResponseBody}, HTTP Status Code: ${rawResponseBody.statusCode}"
+			}
+		}
 	}
 	
 }

@@ -1,7 +1,6 @@
 package de.betgame
 
 import de.betgame.sec.User;
-import de.msiggi.sportsdata.webservices.SportsdataSoap
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional;
 
@@ -12,13 +11,14 @@ class HomeController {
 	def springSecurityService
 	
     def index() {
-		//openLigaDBService.fetchTeamsAndGamesAndLocations()
+		openLigaDBService.deleteAllData()
+		openLigaDBService.fetchTeamsAndGamesAndLocations()
 		def today = (new Date()).clearTime()
 		def nextGames = Game.findAllByMatchIsFinished(false, [sort:'playAt', max:4])
 		def lastGames = Game.findAllByMatchIsFinished(true, [sort:'playAt', order:'desc', max:4])
 		def user = springSecurityService.currentUser
 		def myBets
-		if (user) {
+		if (user && (nextGames || lastGames)) {
 			myBets = Bet.findAllByUserAndGameInList(user, nextGames+lastGames)
 			myBets = myBets.groupBy { it.game }
 		}

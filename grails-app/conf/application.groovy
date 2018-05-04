@@ -87,6 +87,8 @@ grails.plugin.springsecurity.filterChain.chainMap = [
  * =================================================================================================================
  */
 
+// Switching to JSON Rest API
+/*
 openligadb.soap.url="http://www.OpenLigaDB.de/Webservices/Sportsdata.asmx"
 
 cxf {
@@ -106,3 +108,4 @@ cxf {
         }
     }
 }
+*/
