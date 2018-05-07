@@ -4,19 +4,13 @@ import de.betgame.sec.User
 
 class Bet {
 
-	/* Default (injected) attributes of GORM */
-//	Long	id
-//	Long	version
 	User user
 	Game game 
 	Integer score1
 	Integer score2
 	
-	
-	/* Automatic timestamping of GORM */
 	Date	dateCreated
 	Date	lastUpdated
-	
 	
     static	mapping = {
 		id column: "bet_id"
@@ -53,11 +47,4 @@ class Bet {
 		}
 	}
 	
-	/*
-	 * Methods of the Domain Class
-	 */
-//	@Override	// Override toString for a nicer / more descriptive UI 
-//	public String toString() {
-//		return "${name}";
-//	}
 }

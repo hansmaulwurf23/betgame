@@ -12,14 +12,11 @@
 
 <body>
 <ul id="Menu" class="nav nav-pills margin-top-small groups">
-<g:each in="${groups}" var="g">
+<g:each in="${phases}" var="p">
 	<li class="nav-item">
-		<g:link class="nav-link ${ g == group ? 'active' : '' }" action="list" params="[group:g]">${g}</g:link>
+		<g:link class="nav-link ${ p == phase ? 'active' : '' }" action="list" params="[phase:p]">${p}</g:link>
 	</li>
 </g:each>
-<li class="nav-item">
-	<g:link class="nav-link ${ phase ? 'active' : '' }" action="list" params="[phase:'KO']">K.O.</g:link>
-</li>
 </ul>
 
 <section id="list-game" class="first">
@@ -28,23 +25,24 @@
 		<thead>
 		</thead>
 		<tbody>
-		<g:each in="${gameInstanceList}" status="i" var="gameInstance">
-			<tr class="${gameInstance.matchIsFinished ? 'active' : ''}">
-				<g:set var="notbet" value="${!(gameInstance.id in gameIDsFromBets) }" />
-				<td><g:link action="show" id="${gameInstance.id}" class="${notbet ? 'text-danger' : ''}">
-					<g:formatDate date="${gameInstance?.playAt}" formatName="default.gamedate.format" />${notbet ? '!' : ''}
+		<g:each in="${games}" status="i" var="game">
+			<tr class="${game.matchIsFinished ? 'active' : ''}">
+				<g:set var="notbet" value="${!(game.id in gameIDsFromBets) }" />
+				<td><g:link action="show" id="${game.id}" class="${notbet ? 'text-danger' : ''}">
+					<g:formatDate date="${game?.playAt}" formatName="default.gamedate.format" />${notbet ? '!' : ''}
 				</g:link></td>
 				<g:if test="${!group}">
-				<g:if test="${!phase && gameInstance?.groupName}">
-					<td><g:link action="list" params="[group: gameInstance?.groupName]">${raw(NameUtil.convertGroupName(gameInstance.groupName))}</g:link></td>
+					<g:set var="curGroup" value="${game?.team1?.groupName == game?.team2?.groupName ? game?.team1?.groupName : null}" />
+					<g:if test="${curGroup}">
+						<td><g:link action="list" params="[group: curGroup]">${curGroup}</g:link></td>
+					</g:if>
+					<g:else>
+						<td><g:message code="ko.phase.${game?.phase}"/></td>
+					</g:else>
 				</g:if>
-				<g:else>
-					<td><g:message code="ko.phase.${gameInstance?.phase}"/></td>
-				</g:else>
-				</g:if>
-				<td style="text-align: right;">${gameInstance.team1.code ?: gameInstance.team1.name} <bg:flag team="${gameInstance.team1}" /></td>
-				<td style="text-align: center;">${gameInstance.finalScore1}:${gameInstance.finalScore2}</td>
-				<td><bg:flag team="${gameInstance.team2}" /> ${gameInstance.team2.code ?: gameInstance.team2.name}</td>
+				<td style="text-align: right;">${game.team1.code ?: game.team1.name} <bg:flag team="${game.team1}" /></td>
+				<td style="text-align: center;">${game.finalScore1}:${game.finalScore2}</td>
+				<td><bg:flag team="${game.team2}" /> ${game.team2.code ?: game.team2.name}</td>
 			</tr>
 		</g:each>
 		</tbody>

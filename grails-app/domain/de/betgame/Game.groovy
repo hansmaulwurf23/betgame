@@ -16,11 +16,9 @@ class Game {
 	Date playAtUTC
 	Integer numberOfViewers
 	Boolean matchIsFinished
-	String groupName
 	String goals
 	String phase
 	
-	/* Automatic timestamping of GORM */
 	Date	dateCreated
 	Date	lastUpdated
 	
@@ -42,7 +40,6 @@ class Game {
 		dateCreated nullable: true
 		lastUpdated nullable: true
 		numberOfViewers nullable: true
-		groupName nullable: true
 		location nullable: true
 		goals nullable: true
 		phase nullable: true

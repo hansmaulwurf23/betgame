@@ -6,14 +6,18 @@
 	<ul class="collapse" id="adminCollapse">
 		<li class="">
 			<a href="${createLink(uri: '/systeminfo')}">
-				<i class="glyphicon glyphicon-info-sign"></i>
+				<i class="fas fa-info-circle"></i>
 				<g:message code="default.systeminfo.label"/>
 			</a>
 		</li>
 		
 		<sec:ifAnyGranted roles="ROLE_MAILADMIN">
 			<li class="controller${params.controller == 'quartz' ? " active" : ""}">
-				<g:link controller="quartz" action="list"><i class="glyphicon glyphicon-time"></i> Quartz</g:link>
+				<g:link controller="quartz" action="list"><i class="far fa-clock"></i> Quartz</g:link>
+			</li>
+
+			<li class="controller${params.controller == 'script' ? " active" : ""}">
+				<g:link controller="script" action="editor"><i class="far fa-file-alt"></i> Script</g:link>
 			</li>
 		</sec:ifAnyGranted>
 	</ul>

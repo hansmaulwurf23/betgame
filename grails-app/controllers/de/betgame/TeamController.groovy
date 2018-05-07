@@ -11,8 +11,6 @@ class TeamController {
 
 	def springSecurityService
 	
-	def beforeInterceptor = { }
-	
 	def index() {
         redirect(action:'list')
     }

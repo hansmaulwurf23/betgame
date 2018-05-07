@@ -1,16 +1,13 @@
 package de.betgame
 
-import grails.converters.JSON;
-import grails.converters.XML;
+import grails.converters.JSON
 import grails.transaction.Transactional
 import groovy.sql.Sql
 import groovyx.net.http.FromServer
 import groovyx.net.http.HttpBuilder
 import org.springframework.beans.factory.InitializingBean
-import org.springframework.security.access.method.P
 
-import java.nio.charset.StandardCharsets;
-
+import java.nio.charset.StandardCharsets
 import static groovyx.net.http.HttpBuilder.configure
 
 /**
@@ -66,7 +63,7 @@ class OpenLigaDBService implements InitializingBean {
 	static final String openLigaDBURL = "https://www.openligadb.de/api/"
 	//SportsdataSoap openligaDBServiceClient
 	
-	def leagueShortcut = "fifa18"
+	def leagueShortcut = "wm_2018"
 	def leagueSeason = "2018"
 	
 	@Override
@@ -84,7 +81,7 @@ class OpenLigaDBService implements InitializingBean {
 	}
 	
 	def fetchTeamsAndGamesAndLocations() {
-		Team.withTransaction {
+		Team.withNewTransaction {
 			def groups = fetchGroups()
 			groups.each { grp ->
 				if (grp.GroupOrderID) {
@@ -181,7 +178,6 @@ class OpenLigaDBService implements InitializingBean {
 		g.playAtUTC = Date.parse("yyyy-MM-dd'T'HH:mm:ss", match.MatchDateTimeUTC)
 		g.matchIsFinished = match.MatchIsFinished
 		g.numberOfViewers = match.NumberOfViewers ?: null
-		g.groupName = match.Group.GroupName ? match.Group.GroupName.replace("Gruppe ", "") : null
 		g.phase = match.Group.GroupName?.startsWith("Gruppe ") ? 'Vorrunde' : match.Group.GroupName.replaceAll(" ", "")
 		
 		g.save(failOnError: true)

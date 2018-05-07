@@ -11,30 +11,25 @@ class GameController {
 	def springSecurityService
 	def openLigaDBService
 	
-	def beforeInterceptor = { }
-
 	def index() {
         redirect(action:'list')
     }
 
 	def list(String group, String phase) {
 		def games
-		if (Game.countByPlayAtGreaterThanAndPhase(new Date(), 'Vorrunde') == 0) {
-			phase = phase ?: 'KO'
-		}
+		
 		if (!phase) {
-			games = !group ? Game.list([sort:'playAtUTC']) : Game.findAllByGroupName(group, [sort:'playAtUTC'])
+			games = Game.list([sort:'playAtUTC'])
 		} else {
-			games = Game.findAllByPhaseNot('Vorrunde', [sort:'playAtUTC'])
+			games = Game.findAllByPhase(phase, [sort:'playAtUTC'])
 		}
-		def groups = Game.executeQuery("select distinct groupName from Game where groupName is not null order by groupName")
-		groups = groups.findAll { !(it in NameUtil.koPhaseShortcuts) }
-		log.warn "$groups"
+		
+		def phases = Game.executeQuery("select phase from Game order by playAtUTC")?.unique()
 		
 		def user = springSecurityService.currentUser
 		def gameIDsFromBets = Bet.executeQuery("select b.game.id as gameID from Bet b where b.user = :u", [u:user])
 		
-        [gameInstanceList:games, groups:groups, group:group, layout_nosecondarymenu:true, phase:phase, gameIDsFromBets:gameIDsFromBets]
+        [games:games, phases:phases, group:group, phase:phase, gameIDsFromBets:gameIDsFromBets]
     }
 
     def show(Game gameInstance) {
