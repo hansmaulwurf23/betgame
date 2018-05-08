@@ -54,32 +54,43 @@ class ScriptService {
 
         // get current instance
         def currentInstance = getScriptWithMeta(script.name)
-
+    
         if (!currentInstance) {
             // init new instance
             script.version = 1
         } else {
-            if (script.content == currentInstance.content) {
+            
+            if (script.properties == currentInstance.properties) {
                 log.info "No changes to ${script.name}; skipping save"
                 return currentInstance
             }
             script.version = currentInstance.version + 1
         }
-
+        
         script.save(flush:true)
         return script
     }
 
 
     def readFolder(String folder) {
-        Script.executeQuery("from Script where name like '%$folder%'")
+        Script.withSession { session ->
+            Sql sql = new Sql(session.connection())
+            def scriptIDs =  sql.rows("""
+                select s.script_id as id
+                from scripts s
+                where version = (select max(version) from scripts t where t.name = s.name)
+                  and folder ilike '%/${folder}/%'
+            """.toString())*.id
+        
+            Script.getAll(scriptIDs)
+        }
     }
 
     def registerScript(String name, force = false) {
         if(!gscriptingService.scriptRuntimeEnvs[name] || force){
-            def script = getScript(name)
+            Script script = getScript(name)
             if (script) {
-                gscriptingService.registerScriptRuntimeEnv(script.name, script.content)
+                gscriptingService.registerScriptRuntimeEnv(script.name, script.content, script.dsl ?: 'default')
                 log.info "Registering script with name: ${name}"
             }else{
                 log.error "Cannot find script with name: ${name}"
@@ -90,7 +101,7 @@ class ScriptService {
     def unregisterScript(String name) {
         gscriptingService.unregisterScriptRuntimeEnv(name)
     }
-
+    
     def getScriptWithMeta(String name, Long version = null) {
         def instance = null
         if (name) {
@@ -105,6 +116,12 @@ class ScriptService {
         }
         return instance
     }
-
-
+    
+    def registerDsl(providerScript) {
+        log.info "Registering:  ${providerScript.name} with dsl: ${providerScript.dsl}"
+        gscriptingService.registerDslProviderScriptRuntimeEnv(providerScript.name, providerScript.content, providerScript.dsl)
+    }
+    
+    
+    
 }

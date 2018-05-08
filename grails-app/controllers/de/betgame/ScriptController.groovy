@@ -55,10 +55,10 @@ class ScriptController {
 
         script.content = params['content']
         script.name = params['name']
-        script.mode = params['mode'] ? params['mode'] : null
+        script.mode = params['mode']
         script.folder = params['folder']
         script.author = params['author']
-        script.dsl = params['dsl'] ? params['dsl'] : null
+        script.dsl = params['dsl'] ?: 'default'
         script.status = params['status']
 
         def result = scriptService.saveScript(script, springSecurityService.isLoggedIn() ? springSecurityService.authentication.principal.username: '[na]')

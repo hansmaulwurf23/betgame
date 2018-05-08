@@ -1,8 +1,12 @@
 package de.betgame
 
+import grails.converters.JSON
+import org.quartz.JobDetail
+import org.quartz.JobKey
+import org.quartz.impl.matchers.StringMatcher
+
 import static org.quartz.impl.matchers.GroupMatcher.jobGroupEquals
-import grails.plugins.quartz.QuartzMonitorJobFactory;
-import grails.plugin.springsecurity.annotation.Secured;
+import grails.plugin.springsecurity.annotation.Secured
 
 import org.quartz.CronTrigger
 import org.quartz.Scheduler
@@ -12,148 +16,71 @@ import org.quartz.impl.matchers.GroupMatcher
 
 @Secured(['ROLE_MAILADMIN'])
 class QuartzController {
-    static final Map<String, Trigger> triggers = [:]
-
     Scheduler quartzScheduler
+    def scriptService
 
-    def index = {
+    def index() {
         redirect(action: "list")
     }
 
-    def list = {
-        def jobsList = []
-        def listJobGroups = quartzScheduler.jobGroupNames
-        listJobGroups?.each {jobGroup ->
-            quartzScheduler.getJobKeys(jobGroupEquals(jobGroup))?.each {jobKey ->
-                def jobName = jobKey.name
-                List<Trigger> triggers = quartzScheduler.getTriggersOfJob(jobKey)
-                if (triggers) {
-                    triggers.each {trigger ->
-                        def currentJob = createJob(jobGroup, jobName, jobsList, trigger.key.name)
-                        currentJob.trigger = trigger
-                        def state = quartzScheduler.getTriggerState(trigger.key)
-                        currentJob.triggerStatus = Trigger.TriggerState.find {
-                            it == state
-                        } ?: "UNKNOWN"
-                    }
-                } else {
-                    createJob(jobGroup, jobName, jobsList)
+    def list() {
+        def jobScripts = scriptService.readFolder('jobs')
+        def jobsData = [:].withDefault { [:] }
+        
+        jobScripts.each { js ->
+            jobsData[js.name].status = doGetJobStatus(js.name)
+        }
+    
+        quartzScheduler.jobGroupNames?.each { jobGroup ->
+            quartzScheduler.getJobKeys(new GroupMatcher<JobKey>(jobGroup, StringMatcher.StringOperatorName.EQUALS))?.each { jobKey ->
+                def regTriggers = quartzScheduler.getTriggersOfJob(jobKey)
+                regTriggers.each { trigger ->
+                    log.warn "${trigger.properties}"
+                    jobsData[jobKey.name].trigger = trigger
                 }
+    
             }
         }
-        [jobs: jobsList, now: new Date(), scheduler: quartzScheduler]
+        
+        log.warn "${jobsData}"
+        
+        [jobs: jobScripts*.name, now: new Date(), scheduler: quartzScheduler, jobsData: jobsData]
     }
 
-    private createJob(String jobGroup, String jobName, List jobsList, String triggerName = "") {
-        def currentJob = [group: jobGroup, name: jobName]
-        def map = QuartzMonitorJobFactory.jobRuns[triggerName]
-        if (map) currentJob << map
-        jobsList << currentJob
-        return currentJob
-    }
-
-    def stop = {
-        def triggerKeys = quartzScheduler.getTriggerKeys(GroupMatcher.triggerGroupEquals(params.triggerGroup))
-        def key = triggerKeys?.find {it.name == params.triggerName}
-        if (key) {
-            def trigger = quartzScheduler.getTrigger(key)
-            if (trigger) {
-                triggers[params.jobName] = trigger
-                quartzScheduler.unscheduleJob(key)
-            } else {
-                flash.message = "No trigger could be found for $key"
-            }
-        } else {
-            flash.message = "No trigger key could be found for $params.triggerGroup : $params.triggerName"
-        }
+    def stop(String jobName) {
+        scriptService.runScript(jobName, [action:'stop'])
         redirect(action: "list")
     }
 
-    def start = {
-        def trigger = triggers[params.jobName]
-        if (trigger) {
-            quartzScheduler.scheduleJob(trigger)
-        } else {
-            flash.message = "No trigger could be found for $params.jobName"
-        }
+    def start(String jobName) {
+        scriptService.runScript(jobName, [action:'start'])
+        redirect(action: "list")
+    }
+    
+    def status(String jobName) {
+        def result = [status: 'OK']
+        def status = scriptService.runScript(jobName, [action: 'status'])
+        result.jobStatus = status
+        render result as JSON
+    }
+    
+    private doGetJobStatus(String jobName) {
+        return scriptService.runScript(jobName, [action:'status'])
+    }
+
+    def runNow(String jobName) {
+        scriptService.runScript(jobName, [action:'runNow'])
         redirect(action: "list")
     }
 
-    def pause = {
-        def jobKeys = quartzScheduler.getJobKeys(GroupMatcher.jobGroupEquals(params.jobGroup))
-        def key = jobKeys?.find {it.name == params.jobName}
-        if (key) {
-            quartzScheduler.pauseJob(key)
-        } else {
-            flash.message = "No job key could be found for $params.jobGroup : $params.jobName"
-        }
-        redirect(action: "list")
-    }
-
-    def resume = {
-        def jobKeys = quartzScheduler.getJobKeys(GroupMatcher.jobGroupEquals(params.jobGroup))
-        def key = jobKeys?.find {it.name == params.jobName}
-        if (key) {
-            quartzScheduler.resumeJob(key)
-        } else {
-            flash.message = "No job key could be found for $params.jobGroup : $params.jobName"
-        }
-        redirect(action: "list")
-    }
-
-    def runNow = {
-        def jobKeys = quartzScheduler.getJobKeys(GroupMatcher.jobGroupEquals(params.jobGroup))
-        def key = jobKeys?.find {it.name == params.jobName}
-        if (key) {
-            quartzScheduler.triggerJob(key)
-        } else {
-            flash.message = "No job key could be found for $params.jobGroup : $params.jobName"
-        }
-        redirect(action: "list")
-    }
-
-    def startScheduler = {
+    def startScheduler() {
         quartzScheduler.start()
         redirect(action: "list")
     }
 
-    def stopScheduler = {
+    def stopScheduler() {
         quartzScheduler.standby()
         redirect(action: "list")
     }
 
-    def editCronTrigger = {
-        def trigger = quartzScheduler.getTrigger(new TriggerKey(params.triggerName, params.triggerGroup))
-        if (!(trigger instanceof CronTrigger)) {
-            flash.message = "This trigger is not a cron trigger"
-            redirect(action: "list")
-            return
-        }
-        [trigger: trigger]
-    }
-
-    def saveCronTrigger = {
-        if (!params.triggerName || !params.triggerGroup) {
-            flash.message = "Invalid trigger parameters"
-            redirect(action: "list")
-            return
-        }
-
-        CronTrigger trigger = quartzScheduler.getTrigger(new TriggerKey(params.triggerName, params.triggerGroup)) as CronTrigger
-        if (!trigger) {
-            flash.message = "No such trigger"
-            redirect(action: "list")
-            return
-        }
-
-        try {
-            trigger.cronExpression = params.cronexpression
-            quartzScheduler.rescheduleJob(new TriggerKey(params.triggerName, params.triggerGroup), trigger)
-        } catch (Exception ex) {
-            flash.message = "cron expression (${params.cronexpression}) was not correct: $ex"
-            render(view: "editCronTrigger", model: [trigger: trigger])
-            return
-        }
-        redirect(action: "list")
-    }
 }
