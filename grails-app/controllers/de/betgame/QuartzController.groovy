@@ -1,18 +1,11 @@
 package de.betgame
 
 import grails.converters.JSON
-import org.quartz.JobDetail
-import org.quartz.JobKey
-import org.quartz.impl.matchers.StringMatcher
-
-import static org.quartz.impl.matchers.GroupMatcher.jobGroupEquals
 import grails.plugin.springsecurity.annotation.Secured
-
-import org.quartz.CronTrigger
+import org.quartz.JobKey
 import org.quartz.Scheduler
-import org.quartz.Trigger
-import org.quartz.TriggerKey
 import org.quartz.impl.matchers.GroupMatcher
+import org.quartz.impl.matchers.StringMatcher
 
 @Secured(['ROLE_MAILADMIN'])
 class QuartzController {

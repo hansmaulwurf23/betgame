@@ -12,18 +12,18 @@
 <section id="login" class="first">
 
 <div class="row">
-	<div class="col-md-3"></div>
-	<div class="col-md-6">
+	<div class="col col-md-3"></div>
+	<div class="col col-md-6">
 		<form role="form" id='loginForm' class='form-horizontal' action='${postUrl}' method='POST' autocomplete='off'>
 		
-			<div class="panel panel-default">
+			<div class="card ">
 	
 		
-				<div class="panel-heading ">
+				<div class="card-header ">
 					<h3> <g:message code="springSecurity.login.header"/> </h3>
 				</div>
 				
-				<div class="panel-body">
+				<div class="card-body">
 				
 				<div class="${hasErrors(bean: _DemoPageInstance, field: 'name', 'error')} ">
 					<label for='username' class="control-label"><g:message code="springSecurity.login.username.label"/>:</label>
@@ -41,12 +41,12 @@
 				
 				</div>
 				
-				<div class="panel-footer">
+				<div class="card-footer">
 					<input type='submit' id="submit" class="btn btn-success" value='${message(code: "springSecurity.login.button")}'/>
 				</div>
 		</form>
 	</div>
-	<div class="col-md-3"></div>
+	<div class="col col-md-3"></div>
 </div>
 </section>
 

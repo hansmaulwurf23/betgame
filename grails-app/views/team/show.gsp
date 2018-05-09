@@ -5,54 +5,52 @@
 	<meta name="layout" content="main" />
 	<g:set var="entityName" value="${message(code: 'teams.label', default: 'Teams')}" />
 	<title><g:message code="default.show.label" args="[entityName]" /></title>
-	
-	<g:set var="layout_nosecondarymenu"	value="${true}" scope="request"/>
 </head>
 
 <body>
 
 
-<ul id="Menu" class="nav nav-pills margin-top-small">
-	<li class="${ params.action == "list" ? 'active' : '' }">
-		<g:link action="list"><i class="glyphicon glyphicon-th-list"></i> <g:message code="default.list.label" args="[entityName]"/></g:link>
-	</li>
-</ul>
+<div class="btn-toolbar my-1">
+	<g:link action="list" class="btn btn-secondary ${params.action == 'list' ? 'active' : ''}">
+		<i class="fas fa-list"></i> <g:message code="list.label"/>
+	</g:link>
+</div>
 
 <section id="show-teams" class="first">
 <div class="container">
-<div class="panel panel-default">
+<div class="card ">
 	
-	<div class="panel-heading">
+	<div class="card-header">
 	<div class="row">
-		<div class="col-xs-6">${teamInstance.code}</div>
-  		<div class="col-xs-6 text-right">${teamInstance.name}</div>
+		<div class="col col-xs-6">${team.code}</div>
+  		<div class="col col-xs-6 text-right">${team.name}</div>
   	</div>
 	</div>
 	
-  	<g:each in="${games}" var="gameInstance">
+  	<g:each in="${games}" var="game">
   		<div class="row">
-			<div class="col-xs-3 text-right">
-				<g:link controller="team" action="show" id="${gameInstance?.team1?.id}">
-					${gameInstance?.team1?.code?.encodeAsHTML()}
+			<div class="col col-xs-3 text-right">
+				<g:link controller="team" action="show" id="${game?.team1?.id}">
+					${game?.team1?.code?.encodeAsHTML()}
 				</g:link>
-				<bg:flag team="${gameInstance.team1}" />
+				<bg:flag team="${game.team1}" />
 			</div>
-			<div class="col-xs-3 text-center">
-				${gameInstance.score1}:${gameInstance.score2}
+			<div class="col col-xs-3 text-center">
+				${game.score1}:${game.score2}
 			</div>
-			<div class="col-xs-3">
-				<bg:flag team="${gameInstance.team2}" />
-				<g:link controller="team" action="show" id="${gameInstance?.team2?.id}">
-					${gameInstance?.team2?.code?.encodeAsHTML()}
+			<div class="col col-xs-3">
+				<bg:flag team="${game.team2}" />
+				<g:link controller="team" action="show" id="${game?.team2?.id}">
+					${game?.team2?.code?.encodeAsHTML()}
 				</g:link>
 			</div>
-			<div class="col-xs-3 text-center">
-				<g:if test="${myBets[gameInstance]}">
-					<bg:score bet="${myBets[gameInstance]}"></bg:score>
-					${myBets[gameInstance].score1}:${myBets[gameInstance].score2}
+			<div class="col col-xs-3 text-center">
+				<g:if test="${myBets[game]}">
+					<bg:score bet="${myBets[game]}"></bg:score>
+					${myBets[game].score1}:${myBets[game].score2}
 				</g:if>
 				<g:else>
-					<sec:ifLoggedIn><g:link controller="bet" action="create" params="['game.id': gameInstance.id]" ><i class="glyphicon glyphicon-pencil"></i></g:link></sec:ifLoggedIn>
+					<sec:ifLoggedIn><g:link controller="bet" action="create" params="['game.id': game.id]" ><i class="glyphicon glyphicon-pencil"></i></g:link></sec:ifLoggedIn>
 				</g:else>
 			</div>
 		</div>

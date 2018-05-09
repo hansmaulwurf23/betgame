@@ -1,26 +1,22 @@
-<div class="panel panel-default">
+<div class="card">
 
-	<div class="panel-heading">
+	<div class="card-header">
 		<div class="row">
-			<div class="col-xs-4">
+			<div class="col col-xs-4">
 				<g:formatDate date="${gameInstance?.playAt}" formatName="default.gamedate.format" />
 			</div>
-			<div class="col-xs-4 text-center">
+			<div class="col col-xs-4 text-center">
 				<bg:gameStatus game="${gameInstance}" />
 			</div>
-			<div class="col-xs-4 text-right">
-				<g:if test="${gameInstance?.groupName}" >
-					<g:link controller="game" action="list" params="[group: gameInstance?.groupName]">Gruppe ${gameInstance?.groupName}</g:link>
-				</g:if>
-				<g:else>
-					<g:link controller="game" action="list" params="[phase: 'KO']"><g:message code="ko.phase.${gameInstance?.phase}"/></g:link>
-				</g:else>
+			<div class="col col-xs-4 text-right">
+				<g:link controller="game" action="list" params="[phase: gameInstance?.phase]">${gameInstance?.phase}</g:link>
 			</div>
 		</div>
 	</div>
 
+	<div class="card-body">
 	<div class="row">
-		<div class="col-xs-12 text-center">
+		<div class="col col-xs-12 text-center">
 			@
 			<g:link controller="location" action="show" id="${gameInstance?.location?.id}">
 				${gameInstance?.location?.encodeAsHTML()}
@@ -31,7 +27,7 @@
 	<g:render template="gameDivRow" />
 	
 	<g:if test="${!gameInstance.sameAsFinalScore}" >
-		<div class="col-xs-12 text-center">
+		<div class="col col-xs-12 text-center">
 			(${gameInstance?.score1}:${gameInstance?.score2})
 		</div>
 	</g:if>
@@ -40,17 +36,17 @@
 		<hr />
 		<g:each in="${gameInstance.goalInfos()}" status="i" var="g">
 		<div class="row">
-			<div class="col-xs-10">
+			<div class="col col-xs-10">
 				<span class="badge">${g.minute}.</span> ${g.score1}:${g.score2} ${g.getter}
 			</div>
-			<div class="col-xs-2 text-right">
+			<div class="col col-xs-2 text-right">
 				<bg:goalInfos goal="${g}" />
 			</div>
 		</div>
 		</g:each>
 		<g:if test="${gameInstance.numberOfViewers}">
 		<div class="row" style="margin-top:15px;">
-			<div class="col-xs-12">
+			<div class="col col-xs-12">
 				<g:message code="spectators" default="Zuschauer"/>: ${gameInstance.numberOfViewers}
 			</div>
 		</div>
@@ -60,14 +56,14 @@
 
 	<div class="row">
 		<g:if test="${myBet}">
-			<div class="col-xs-12 text-center">
+			<div class="col col-xs-12 text-center">
 				<g:link controller="bet" action='edit' id="${myBet.id}">
 					${myBet.score1}:${myBet.score2}
 				</g:link>
 			</div>
 		</g:if>
 		<g:else>
-			<div class="col-xs-12 text-center">
+			<div class="col col-xs-12 text-center">
 				<sec:ifNotLoggedIn>
 					<g:link controller='login' action='auth'>
 						<g:message code="not.logged.in" default="Nicht angemeldet" />
@@ -81,10 +77,11 @@
 			</div>
 		</g:else>
 	</div>
+	</div>
 
-	<div class="panel-footer">
+	<div class="card-footer">
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col col-xs-12">
 				<small>updated: <g:formatDate date="${gameInstance?.lastUpdated}" formatName="default.gamedate.format" /></small> 
 				<sec:ifAnyGranted roles="ROLE_MAILADMIN">
 					<g:link action="edit" id="${gameInstance.id}">Edit Score</g:link>

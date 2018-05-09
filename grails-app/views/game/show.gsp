@@ -1,4 +1,3 @@
-
 <%@ page import="de.betgame.Game" %>
 <!DOCTYPE html>
 <html>
@@ -7,17 +6,15 @@
 	<meta name="layout" content="main" />
 	<g:set var="entityName" value="${message(code: 'games.label', default: 'Games')}" />
 	<title><g:message code="default.show.label" args="[entityName]" /></title>
-	
-	<g:set var="layout_nosecondarymenu"	value="${true}" scope="request"/>
 </head>
 
 <body>
 
-<ul id="Menu" class="nav nav-pills margin-top-small">
-	<li class="${ params.action == "list" ? 'active' : '' }">
-		<g:link action="list"><i class="glyphicon glyphicon-th-list"></i> <g:message code="default.list.label" args="[entityName]"/></g:link>
-	</li>
-</ul>
+<div class="btn-toolbar my-1">
+	<g:link action="list" class="btn btn-secondary ${ params.action == "list" ? 'active' : '' }">
+		<i class="fas fa-list"></i> <g:message code="list.label"/></g:link>
+
+</div>
 
 <section id="show-games" class="first">
 <div class="container">

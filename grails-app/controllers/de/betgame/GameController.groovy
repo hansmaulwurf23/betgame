@@ -1,7 +1,8 @@
 package de.betgame
 
 import grails.plugin.springsecurity.annotation.Secured
-import grails.transaction.Transactional;
+import grails.transaction.Transactional
+import groovy.sql.Sql;
 
 @Secured(['ROLE_EMPLOYEE_191', 'ROLE_STUDENTASSISTENT_191'])
 class GameController {
@@ -11,25 +12,30 @@ class GameController {
 	def springSecurityService
 	def openLigaDBService
 	
+	def dataSource
+	
 	def index() {
         redirect(action:'list')
     }
 
 	def list(String group, String phase) {
-		def games
+		Sql sql = new Sql(dataSource)
+		String query = """
+			select game_id from game g where 1=1
+			${phase ? " and phase = '$phase' " : ''}
+			${group ? " and team1_id in (select team_id from team where group_name = '$group') and team2_id in (select team_id from team where group_name = '$group')" : ''}
+		""".toString()
 		
-		if (!phase) {
-			games = Game.list([sort:'playAtUTC'])
-		} else {
-			games = Game.findAllByPhase(phase, [sort:'playAtUTC'])
-		}
+		def gameIDs = sql.rows(query)
 		
+		def games = Game.getAll(gameIDs*.game_id)
 		def phases = Game.executeQuery("select phase from Game order by playAtUTC")?.unique()
+		def groups = Team.executeQuery("select distinct groupName from Team order by groupName")
 		
 		def user = springSecurityService.currentUser
 		def gameIDsFromBets = Bet.executeQuery("select b.game.id as gameID from Bet b where b.user = :u", [u:user])
 		
-        [games:games, phases:phases, group:group, phase:phase, gameIDsFromBets:gameIDsFromBets]
+        [games:games, phases:phases, groups:groups, group:group, phase:phase, gameIDsFromBets:gameIDsFromBets]
     }
 
     def show(Game gameInstance) {

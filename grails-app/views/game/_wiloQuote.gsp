@@ -4,15 +4,15 @@
 
 <g:set var="divID" value="${UUID.randomUUID()}" />
 
-<div class="panel panel-default">
-	<div class="panel-heading">
+<div class="card ">
+	<div class="card-header">
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col col-xs-12">
 				${titel}
 			</div>
 		</div>
 	</div>
-	<div class="row condensed panel-body" id='${divID}'></div>
+	<div class="row condensed card-body" id='${divID}'></div>
 </div>
 
 <script>

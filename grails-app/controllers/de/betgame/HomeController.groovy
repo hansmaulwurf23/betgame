@@ -7,12 +7,9 @@ import grails.transaction.Transactional;
 @Transactional
 class HomeController {
 
-	def openLigaDBService
 	def springSecurityService
 	
     def index() {
-		openLigaDBService.deleteAllData()
-		openLigaDBService.fetchTeamsAndGamesAndLocations()
 		def today = (new Date()).clearTime()
 		def nextGames = Game.findAllByMatchIsFinished(false, [sort:'playAt', max:4])
 		def lastGames = Game.findAllByMatchIsFinished(true, [sort:'playAt', order:'desc', max:4])

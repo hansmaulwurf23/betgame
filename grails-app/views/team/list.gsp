@@ -12,8 +12,8 @@
 
 <section id="list-teams" class="first">
 
-	<table class="table table-bordered margin-top-medium">
-		<thead>
+	<table class="table table-striped table-sm mt-2">
+		<thead class="thead-dark">
 			<tr>
 				<th>${message(code: 'teams.code.label', default: 'Code')}</th>
 				<th>${message(code: 'teams.title.label', default: 'Title')}</th>
@@ -21,11 +21,11 @@
 			</tr>
 		</thead>
 		<tbody>
-		<g:each in="${teamsInstanceList}" status="i" var="teamsInstance">
+		<g:each in="${teams}" status="i" var="team">
 			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-				<td><bg:flag team="${teamsInstance}" /> <g:link action="show" id="${teamsInstance.id}">${fieldValue(bean: teamsInstance, field: "code")}</g:link></td>
-				<td>${fieldValue(bean: teamsInstance, field: "name")}</td>
-				<td><g:link controller="game" action="list" params="[group:groupMap[teamsInstance.code]]" >${groupMap[teamsInstance.code]}</g:link></td>
+				<td><bg:flag team="${team}" /> <g:link action="show" id="${team.id}">${fieldValue(bean: team, field: "code")}</g:link></td>
+				<td>${fieldValue(bean: team, field: "name")}</td>
+				<td><g:link controller="game" action="list" params="[group:team.groupName]" >${team.groupName}</g:link></td>
 			</tr>
 		</g:each>
 		</tbody>

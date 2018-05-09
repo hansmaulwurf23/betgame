@@ -4,11 +4,8 @@
 		<g:message code="default.admin.label"/><b class="caret"></b>
 	</a>
 	<ul class="collapse" id="adminCollapse">
-		<li class="">
-			<a href="${createLink(uri: '/systeminfo')}">
-				<i class="fas fa-info-circle"></i>
-				<g:message code="default.systeminfo.label"/>
-			</a>
+		<li class="controller${params.controller == 'admin' ? " active" : ""}">
+			<g:link controller="admin" action="countryNames"><i class="fas fa-globe"></i> CountryNames</g:link>
 		</li>
 		
 		<sec:ifAnyGranted roles="ROLE_MAILADMIN">

@@ -1,33 +1,28 @@
-<div class="panel panel-default">
-	<div class="panel-heading">
+<div class="card my-2">
+	<div class="card-header">
 		<div class="row">
-			<div class="col-xs-2">
-				<g:link controller="game" action="show" id="${gameInstance?.id}">
-  					<span class="glyphicon glyphicon-th-large"></span>
-  				</g:link>
-			</div>
-			<div class="col-xs-2 text-right">
-				<g:link controller="team" action="show" id="${gameInstance?.team1?.id}">
-					${gameInstance?.team1?.code}
+			<div class="col col-xs-4 text-right">
+				<g:link controller="game" action="show" id="${game?.id}">
+					<bg:respTeam team="${game?.team1}"/>
 				</g:link>
 			</div>
-			<div class="col-xs-4 text-center">
-				<bg:flag team="${gameInstance.team1}" />
-				${gameInstance.finalScore1}:${gameInstance.finalScore2}
-				<bg:flag team="${gameInstance.team2}" />
+			<div class="col col-xs-4 text-center">
+				<bg:flag team="${game.team1}" />
+				${game.finalScore1}:${game.finalScore2}
+				<bg:flag team="${game.team2}" />
 			</div>
-			<div class="col-xs-4">
-				<g:link controller="team" action="show" id="${gameInstance?.team2?.id}">
-					${gameInstance?.team2?.code}
+			<div class="col col-xs-4">
+				<g:link controller="game" action="show" id="${game?.id}">
+					<bg:respTeam team="${game?.team2}"/>
 				</g:link>
 			</div>
 		</div>
 	</div>
-	<div class="panel-body">
-		<g:if test="${myBets && myBets[gameInstance]}">
-			<g:set var="myBet" value="${myBets[gameInstance][0]}" />
-			<div class="col-xs-12 text-center">
-				<g:if test="${gameInstance.matchIsFinished}">
+	<div class="card-body">
+		<g:if test="${myBets && myBets[game]}">
+			<g:set var="myBet" value="${myBets[game][0]}" />
+			<div class="col col-xs-12 text-center">
+				<g:if test="${game.matchIsFinished}">
 					<bg:score bet="${myBet}"/>
 				</g:if>
 				<g:link controller="bet" action='edit' id="${myBet.id}">
@@ -36,7 +31,7 @@
 			</div>
 		</g:if>
 		<g:else>
-			<div class="col-xs-12 text-center">
+			<div class="col col-xs-12 text-center">
 				<sec:ifNotLoggedIn>
 					<g:link controller='login' action='auth'>
 						<g:message code="not.logged.in" default="Nicht angemeldet" />
@@ -44,7 +39,7 @@
 				</sec:ifNotLoggedIn>
 				<sec:ifLoggedIn>
 					<div class="alert alert-danger" style="margin-bottom:0px;">
-					<g:link controller="bet" action='create' params="['game.id': gameInstance.id]" class="alert-link">
+					<g:link controller="bet" action='create' params="['game.id': game.id]" class="alert-link">
 						<g:message code="no.bet" default="Noch kein Tipp abgegeben" />
 					</g:link>
 					</div>
@@ -52,21 +47,16 @@
 			</div>
 		</g:else>
 	</div>
-	<div class="panel-footer">
+	<div class="card-footer">
 		<div class="row">
-			<div class="col-xs-5">
-				<g:formatDate date="${gameInstance?.playAt}" formatName="default.gamedate.format" />
+			<div class="col col-xs-5">
+				<g:formatDate date="${game?.playAt}" formatName="default.gamedate.format" />
 			</div>
-			<div class="col-xs-2 text-center">
-				<bg:gameStatus game="${gameInstance}" />
+			<div class="col col-xs-2 text-center">
+				<bg:gameStatus game="${game}" />
 			</div>
-			<div class="col-xs-5 text-right">
-				<g:if test="${gameInstance?.groupName}" >
-					<g:link controller="game" action="list" params="[group: gameInstance?.groupName]">${gameInstance?.groupName}</g:link>
-				</g:if>
-				<g:else>
-					<g:link controller="game" action="list" params="[phase: 'KO']"><g:message code="ko.phase.${gameInstance?.phase}"/></g:link>
-				</g:else>
+			<div class="col col-xs-5 text-right">
+				<g:link controller="game" action="list" params="[phase: game?.phase]">${game?.phase}</g:link>
 			</div>
 		</div>
 	</div>

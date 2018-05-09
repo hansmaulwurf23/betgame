@@ -75,6 +75,14 @@ class MainTagLib {
 		}
 	}
 	
+	def respTeam = { attrs, body ->
+		Team t = attrs.team
+		if (t) {
+			out << "<span class='d-md-none'>${t.code}</span>"
+			out << "<span class='d-none d-md-inline-block'>${t.name}</span>"
+		}
+	}
+	
 	// FIXME useless tag
 	def score = { attrs, body ->
 		if (attrs.bet) {

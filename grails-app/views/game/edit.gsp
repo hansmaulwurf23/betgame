@@ -23,24 +23,24 @@
 			<g:hiddenField name="version" value="${gameInstance?.version}" />
 			<g:hiddenField name="_method" value="PUT" />
 			
-			<div class="panel panel-default">
+			<div class="card ">
 	
-				<div class="row panel-body">	
-					<div class="col-xs-5">
+				<div class="row card-body">
+					<div class="col col-xs-5">
 						<label for="score1">${gameInstance.team1.code}</label>
 						<g:field class="form-control" name="score1" type="number" value="${gameInstance.score1 ?: 0}" min="0" required=""/>
 						<span class="help-inline">${hasErrors(bean: gameInstance, field: 'score1', 'error')}</span>
 					</div>
-					<div class="col-xs-2 text-center"> : </div>
-					<div class="col-xs-5">
+					<div class="col col-xs-2 text-center"> : </div>
+					<div class="col col-xs-5">
 						<label for="score2">${gameInstance.team2.code}</label>	
 						<g:field class="form-control" name="score2" type="number" value="${gameInstance.score2 ?: 0}" min="0" required=""/>
 						<span class="help-inline">${hasErrors(bean: gameInstance, field: 'score2', 'error')}</span>
 					</div>
 				</div>
 				
-				<div class="row panel-body">	
-					<div class="col-xs-12">
+				<div class="row card-body">
+					<div class="col col-xs-12">
 						<label for="score1">Finished?</label>
 						<g:checkBox name="matchIsFinished" value="${gameInstance.matchIsFinished}"/>
 					</div>

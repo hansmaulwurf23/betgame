@@ -13,7 +13,7 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-8">
+			<div class="col col-lg-8">
 				<h4> Information </h4>
 				<p>Designed and built with Twitter's <a href="http://twitter.github.com/bootstrap/" target="_blank">Bootstrap</a>. 
 				Code licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>. 
