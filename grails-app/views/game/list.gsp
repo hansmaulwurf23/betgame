@@ -35,12 +35,12 @@
 	<table class="table table-striped table-sm mt-2">
 		<thead class="thead-dark">
         <tr>
-            <th>Spiel</th>
-            <th>Grp</th>
+            <th>Datum</th>
+			<g:if test="${!group}">
+            	<th>G</th>
+			</g:if>
             <th class="d-none d-md-table-cell">Austragungsort</th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th colspan="3" class="text-center">Spiel</th>
         </tr>
 		</thead>
 		<tbody>
