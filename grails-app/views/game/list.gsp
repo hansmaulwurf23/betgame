@@ -36,10 +36,11 @@
 		<thead class="thead-dark">
         <tr>
             <th>Datum</th>
-			<g:if test="${!group}">
-            	<th>G</th>
-			</g:if>
             <th class="d-none d-md-table-cell">Austragungsort</th>
+            <th class="d-none d-lg-table-cell">Stadion</th>
+			<g:if test="${!group}">
+				<th>G</th>
+			</g:if>
             <th colspan="3" class="text-center">Spiel</th>
         </tr>
 		</thead>
@@ -50,6 +51,8 @@
 				<td><g:link action="show" id="${game.id}" class="${notbet ? 'text-danger' : ''}">
 					<g:formatDate date="${game?.playAt}" formatName="default.gamedate.format" />${notbet ? '!' : ''}
 				</g:link></td>
+                <td class="d-none d-md-table-cell">${game?.location?.city}</td>
+                <td class="d-none d-lg-table-cell">${game?.location?.stadium}</td>
 				<g:if test="${!group}">
 					<g:set var="curGroup" value="${game?.team1?.groupName == game?.team2?.groupName ? game?.team1?.groupName : null}" />
 					<g:if test="${curGroup}">
@@ -59,7 +62,6 @@
 						<td></td>
 					</g:else>
 				</g:if>
-                <td class="d-none d-md-table-cell">${game?.location?.city}</td>
 				<td style="text-align: right;"><bg:respTeam team="${game.team1}"/> <bg:flag team="${game.team1}" /></td>
 				<td style="text-align: center;">${game.finalScore1}:${game.finalScore2}</td>
 				<td><bg:flag team="${game.team2}" /> <bg:respTeam team="${game.team1}"/></td>

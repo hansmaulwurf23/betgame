@@ -31,17 +31,17 @@ class BetController {
 		[betInstanceList: bets, games:games]
     }
 
-    def show(Bet betInstance) {
-		if (betInstance.user != springSecurityService.currentUser) {
+    def show(Bet bet) {
+		if (bet.user != springSecurityService.currentUser) {
 			notYours()
 			return
 		}
-        respond betInstance
+        [bet:bet]
     }
 
     def create() {
 		def bet = new Bet(params)
-        respond bet
+        [bet: bet]
     }
 
     @Transactional
@@ -83,67 +83,67 @@ class BetController {
 		}
     }
 
-    def edit(Bet betInstance) {
-		if (betInstance.user != springSecurityService.currentUser) {
+    def edit(Bet bet) {
+		if (bet.user != springSecurityService.currentUser) {
 			notYours()
 			return
 		}
-        respond betInstance
+        [bet:bet]
     }
 
     @Transactional
-    def update(Bet betInstance) {
-        if (betInstance == null) {
+    def update(Bet bet) {
+        if (bet == null) {
             notFound()
             return
         }
 
-        if (betInstance.hasErrors()) {
-            respond betInstance.errors, view:'edit'
+        if (bet.hasErrors()) {
+            respond bet.errors, view:'edit'
             return
         }
 		
-		if (betInstance.user != springSecurityService.currentUser) {
+		if (bet.user != springSecurityService.currentUser) {
 			notYours()
 			return
 		}
 		
-		if (cheating(betInstance)) {
+		if (cheating(bet)) {
 			flash.message = "Sehr sportlich, Herr Kollege... Ihr Versuch zu Bescheissen wurde protokolliert und wird morgen in der Kaffeekueche ausgehaengt..."
-			betInstance.discard()
+			bet.discard()
 			redirect(controller:'home', action:'index')
 		} else {
 	
-	        betInstance.save flush:true
+	        bet.save flush:true
 	
 	        request.withFormat {
 	            form {
-	                flash.message = message(code: 'default.updated.message', args: [message(code: 'Bet.label', default: 'Bet'), betInstance.id])
-	                redirect betInstance
+	                flash.message = message(code: 'default.updated.message', args: [message(code: 'Bet.label', default: 'Bet'), bet.id])
+	                redirect bet
 	            }
-	            '*'{ respond betInstance, [status: OK] }
+	            '*'{ respond bet, [status: OK] }
 	        }
 		}
     }
 
     @Transactional
-    def delete(Bet betInstance) {
+    def delete(Bet bet) {
 
-        if (betInstance == null) {
+        if (bet == null) {
             notFound()
             return
         }
 		
-		if (betInstance.user != springSecurityService.currentUser) {
+		if (bet.user != springSecurityService.currentUser) {
 			notYours()
 			return
 		}
 
-        betInstance.delete flush:true
+        bet.delete flush:true
 
         request.withFormat {
             form {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Bet.label', default: 'Bet'), betInstance.id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Bet.label', default: 'Bet'), bet.id])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
@@ -170,11 +170,11 @@ class BetController {
 		redirect action: "list", method: "GET"
 	}
 	
-	protected boolean cheating(Bet betInstance) {
-		def game = betInstance.game
+	protected boolean cheating(Bet bet) {
+		def game = bet.game
 		def now = new Date()
 		if (game.playAt <= now) {
-			log.error "${betInstance.user} auf die Finger hauen! (${now}) for game ${game}"
+			log.error "${bet.user} auf die Finger hauen! (${now}) for game ${game}"
 			return true
 		} else {
 			return false

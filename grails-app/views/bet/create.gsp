@@ -12,9 +12,9 @@
 
 	<section id="create-bet" class="first">
 
-		<g:hasErrors bean="${betInstance}">
+		<g:hasErrors bean="${bet}">
 		<div class="alert alert-danger">
-			<g:renderErrors bean="${betInstance}" as="list" />
+			<g:renderErrors bean="${bet}" as="list" />
 		</div>
 		</g:hasErrors>
 
