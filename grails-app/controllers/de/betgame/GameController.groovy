@@ -38,38 +38,38 @@ class GameController {
         [games:games, phases:phases, groups:groups, group:group, phase:phase, gameIDsFromBets:gameIDsFromBets]
     }
 
-    def show(Game gameInstance) {
+    def show(Game game) {
 		def user = springSecurityService.currentUser
 		def myBet
-		log.info "Looking for bet from user ${user.username} and game ${gameInstance}"
+		log.info "Looking for bet from user ${user.username} and game ${game}"
 		if (user) {
-			myBet = Bet.findByUserAndGame(user, gameInstance)
+			myBet = Bet.findByUserAndGame(user, game)
 		}
-        [gameInstance: gameInstance, myBet: myBet]
+        [game: game, myBet: myBet]
     }
 	
-	def edit(Game gameInstance) {
-		[gameInstance:gameInstance]
+	def edit(Game game) {
+		[game:game]
 	}
 
 	@Secured(['ROLE_IDMADMIN'])
 	@Transactional
-	def update(Game gameInstance) {
-		if (gameInstance.playAt > new Date()) {
+	def update(Game game) {
+		if (game.playAt > new Date()) {
 			flash.message = "Das Spiel hat noch nichtmal angefangen!"
-			gameInstance.discard()
+			game.discard()
 		} else {
-			gameInstance.save(flush:true, failOnError:true)
+			game.save(flush:true, failOnError:true)
 		}
 
-		redirect(action:'show', params:[id:gameInstance.id])
+		redirect(action:'show', params:[id:game.id])
 	}
 	
 	@Secured(['ROLE_IDMADMIN'])
 	@Transactional
-	def forceFetch(Game gameInstance) {
-		openLigaDBService.updateGameScore(gameInstance.id, true)
-		redirect(action:'show', params:[id:gameInstance.id])
+	def forceFetch(Game game) {
+		openLigaDBService.updateGameScore(game.id, true)
+		redirect(action:'show', params:[id:game.id])
 	}
 	
     protected void notFound() {

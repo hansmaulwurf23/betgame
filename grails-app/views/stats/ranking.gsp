@@ -13,8 +13,8 @@
 
 <section id="list-ranking" class="first">
 
-	<table class="table margin-top-medium">
-		<thead>
+	<table class="table table-sm table-striped mt-2">
+		<thead class="thead-dark">
 			<tr>
 				<th></th>
 				<th>${message(code: 'name', default: 'Name')}</th>
@@ -40,9 +40,7 @@
 	</table>
 	
 	
-	<div class="well">E : Ergebnis | T : Tendenz | S : Spiel<br/>
-		<i class="glyphicon glyphicon-circle-arrow-up text-success"></i>/<i class="glyphicon glyphicon-circle-arrow-down text-danger"></i> : Ver&auml;nderung zum Vortag
-	</div>
+	<g:render template="posChangeLegend"/>
 </section>
 
 </body>

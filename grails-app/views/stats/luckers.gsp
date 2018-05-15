@@ -15,8 +15,8 @@
 
 	<div class="well"><g:message code="luckers.info" default="Anzahl richtig getippter Spielergebnisse"/></div>
 
-	<table class="table margin-top-medium">
-		<thead>
+	<table class="table table-sm table-striped mt-2">
+		<thead class="thead-dark">
 			<tr>
 				<th>${message(code: 'name', default: 'Name')}</th>
 				<th>${message(code: 'games', default: 'Spiele')}</th>

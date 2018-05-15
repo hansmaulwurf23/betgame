@@ -12,37 +12,37 @@
 
 	<section id="edit-game" class="first">
 
-		<g:hasErrors bean="${gameInstance}">
+		<g:hasErrors bean="${game}">
 		<div class="alert alert-danger">
-			<g:renderErrors bean="${gameInstance}" as="list" />
+			<g:renderErrors bean="${game}" as="list" />
 		</div>
 		</g:hasErrors>
 
 		<g:form method="post" class="form-horizontal" role="form" >
-			<g:hiddenField name="id" value="${gameInstance?.id}" />
-			<g:hiddenField name="version" value="${gameInstance?.version}" />
+			<g:hiddenField name="id" value="${game?.id}" />
+			<g:hiddenField name="version" value="${game?.version}" />
 			<g:hiddenField name="_method" value="PUT" />
 			
 			<div class="card ">
 	
 				<div class="row card-body">
 					<div class="col col-xs-5">
-						<label for="score1">${gameInstance.team1.code}</label>
-						<g:field class="form-control" name="score1" type="number" value="${gameInstance.score1 ?: 0}" min="0" required=""/>
-						<span class="help-inline">${hasErrors(bean: gameInstance, field: 'score1', 'error')}</span>
+						<label for="score1">${game.team1.code}</label>
+						<g:field class="form-control" name="score1" type="number" value="${game.score1 ?: 0}" min="0" required=""/>
+						<span class="help-inline">${hasErrors(bean: game, field: 'score1', 'error')}</span>
 					</div>
 					<div class="col col-xs-2 text-center"> : </div>
 					<div class="col col-xs-5">
-						<label for="score2">${gameInstance.team2.code}</label>	
-						<g:field class="form-control" name="score2" type="number" value="${gameInstance.score2 ?: 0}" min="0" required=""/>
-						<span class="help-inline">${hasErrors(bean: gameInstance, field: 'score2', 'error')}</span>
+						<label for="score2">${game.team2.code}</label>
+						<g:field class="form-control" name="score2" type="number" value="${game.score2 ?: 0}" min="0" required=""/>
+						<span class="help-inline">${hasErrors(bean: game, field: 'score2', 'error')}</span>
 					</div>
 				</div>
 				
 				<div class="row card-body">
 					<div class="col col-xs-12">
 						<label for="score1">Finished?</label>
-						<g:checkBox name="matchIsFinished" value="${gameInstance.matchIsFinished}"/>
+						<g:checkBox name="matchIsFinished" value="${game.matchIsFinished}"/>
 					</div>
 				</div>
 				

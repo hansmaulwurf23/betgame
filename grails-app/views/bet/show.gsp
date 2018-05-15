@@ -21,26 +21,28 @@
 		<g:render template="/game/gameDivRow" />
 	</div>
 
-	<g:if test="${!bet.game.sameAsFinalScore}">
-		<div class="row card-body text-center">
-			(${bet.game?.score1}:${bet.game?.score2})
+	<div class="card-body">
+		<g:if test="${!bet.game.sameAsFinalScore}">
+			<div class="row text-center">
+				(${bet.game?.score1}:${bet.game?.score2})
+			</div>
+		</g:if>
+
+		<div class="row">
+			<div class="col col-xs-5 text-right">
+				${bet.score1}
+			</div>
+			<div class="col col-xs-2 text-center"> : </div>
+			<div class="col col-xs-5">
+				${bet.score2}
+			</div>
 		</div>
-	</g:if>
-	
-	<div class="row card-body">
-		<div class="col col-xs-5 text-right">
-			${bet.score1}
-		</div>
-		<div class="col col-xs-2 text-center"> : </div>
-		<div class="col col-xs-5">
-			${bet.score2}
+
+		<div class="row text-center">
+			<bg:score bet="${bet}" />
 		</div>
 	</div>
-	
-	<div class="row card-body text-center">
-		<bg:score bet="${bet}" />
-	</div>
-	
+
 	<div class="card-footer">
 		<div class="row">
 			<div class="col col-xs-12">

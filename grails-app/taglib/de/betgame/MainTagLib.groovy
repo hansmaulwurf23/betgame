@@ -11,7 +11,7 @@ class MainTagLib {
 	static namespace = "bg"
 	
 	static scoreColors = ['', 'success', 'warning', 'danger']
-	static posChangeIconClasses = ['glyphicon-circle-arrow-up text-success', 'glyphicon-circle-arrow-left', 'glyphicon-circle-arrow-down text-danger']
+	static posChangeIconClasses = ['fa-arrow-circle-up text-success', 'fa-arrow-circle-left', 'fa-arrow-circle-down text-danger']
 	
 	def springSecurityService
 	def statsService
@@ -109,10 +109,10 @@ class MainTagLib {
 		if (attrs.posChange != null) {
 			def posChange = Integer.signum(attrs.posChange)
 			if (posChange != 0) {
-				out << "<i class='glyphicon ${posChangeIconClasses.get(posChange+1)}'></i>"
+				out << "<i class='fas ${posChangeIconClasses.get(posChange+1)}'></i>"
 			}
 		} else {
-			out << '<i class="glyphicon glyphicon-plus-sign text-muted"></i>'
+			out << '<i class="fas fa-plus-circle text-muted"></i>'
 		}
 	}
 	

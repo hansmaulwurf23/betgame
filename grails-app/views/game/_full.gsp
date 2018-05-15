@@ -3,13 +3,13 @@
 	<div class="card-header">
 		<div class="row">
 			<div class="col col-xs-4">
-				<g:formatDate date="${gameInstance?.playAt}" formatName="default.gamedate.format" />
+				<g:formatDate date="${game?.playAt}" formatName="default.gamedate.format" />
 			</div>
 			<div class="col col-xs-4 text-center">
-				<bg:gameStatus game="${gameInstance}" />
+				<bg:gameStatus game="${game}" />
 			</div>
 			<div class="col col-xs-4 text-right">
-				<g:link controller="game" action="list" params="[phase: gameInstance?.phase]">${gameInstance?.phase}</g:link>
+				<g:link controller="game" action="list" params="[phase: game?.phase]">${game?.phase}</g:link>
 			</div>
 		</div>
 	</div>
@@ -18,23 +18,23 @@
 	<div class="row">
 		<div class="col col-xs-12 text-center">
 			@
-			<g:link controller="location" action="show" id="${gameInstance?.location?.id}">
-				${gameInstance?.location?.encodeAsHTML()}
+			<g:link controller="location" action="show" id="${game?.location?.id}">
+				${game?.location?.encodeAsHTML()}
 			</g:link>
 		</div>
 	</div>
 
 	<g:render template="gameDivRow" />
 	
-	<g:if test="${!gameInstance.sameAsFinalScore}" >
+	<g:if test="${!game.sameAsFinalScore}" >
 		<div class="col col-xs-12 text-center">
-			(${gameInstance?.score1}:${gameInstance?.score2})
+			(${game?.score1}:${game?.score2})
 		</div>
 	</g:if>
 
-	<g:if test="${gameInstance.goalInfos()}">
+	<g:if test="${game.goalInfos()}">
 		<hr />
-		<g:each in="${gameInstance.goalInfos()}" status="i" var="g">
+		<g:each in="${game.goalInfos()}" status="i" var="g">
 		<div class="row">
 			<div class="col col-xs-10">
 				<span class="badge">${g.minute}.</span> ${g.score1}:${g.score2} ${g.getter}
@@ -44,10 +44,10 @@
 			</div>
 		</div>
 		</g:each>
-		<g:if test="${gameInstance.numberOfViewers}">
+		<g:if test="${game.numberOfViewers}">
 		<div class="row" style="margin-top:15px;">
 			<div class="col col-xs-12">
-				<g:message code="spectators" default="Zuschauer"/>: ${gameInstance.numberOfViewers}
+				<g:message code="spectators" default="Zuschauer"/>: ${game.numberOfViewers}
 			</div>
 		</div>
 		</g:if>
@@ -70,7 +70,7 @@
 					</g:link>
 				</sec:ifNotLoggedIn>
 				<sec:ifLoggedIn>
-					<g:link controller="bet" action='create' params="['game.id': gameInstance.id]">
+					<g:link controller="bet" action='create' params="['game.id': game.id]">
 						<g:message code="no.bet" default="Noch kein Tipp abgegeben" />
 					</g:link>
 				</sec:ifLoggedIn>
@@ -82,10 +82,10 @@
 	<div class="card-footer">
 		<div class="row">
 			<div class="col col-xs-12">
-				<small>updated: <g:formatDate date="${gameInstance?.lastUpdated}" formatName="default.gamedate.format" /></small> 
+				<small>updated: <g:formatDate date="${game?.lastUpdated}" formatName="default.gamedate.format" /></small> 
 				<sec:ifAnyGranted roles="ROLE_MAILADMIN">
-					<g:link action="edit" id="${gameInstance.id}">Edit Score</g:link>
-					<g:link action="forceFetch" id="${gameInstance.id}">Fetch</g:link>
+					<g:link action="edit" id="${game.id}">Edit Score</g:link>
+					<g:link action="forceFetch" id="${game.id}">Fetch</g:link>
 				</sec:ifAnyGranted>
 			</div>
 		</div>

@@ -19,8 +19,8 @@
 <section id="show-games" class="first">
 <div class="container">
 
-<g:render template="/game/full" model="[gameInstance:gameInstance, myBet:myBet]"></g:render>
-<bg:gameBets game="${gameInstance}" />
+<g:render template="/game/full" model="[game:game, myBet:myBet]"></g:render>
+<bg:gameBets game="${game}" />
 
 </div>
 </section>
