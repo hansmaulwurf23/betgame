@@ -4,18 +4,21 @@
 <head>
 	<meta name="layout" content="main" />
 	<title>User</title>
-	<g:set var="layout_nosecondarymenu"	value="${true}" scope="request"/>
 </head>
 
 <body>
 
-<div class="well">${user.givenname} ${user.surname} (${betPerc.round(1)}% Spiele getippt)</div>
+<div class="well">${user.givenname} ${user.surname} (${betPerc?.round(1)}% Spiele getippt)</div>
 
 <section id="list-ranking" class="first">
 
-	<g:render template="/game/wiloQuote" model="[distrData:scoreDistr, titel:'Punkte']"></g:render>
-	
-	<g:render template="barPlot" model="[barData:barData, titel:'Historie']"></g:render>
+	<g:if test="${scoreDistr}">
+		<g:render template="/game/wiloQuote" model="[distrData:scoreDistr, titel:'Punkte']"></g:render>
+	</g:if>
+
+	<g:if test="${barData}">
+		<g:render template="barPlot" model="[barData:barData, titel:'Historie']"></g:render>
+	</g:if>
 	
 	
 	<div class="card ">
@@ -29,8 +32,10 @@
 			</div>
 		</div>
 	</div>
+	<div class="card-body">
+
 	<g:each in="${bets}" var="betInstance">
-	<div class="row condensed card-body ${betInstance.user==currentUser?' current-user':''}">
+	<div class="row condensed ${betInstance.user==currentUser?' current-user':''}">
 		<div class="col col-xs-3 text-right">
 			${betInstance.game.team1.code} <bg:flag team="${betInstance.game.team1}" />
 		</div>
@@ -43,6 +48,8 @@
 		</div>
 	</div>
 	</g:each>
+
+	</div>
 	<div class="card-footer">
 	<div class="row">
 		<div class="col col-xs-12"><small>Punkteschnitt: ${bets ? (bets*.getScore().sum().toDouble() / bets.size()).round(2) : '-'}</small></div>

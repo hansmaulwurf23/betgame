@@ -26,7 +26,7 @@
 		<tbody>
 		<g:each in="${betInstanceList}" status="i" var="betInstance">
 			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-				<td><g:link action="show" id="${betInstance.id}"><i class="fas fa-search"></i></g:link></td>
+				<td><g:link action="edit" id="${betInstance.id}"><i class="fas fa-edit"></i></g:link></td>
 				<td><bg:score bet="${betInstance}"/></td>
 				<td style="text-align: center;"><g:render template="betRow" model="[betInstance:betInstance, games:games]" /></td>
 				<td>${betInstance.game?.score1}:${betInstance.game?.score2}</td>

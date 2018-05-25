@@ -4,7 +4,7 @@
 <div class="card ">
 	
 	<div class="card-header">
-		<g:set var="gameInstance" value="${de.betgame.Game.get(bet.game.id)}" />
+		<g:set var="game" value="${de.betgame.Game.get(bet.game.id)}" />
 		<g:render template="/game/gameDivRow" />
 	</div>
 

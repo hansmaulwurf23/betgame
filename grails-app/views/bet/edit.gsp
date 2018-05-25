@@ -12,15 +12,15 @@
 
 	<section id="edit-bet" class="first">
 
-		<g:hasErrors bean="${betInstance}">
+		<g:hasErrors bean="${bet}">
 		<div class="alert alert-danger">
-			<g:renderErrors bean="${betInstance}" as="list" />
+			<g:renderErrors bean="${bet}" as="list" />
 		</div>
 		</g:hasErrors>
 
 		<g:form method="post" class="form-horizontal" role="form" >
-			<g:hiddenField name="id" value="${betInstance?.id}" />
-			<g:hiddenField name="version" value="${betInstance?.version}" />
+			<g:hiddenField name="id" value="${bet?.id}" />
+			<g:hiddenField name="version" value="${bet?.version}" />
 			<g:hiddenField name="_method" value="PUT" />
 			
 			<g:render template="form"/>

@@ -64,7 +64,7 @@
 				</g:if>
 				<td style="text-align: right;"><bg:respTeam team="${game.team1}"/> <bg:flag team="${game.team1}" /></td>
 				<td style="text-align: center;">${game.finalScore1}:${game.finalScore2}</td>
-				<td><bg:flag team="${game.team2}" /> <bg:respTeam team="${game.team1}"/></td>
+				<td><bg:flag team="${game.team2}" /> <bg:respTeam team="${game.team2}"/></td>
 			</tr>
 		</g:each>
 		</tbody>
