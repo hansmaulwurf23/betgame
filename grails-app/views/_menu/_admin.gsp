@@ -1,21 +1,15 @@
-<li class="dropdown">
-	<a class="dropdown-toggle" data-toggle="collapse" href="#adminCollapse" role="button" aria-expanded="false" aria-controls="adminCollapse">
+<sec:ifAnyGranted roles="ROLE_MAILADMIN">
+
+<li class="nav-item dropdown">
+	<a class="dropdown-toggle nav-link " data-toggle="dropdown" href="#adminCollapse" role="button" aria-expanded="false" aria-controls="adminCollapse">
    		<i class="glyphicon glyphicon-wrench"></i>
 		<g:message code="default.admin.label"/><b class="caret"></b>
 	</a>
-	<ul class="collapse" id="adminCollapse">
-		<li class="controller${params.controller == 'admin' ? " active" : ""}">
-			<g:link controller="admin" action="countryNames"><i class="fas fa-globe"></i> CountryNames</g:link>
-		</li>
-		
-		<sec:ifAnyGranted roles="ROLE_MAILADMIN">
-			<li class="controller${params.controller == 'quartz' ? " active" : ""}">
-				<g:link controller="quartz" action="list"><i class="far fa-clock"></i> Quartz</g:link>
-			</li>
-
-			<li class="controller${params.controller == 'script' ? " active" : ""}">
-				<g:link controller="script" action="editor"><i class="far fa-file-alt"></i> Script</g:link>
-			</li>
-		</sec:ifAnyGranted>
-	</ul>
+	<div class="dropdown-menu" id="adminCollapse">
+		<g:link class="dropdown-item ${params.controller == 'admin' ? " active" : ""}" controller="admin" action="countryNames"><i class="fas fa-globe"></i> CountryNames</g:link>
+		<g:link class="dropdown-item ${params.controller == 'quartz' ? " active" : ""}" controller="quartz" action="list"><i class="far fa-clock"></i> Quartz</g:link>
+		<g:link class="dropdown-item ${params.controller == 'script' ? " active" : ""}" controller="script" action="editor"><i class="far fa-file-alt"></i> Script</g:link>
+	</div>
 </li>
+
+</sec:ifAnyGranted>

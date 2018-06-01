@@ -33,7 +33,7 @@
 		<g:else>
 			<div class="col col-xs-12 text-center">
 				<sec:ifNotLoggedIn>
-					<g:link controller='login' action='auth'>
+					<g:link controller='home' action='auth'>
 						<g:message code="not.logged.in" default="Nicht angemeldet" />
 					</g:link>
 				</sec:ifNotLoggedIn>

@@ -13,7 +13,7 @@ buildscript {
     }
 }
 
-version "0.1"
+version "2018"
 group "betgame"
 
 apply plugin:"idea"
@@ -70,8 +70,36 @@ bootRun {
     addResources = true
 }
 
+def excludePatterns = [
+        "**/bootstrap-*/.github/**",
+        "**/bootstrap-*/docs/**",
+
+        "**/fontawesome-free-5.0.8/advanced-options/**",
+        "**/fontawesome-free-5.0.8/svg-with-js/**",
+        "**/fontawesome-free-5.0.8/use-one-desktop/**",
+        "**/fontawesome-free-5.0.8/web-fonts-with-css/css/**",
+        "**/fontawesome-free-5.0.8/web-fonts-with-css/less/**",
+
+        "**/*.md",
+        "*.html",
+        "**/*.txt",
+        "**/*.gemspec",
+        "**/.gitignore",
+        "**/LICENSE",
+        "**/README",
+        "**/Rakefile",
+        "**/Gemfile",
+        "**/.*",
+]
+
 
 assets {
     minifyJs = true
     minifyCss = true
+
+    excludes = excludePatterns
+}
+
+war {
+    exclude (excludePatterns)
 }
