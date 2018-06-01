@@ -1,2 +1,2 @@
 rootProject.name='betgame'
-includeFlat('cmeditor')
+//includeFlat('cmeditor')
