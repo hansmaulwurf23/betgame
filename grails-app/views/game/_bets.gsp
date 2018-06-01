@@ -13,8 +13,9 @@
 			</div>
 		</div>
 	</div>
-	<g:each in="${betInstances}" var="betInstance">
-	<div class="row condensed card-body ${betInstance.user==currentUser?' current-user':''}" style="padding: 2px 0px;">
+    <div class="card-body">
+    <g:each in="${betInstances}" var="betInstance">
+	<div class="row condensed ${betInstance.user==currentUser?' current-user':''}" style="padding: 2px 0px;">
 		<div class="col col-xs-4 text-right">
 			<g:link controller="user" action="show" id="${betInstance.user.id}">${betInstance.user.display}</g:link>
 <%--			<g:if test="${gameInstance.matchStarted}"><span class="goaldiff goaldiff_${Math.signum(betInstance.goalDiff?.toDouble() ?: 0.0).toInteger() + 2}"></span></g:if>--%>
@@ -27,6 +28,7 @@
 		</div>
 	</div>
 	</g:each>
+    </div>
 	<div class="card-footer">
 	<div class="row">
 		<div class="col col-xs-12"><small>

@@ -9,8 +9,9 @@
 			</div>
 		</div>
 	</div>
+    <div class="card-body">
 	<g:each in="${betDistr}" var="b">
-	<div class="row condensed card-body">
+	<div class="row condensed">
 		<div class="col col-xs-6 text-right">
 			${b.key}
 		</div>
@@ -19,4 +20,5 @@
 		</div>
 	</div>
 	</g:each>
+    </div>
 </div>

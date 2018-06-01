@@ -12,7 +12,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row condensed card-body" id='${divID}'></div>
+	<div class="card-body" id='${divID}'></div>
 </div>
 
 <script>

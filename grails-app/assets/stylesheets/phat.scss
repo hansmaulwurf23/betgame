@@ -46,4 +46,20 @@
 		width: 95%;
 		max-width: 95%;
 	}
+
+  .table-responsive>.fixed-column {
+    display: none;
+  }
+}
+
+table {
+  background-color: #fff;
+}
+
+.table-responsive>.fixed-column {
+  position: absolute;
+  display: inline-block;
+  width: auto;
+  border-right: 1px solid #ddd;
+  z-index:100;
 }

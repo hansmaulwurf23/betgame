@@ -45,7 +45,7 @@
         </tr>
 		</thead>
 		<tbody>
-		<g:each in="${games}" status="i" var="game">
+		<g:each in="${games?.sort { it.playAtUTC }}" status="i" var="game">
 			<tr class="${game.matchIsFinished ? 'active' : ''}">
 				<g:set var="notbet" value="${!(game.id in gameIDsFromBets) }" />
 				<td><g:link action="show" id="${game.id}" class="${notbet ? 'text-danger' : ''}">

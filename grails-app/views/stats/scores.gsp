@@ -15,8 +15,8 @@
 <section id="list-ranking" class="first">
 
 	<div class="table-responsive">
-    <table class="table table-hover table-condensed">
-        <thead>
+    <table class="table table-sm">
+        <thead class="thead-dark">
             <tr>
                 <th>Name</th>
                 <g:each in="${result}" status="i" var="r">

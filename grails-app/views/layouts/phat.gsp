@@ -3,7 +3,7 @@
 <html lang="${session.'org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE'}">
 
 <head>
-	<title><g:layoutTitle default="${meta(name:'app.name')}" /></title>
+	<title><g:layoutTitle default="${meta(name:'info.app.name')}" /></title>
 	
     <meta charset="utf-8">
     <meta name="viewport"		content="width=device-width, initial-scale=1.0">
