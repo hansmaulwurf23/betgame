@@ -8,8 +8,6 @@ import grails.plugin.springsecurity.SpringSecurityUtils;
 @Transactional
 class SecurityService {
 
-	def springSecurityService
-
 	def getPrincipal() {
 		return SecurityContextHolder.context.authentication.principal
 	}
@@ -26,17 +24,12 @@ class SecurityService {
 		return SpringSecurityUtils.ifAnyGranted(role)
 	}
 	
-	def hasRoleOtherThan(role) {
-		Collection otherRoles = (SpringSecurityUtils.getPrincipalAuthorities() - role) as Collection
-		return !otherRoles.isEmpty()
-	}
-	
 	def userAuthorities(userId) {
 		User.findByUsername(userId)?.authorities?.authority;
 	}
 	
     def findOrCreateRole(def authority) {
-		Role.findByAuthority(authority) ?:new Role(authority: authority).save(failOnError: true)
+		Role.findByAuthority(authority) ?: new Role(authority: authority).save(failOnError: true, flush:true)
     }
 	
 	def updateUserGroups(user, groups) {
@@ -55,16 +48,16 @@ class SecurityService {
 		groups.add('ROLE_USER')
 		
 		groups.each { rolename ->
-			if (!oldGroups.contains(rolename))
-			{
-				def userRole = findOrCreateRole(rolename)
-				UserRole.create(dbUser, userRole)
+			if (!oldGroups.contains(rolename)) {
+				def role = findOrCreateRole(rolename)
+                if (!UserRole.findByUserAndRole(dbUser, role)) {
+                    new UserRole(user: dbUser, role: role).save(flush: true, insert: true, failOnError: true)
+                }
 			}
 		}
 		
 		oldGroups.each { oldGroup ->
-			if(!groups.contains(oldGroup))
-			{
+			if(!groups.contains(oldGroup)) {
 				def userRole = findOrCreateRole(oldGroup)
 				UserRole.remove(dbUser, userRole)
 			}

@@ -20,7 +20,7 @@
 		<div class="dropdown-menu" role="menu" id="userCollapse">
 		
 			<g:link controller="logout" class="dropdown-item">
-				<i class="glyphicon glyphicon-off"></i>
+				<i class="fas fa-power-off"></i>
 				<g:message code="security.signoff.label"/>
 			</g:link>
 		</div>
