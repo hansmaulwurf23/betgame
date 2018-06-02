@@ -1,5 +1,5 @@
 <%@page import="java.lang.Math"%>
-<div class="card my-1">
+<div class="card my-1 border-secondary">
 	<div class="card-header">
 		<div class="row">
 			<div class="col col-xs-4 text-right">

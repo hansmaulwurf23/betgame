@@ -4,7 +4,7 @@
 
 <g:set var="divID" value="${UUID.randomUUID()}" />
 
-<div class="card ">
+<div class="card border-secondary my-1">
 	<div class="card-header">
 		<div class="row">
 			<div class="col col-xs-12">

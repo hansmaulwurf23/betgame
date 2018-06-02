@@ -1,0 +1,65 @@
+.score {
+  border-radius: 5px;
+  background-color: none;
+  padding: 2px 4px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.goaldiff {
+  padding: 5px 2px;
+}
+
+.score_0 {
+  background-color: #aaa;
+}
+
+.score_1, .goaldiff_3 {
+  background-color: #5cb85c;
+  color: #fff;
+}
+
+.score_2, .goaldiff_2 {
+  background-color: #f0ad4e;
+}
+
+.score_3, .goaldiff_1 {
+  background-color: #d9534f;
+  color: #fff;
+}
+
+/* needs more styling in tables since rows are transparent */
+/*
+div#wrapper {
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+div#wrapper {
+  background-image: url('bg-xs.jpg');
+}
+
+@media only screen and (min-width: 1000px) {
+  div#wrapper {
+    background-image: url('bg-s.jpg');
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  div#wrapper {
+    background-image: url('bg-m.jpg');
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  div#wrapper {
+    background-image: url('bg-l.jpg');
+  }
+}
+
+@media only screen and (min-width: 2560px) {
+  div#wrapper {
+    background-image: url('bg-xl.jpg');
+  }
+}
+*/

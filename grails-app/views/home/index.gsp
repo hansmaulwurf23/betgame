@@ -25,7 +25,8 @@
 				<g:if test="${nextGames}">
 					<div class="card-header">
 						<h4 class="card-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseNextGames"> <g:message code="next.games" default="Nächste Spiele" /> (<g:formatDate format="EE dd.MM." date="${nextGames[0].playAt}" /> - <g:formatDate format="EE dd.MM." date="${nextGames[-1].playAt}" />)
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseNextGames">
+                                <g:message code="next.games" default="Nächste Spiele" /> (<g:formatDate format="EE dd.MM." date="${nextGames[0].playAt}" /> - <g:formatDate format="EE dd.MM." date="${nextGames[-1].playAt}" />)
 							</a>
 						</h4>
 					</div>
@@ -42,7 +43,8 @@
 				<g:if test="${lastGames}">
 					<div class="card-header">
 						<h4 class="card-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseLastGames"> <g:message code="last.games" default="Letzte Spiele" /> (<g:formatDate format="EE dd.MM." date="${lastGames[0].playAt}" /> - <g:formatDate format="EE dd.MM." date="${lastGames[-1].playAt}" />)
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseLastGames">
+                                <g:message code="last.games" default="Letzte Spiele" /> (<g:formatDate format="EE dd.MM." date="${lastGames[0].playAt}" /> - <g:formatDate format="EE dd.MM." date="${lastGames[-1].playAt}" />)
 							</a>
 						</h4>
 					</div>
