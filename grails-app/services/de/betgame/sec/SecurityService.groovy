@@ -44,6 +44,7 @@ class SecurityService {
 			
 			
 		def oldGroups = dbUser.authorities.authority
+        log.info "oldGroups: $oldGroups groups: $groups"
 		
 		groups.add('ROLE_USER')
 		
@@ -58,6 +59,7 @@ class SecurityService {
 		
 		oldGroups.each { oldGroup ->
 			if(!groups.contains(oldGroup)) {
+                log.info "Removing old Group $oldGroup"
 				def userRole = findOrCreateRole(oldGroup)
 				UserRole.remove(dbUser, userRole)
 			}

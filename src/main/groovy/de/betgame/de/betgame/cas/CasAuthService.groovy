@@ -62,8 +62,7 @@ class CasAuthService extends UserDetailsByNameServiceWrapper {
             user.givenname = names[1]
             user.surname = names[0]
 
-            // convert the CAS groups to GROW groups
-            def groups = attrs.groups?.collect { "ROLE_${it?.toUpperCase()}" }
+            def groups = attrs.groups?.collect { "ROLE_${it?.toUpperCase()}".toString() }
 
             logger.warn("User import/update: " + user.username)
             logger.warn("User groups import/update: " + groups)
