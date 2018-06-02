@@ -15,7 +15,7 @@
 
 	<div class="well">Ergebnis: ${wertung.E} | Tordifferenz: ${wertung.T} | Tendenz: ${wertung.S}</div>
 
-	<table class="table table-sm table-striped mt-2">
+	<table class="table table-sm table-striped bg-white mt-2">
 		<thead class="thead-dark">
 			<tr>
 				<th></th>

@@ -32,7 +32,7 @@
 
 <section id="list-game" class="first">
 
-	<table class="table table-striped table-sm mt-2">
+	<table class="table table-striped bg-white table-sm mt-2">
 		<thead class="thead-dark">
         <tr>
             <th>Datum</th>

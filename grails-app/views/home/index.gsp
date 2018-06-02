@@ -20,7 +20,7 @@
 <body>
 
 	<section id="intro" class="first">
-		<h2>WM 2018</h2>
+		<h2 class="mt-2">WM 2018</h2>
 			<div class="card ">
 				<g:if test="${nextGames}">
 					<div class="card-header">

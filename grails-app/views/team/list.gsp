@@ -12,7 +12,7 @@
 
 <section id="list-teams" class="first">
 
-	<table class="table table-striped table-sm mt-2">
+	<table class="table table-striped bg-white table-sm mt-2">
 		<thead class="thead-dark">
 			<tr>
 				<th>${message(code: 'teams.code.label', default: 'Code')}</th>
