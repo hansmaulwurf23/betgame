@@ -2,7 +2,8 @@
 
 	<g:each status="i" var="logicalPropertyName" in="${['home', 'game', 'bet', 'team', 'stats']}">
 		<li class="nav-item controller">
-			<g:link controller="${logicalPropertyName}" action="index" class="nav-link ${params.controller == logicalPropertyName ? "active" : ""}">
+			<g:link controller="${logicalPropertyName}" action="index"
+					class="nav-link ${params.controller == logicalPropertyName ? "active" : ""}">
 				<g:if test="${logicalPropertyName == 'home'}">
 					<i class="fas fa-home"></i>
 				</g:if>

@@ -6,7 +6,7 @@
 
 server.contextPath = "/${appName}"
 server.port =  8080
-grails.serverURL = "https://liam.rrze.uni-erlangen.de/${appName}"
+grails.serverURL = "https://betgame.rrze.de/${appName}"
 // set per-environment serverURL stem for creating absolute links
 
 environments {
