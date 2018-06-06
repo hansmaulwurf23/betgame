@@ -3,18 +3,6 @@
 <head>
 	<title>Betgame</title>
 	<meta name="layout" content="main" />
-	
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('.').on('show.bs.collapse', function () {
-		         $(this).addClass('active');
-		    });
-
-		    $('.').on('hide.bs.collapse', function () {
-		         $(this).removeClass('active');
-		    });
-		});
-	</script>
 </head>
 
 <body>
