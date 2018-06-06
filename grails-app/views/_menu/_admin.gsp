@@ -1,8 +1,8 @@
-<sec:ifAnyGranted roles="ROLE_MAILADMIN">
+<sec:ifAnyGranted roles="ROLE_MAILADMIN, ROLE_IDMADMIN">
 
 <li class="nav-item dropdown">
 	<a class="dropdown-toggle nav-link " data-toggle="dropdown" href="#adminCollapse" role="button" aria-expanded="false" aria-controls="adminCollapse">
-   		<i class="glyphicon glyphicon-wrench"></i>
+   		<i class="fas fa-wrench"></i>
 		<g:message code="default.admin.label"/><b class="caret"></b>
 	</a>
 	<div class="dropdown-menu" id="adminCollapse">

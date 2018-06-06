@@ -3,7 +3,7 @@
     <li class="nav-item">
         <g:link class="nav-link" controller="home" action="auth">
             <!-- TODO: integrate Springsource Security etc. and show User's name ... -->
-            <i class="glyphicon glyphicon-user"></i>
+            <i class="fas fa-user"></i>
             <g:message code="security.signin.label"/>
         </g:link>
     </li>
@@ -13,7 +13,7 @@
     <li class="nav-item dropdown">
             <a class="dropdown-toggle nav-link"  data-toggle="dropdown" href="#userCollapse" role="button" aria-expanded="false" aria-controls="userCollapse">
                 <!-- TODO: Only show menu items based on permissions (e.g., Guest has no account page) -->
-                <i class="glyphicon glyphicon-user icon-white"></i>
+                <i class="fas fa-user"></i>
 			<sec:loggedInUserInfo field="username"/>
 			<b class="caret"></b>
 		</a>

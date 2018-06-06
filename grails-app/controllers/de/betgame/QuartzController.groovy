@@ -7,7 +7,7 @@ import org.quartz.Scheduler
 import org.quartz.impl.matchers.GroupMatcher
 import org.quartz.impl.matchers.StringMatcher
 
-@Secured(['ROLE_MAILADMIN'])
+@Secured(['ROLE_MAILADMIN', 'ROLE_IDMADMIN'])
 class QuartzController {
     Scheduler quartzScheduler
     def scriptService

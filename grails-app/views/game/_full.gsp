@@ -83,9 +83,11 @@
 		<div class="row">
 			<div class="col col-xs-12">
 				<small>updated: <g:formatDate date="${game?.lastUpdated}" formatName="default.gamedate.format" /></small> 
+				<sec:ifAnyGranted roles="ROLE_IDMADMIN, ROLE_MAILADMIN">
+					<g:link class="btn btn-sm btn-secondary" action="edit" id="${game.id}">Edit Score</g:link>
+				</sec:ifAnyGranted>
 				<sec:ifAnyGranted roles="ROLE_MAILADMIN">
-					<g:link action="edit" id="${game.id}">Edit Score</g:link>
-					<g:link action="forceFetch" id="${game.id}">Fetch</g:link>
+					<g:link class="btn btn-sm btn-secondary" action="forceFetch" id="${game.id}">Fetch</g:link>
 				</sec:ifAnyGranted>
 			</div>
 		</div>

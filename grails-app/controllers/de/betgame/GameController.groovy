@@ -52,7 +52,7 @@ class GameController {
 		[game:game]
 	}
 
-	@Secured(['ROLE_IDMADMIN'])
+	@Secured(['ROLE_IDMADMIN', 'ROLE_MAILADMIN'])
 	@Transactional
 	def update(Game game) {
 		if (game.playAt > new Date()) {
@@ -65,7 +65,7 @@ class GameController {
 		redirect(action:'show', params:[id:game.id])
 	}
 	
-	@Secured(['ROLE_IDMADMIN'])
+	@Secured(['ROLE_MAILADMIN'])
 	@Transactional
 	def forceFetch(Game game) {
 		openLigaDBService.updateGameScore(game.id, true)

@@ -17,15 +17,16 @@
 
                 <li class="nav-item dropdown">
                     <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#controllerCollapse" role="button" aria-expanded="false" aria-controls="controllerCollapse">
+                        <i class="fas fa-caret-square-down"></i>
                         Browse<b class="caret"></b></a>
 
                     <div class="dropdown-menu" id="controllerCollapse">
                         <g:each var="logicalPropertyName" in="${['home', 'game', 'bet', 'team']}">
                             <g:link controller="${logicalPropertyName}" class="dropdown-item">
-                                <g:if test="${logicalPropertyName.contains('home')}"><i class="glyphicon glyphicon-home"></i></g:if>
-                                <g:if test="${logicalPropertyName.contains('game')}"><i class="glyphicon glyphicon-tower"></i></g:if>
-                                <g:if test="${logicalPropertyName.contains('team')}"><i class="glyphicon glyphicon-globe"></i></g:if>
-                                <g:if test="${logicalPropertyName.contains('bet')}"> <i class="glyphicon glyphicon-fire"></i></g:if>
+                                <g:if test="${logicalPropertyName.contains('home')}"><i class="fas fa-home"></i></g:if>
+                                <g:if test="${logicalPropertyName.contains('game')}"><i class="fas fa-futbol"></i></g:if>
+                                <g:if test="${logicalPropertyName.contains('team')}"><i class="fas fa-globe""></i></g:if>
+                                <g:if test="${logicalPropertyName.contains('bet')}"> <i class="fas fa-fire"></i></g:if>
                                 <g:message code="${logicalPropertyName}.label" />
                             </g:link>
                         </g:each>

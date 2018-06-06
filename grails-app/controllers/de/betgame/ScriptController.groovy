@@ -5,7 +5,7 @@ import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 
-@Secured(['ROLE_MAILADMIN'])
+@Secured(['ROLE_MAILADMIN', 'ROLE_IDMADMIN'])
 @Transactional
 class ScriptController {
 
