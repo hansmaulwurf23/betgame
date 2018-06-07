@@ -10,7 +10,7 @@ class GameController {
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	
 	def springSecurityService
-	def openLigaDBService
+	def gscriptingService
 	
 	def dataSource
 	
@@ -68,7 +68,7 @@ class GameController {
 	@Secured(['ROLE_MAILADMIN'])
 	@Transactional
 	def forceFetch(Game game) {
-		openLigaDBService.updateGameScore(game.id, true)
+		gscriptingService.run("fetchGameScores", [gameid: game.id, verbose: true])
 		redirect(action:'show', params:[id:game.id])
 	}
 	
