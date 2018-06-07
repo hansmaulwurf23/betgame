@@ -12,7 +12,6 @@
 <sec:ifLoggedIn>
     <li class="nav-item dropdown">
             <a class="dropdown-toggle nav-link"  data-toggle="dropdown" href="#userCollapse" role="button" aria-expanded="false" aria-controls="userCollapse">
-                <!-- TODO: Only show menu items based on permissions (e.g., Guest has no account page) -->
                 <i class="fas fa-user"></i>
 			<sec:loggedInUserInfo field="username"/>
 			<b class="caret"></b>
