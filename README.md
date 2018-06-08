@@ -1,6 +1,6 @@
 # betgame
 
-Betgame is a Grails 3.x web application to manage bets for Soccer Cups (i.e. EM2016/WM2018) using the OpenLigaDB.de data.
+Betgame is a Grails 3.x web application to manage bets for Soccer Cups (i.e. EM2016/WM2018) using the https://www.openligadb.de/ data.
 
 # Authentication
 
@@ -14,7 +14,7 @@ Authentication is done via Spring Security CAS. If not configured it is not used
 
 1. Create a DB
 2. Configure the DataSource (i.e. in the classpath or `/opt/rrzepp/apps/betgame/internal/betgame-config.groovy`) and make sure dbCreate is set to `update`
-3. Check `data/scripts/` and import all scripts into the scripting eninge. Run `OpenLigaDB` once and `fetchGameScores` on a regular basis.
+3. Check [`data/scripts/`](https://github.com/hansmaulwurf23/betgame/tree/master/data/scripts) and import all scripts into the scripting eninge. Run `OpenLigaDB` once and `fetchGameScores` on a regular basis.
 
 # Running
 
