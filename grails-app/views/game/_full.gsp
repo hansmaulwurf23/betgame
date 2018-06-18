@@ -37,7 +37,7 @@
 		<g:each in="${game.goalInfos()}" status="i" var="g">
 		<div class="row">
 			<div class="col col-xs-10">
-				<span class="badge">${g.minute}.</span> ${g.score1}:${g.score2} ${g.getter}
+				<span class="badge">${g.minute ?: '?'}.</span> ${g.score1}:${g.score2} ${g.getter}
 			</div>
 			<div class="col col-xs-2 text-right">
 				<bg:goalInfos goal="${g}" />

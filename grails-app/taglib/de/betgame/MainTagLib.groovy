@@ -99,7 +99,7 @@ class MainTagLib {
 		if (attrs.bet) {
 			def score = attrs.bet.getScore()
 			def cellClass = scoreColors[score]
-			out << "<td class='text-center $cellClass'>$score</td>"
+			out << "<td class='text-center bg-$cellClass'>$score</td>"
 		} else {
 			out << "<td class='text-center active'>-</td>"
 		}

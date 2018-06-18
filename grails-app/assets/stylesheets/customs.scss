@@ -1,0 +1,29 @@
+.score {
+  border-radius: 5px;
+  background-color: none;
+  padding: 2px 4px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.goaldiff {
+  padding: 5px 2px;
+}
+
+.score_0 {
+  background-color: #aaa;
+}
+
+.score_1, .goaldiff_3 {
+  background-color: #5cb85c;
+  color: #fff;
+}
+
+.score_2, .goaldiff_2 {
+  background-color: #f0ad4e;
+}
+
+.score_3, .goaldiff_1 {
+  background-color: #d9534f;
+  color: #fff;
+}

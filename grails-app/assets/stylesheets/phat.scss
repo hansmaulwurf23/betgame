@@ -2,6 +2,8 @@
 *= require fonts/awesome.css
 */
 
+@import "bootstrap_variables_overrides";
+
 @import "bootstrap-4.1.0/scss/functions";
 /*@import "slay-variables";*/
 @import "bootstrap-4.1.0/scss/variables";
@@ -39,7 +41,8 @@
 @import "bootstrap-4.1.0/scss/utilities";
 @import "bootstrap-4.1.0/scss/print";
 
-
+@import "footer";
+@import "customs";
 
 @media(min-width: 768px) {
 	.container {
