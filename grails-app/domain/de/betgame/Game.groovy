@@ -18,6 +18,8 @@ class Game {
 	Boolean matchIsFinished
 	String goals
 	String phase
+
+	Long fkid
 	
 	Date	dateCreated
 	Date	lastUpdated
@@ -43,6 +45,7 @@ class Game {
 		location nullable: true
 		goals nullable: true
 		phase nullable: true
+		fkid nullable: true
     }
 	
 	transient goalInfos() {

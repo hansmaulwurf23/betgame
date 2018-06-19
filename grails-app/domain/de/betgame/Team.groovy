@@ -7,6 +7,8 @@ class Team {
 	String code
 	String net
 	String groupName
+
+	Long fkid
 	
 	Date	dateCreated
 	Date	lastUpdated
@@ -24,6 +26,7 @@ class Team {
 		lastUpdated nullable: true
 		net nullable: true
 		groupName nullable: true
+		fkid nullable: true
     }
 	
 }

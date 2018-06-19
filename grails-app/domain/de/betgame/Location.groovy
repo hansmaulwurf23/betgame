@@ -7,6 +7,8 @@ class Location {
 	String stadium
 	String groundKey
 	Integer capacity
+
+	Long fkid
 	
 	Date	dateCreated
 	Date	lastUpdated
@@ -24,6 +26,7 @@ class Location {
 		capacity nullable:true
 		dateCreated nullable:true
 		lastUpdated nullable:true
+		fkid nullable: true
     }
 	
 	public String toString() {

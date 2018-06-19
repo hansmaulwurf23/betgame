@@ -25,6 +25,6 @@
 		<i class="far fa-thumbs-up"></i> Luckers
 	</g:link>
 	<g:link class="btn btn-secondary ${params.action == "scores"?'active':''}" action="scores">
-		<i class="fas fa-th"></i> Scores
+		<i class="fas fa-th"></i>
 	</g:link>
 </div>

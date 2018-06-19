@@ -10,7 +10,7 @@ class GameController {
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	
 	def springSecurityService
-	def gscriptingService
+	def scriptService
 	
 	def dataSource
 	
@@ -59,6 +59,8 @@ class GameController {
 			flash.message = "Das Spiel hat noch nichtmal angefangen!"
 			game.discard()
 		} else {
+			game.finalScore1 = game.score1
+			game.finalScore2 = game.score2
 			game.save(flush:true, failOnError:true)
 		}
 
@@ -68,7 +70,7 @@ class GameController {
 	@Secured(['ROLE_MAILADMIN'])
 	@Transactional
 	def forceFetch(Game game) {
-		gscriptingService.run("fetchGameScores", [gameid: game.id, verbose: true])
+		scriptService.runScript("fetchGameScores", [gameid: game.fkid, verbose: true])
 		redirect(action:'show', params:[id:game.id])
 	}
 	
