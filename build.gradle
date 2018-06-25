@@ -60,6 +60,8 @@ dependencies {
     
     //compile ("org.grails.plugins:cxf-client:3.0.7") { exclude module: "activation" }
     compile 'io.github.http-builder-ng:http-builder-ng-core:1.0.2'
+    
+    compile 'org.grails.plugins:mail:2.0.0.RC6'
 }
 
 bootRun {

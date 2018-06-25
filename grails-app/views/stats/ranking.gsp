@@ -18,6 +18,7 @@
 			<tr>
 				<th></th>
 				<th>${message(code: 'name', default: 'Name')}</th>
+				<th class="d-none d-md-table-cell">% (Tipps)</th>
 				<th>E</th>
 				<th>T</th>
 				<th>S</th>
@@ -26,9 +27,11 @@
 		</thead>
 		<tbody>
 		<g:each in="${punkte}" var="p">
-			<tr class="${(posMap*.key.indexOf(p.punkte) % 2) == 0 ? '' : 'active'}">
+			<tr class="${p.user_id == curUser.id ? 'bg-secondary text-white' : ''}">
 				<td>${posMap[(p.punkte)]}</td>
-				<td><g:link controller="user" action="show" id="${p.user_id}">${p.display}</g:link></td>
+				<td><g:link controller="user" action="show" id="${p.user_id}"
+							class="${p.user_id == curUser.id ? 'text-white' : ''}">${p.display}</g:link></td>
+				<td class="d-none d-md-table-cell">${betStats[(p.user_id)]?.percentage} (${betStats[(p.user_id)]?.betCount})</td>
 				<td>${betStats[(p.user_id)]?.E ?: 0}</td>
 				<td>${betStats[(p.user_id)]?.T ?: 0}</td>
 				<td>${betStats[(p.user_id)]?.S ?: 0}</td>
