@@ -17,7 +17,12 @@
 			<b class="caret"></b>
 		</a>
 		<div class="dropdown-menu" role="menu" id="userCollapse">
-		
+
+            <g:link controller="user" action="noobifications" class="dropdown-item">
+                <i class="far fa-envelope"></i>
+                Noobifications
+            </g:link>
+
 			<g:link controller="logout" class="dropdown-item">
 				<i class="fas fa-power-off"></i>
 				<g:message code="security.signoff.label"/>

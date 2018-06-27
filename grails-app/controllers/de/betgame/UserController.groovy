@@ -8,11 +8,10 @@ import grails.transaction.Transactional;
 @Transactional
 class UserController {
 
+	def springSecurityService
+
 	static pointNames = [0: 'Falsch', 1: 'Tendenz', 2:'Tordiff.', 3:'Ergebnis']
-	static gameNames = [(-1): 'Heim', 0:'Remis', 1:'Gast']
-	
-	def statsService
-	
+
 	def show(User user) {
 		def finishedGames = Game.findAllByPlayAtLessThan(new Date())
 		if (finishedGames) {
@@ -39,7 +38,25 @@ class UserController {
 		} else {
 			[user: user]
 		}
-		
-		
-	}	
+	}
+
+	def noobifications() {
+		User user = springSecurityService.currentUser
+		if (user) {
+			[user:user]
+		} else {
+			redirect(controller:'home')
+		}
+	}
+
+	def doSetNoobifications() {
+		User user = springSecurityService.currentUser
+		if (user) {
+			user.nomail = params.nomail ?: false
+			user.save(flush:true)
+			redirect(action:'noobifications')
+		} else {
+			redirect(controller:'home')
+		}
+	}
 }
