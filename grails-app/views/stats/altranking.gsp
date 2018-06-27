@@ -25,9 +25,10 @@
 		</thead>
 		<tbody>
 		<g:each in="${punkte}" var="p">
-			<tr class="${(posMap*.key.indexOf(p.punkte) % 2) == 0 ? '' : 'active'}">
+			<tr class="${p.user_id == curUser.id ? 'bg-secondary text-white' : ''}">
 				<td>${posMap[(p.punkte)]}</td>
-				<td><g:link controller="user" action="show" id="${p.user_id}">${p.display}</g:link></td>
+				<td><g:link controller="user" action="show" id="${p.user_id}"
+							class="${p.user_id == curUser.id ? 'text-white' : ''}">${p.display}</g:link></td>
 				<td>${p.punkte}</td>
 				<td class="text-right"><bg:posChangeIcon posChange="${posChangeMap[(p.user_id)]}" /></td>
 			</tr>

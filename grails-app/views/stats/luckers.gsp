@@ -24,8 +24,9 @@
 		</thead>
 		<tbody>
 		<g:each in="${luckyShots}" var="p" status="i">
-			<tr class="${(i % 2) == 0 ? '' : 'active'}">
-				<td><g:link controller="user" action="show" id="${p.user_id}">${p.display}</g:link></td>
+			<tr class="${p.user_id == curUser.id ? 'bg-secondary text-white' : ''}">
+				<td><g:link controller="user" action="show" id="${p.user_id}"
+							class="${p.user_id == curUser.id ? 'text-white' : ''}">${p.display}</g:link></td>
 				<td>${p.anz}</td>
 			</tr>
 		</g:each>

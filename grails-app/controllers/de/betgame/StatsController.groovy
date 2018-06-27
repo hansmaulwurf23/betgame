@@ -8,10 +8,9 @@ import grails.transaction.Transactional;
 class StatsController {
 
 	def statsService
+	def springSecurityService
 	
 	def index() { 
-		//select  goalgetter, count(*) from (select trim(json_array_elements(goals::json)->>'getter') as goalgetter from game where goals is not null) as X where goalgetter is not null or goalgetter != '' group by goalgetter order by 2 desc
-		//select * from (select json_array_elements(goals::json)->>'minute' as goalminute, json_array_elements(goals::json)->>'penalty' as penalty from game where goals is not null) as X where goalminute is not null
 		redirect(action:'ranking')
 	}
 	
@@ -85,11 +84,14 @@ class StatsController {
 				if (score == tordiffPunkte)  { betStats[uid]['T'] = (betStats[uid]['T'] ?: 0) + 1 }
 				if (score == tendenzPunkte)  { betStats[uid]['S'] = (betStats[uid]['S'] ?: 0) + 1 }
 			}
+			
+			betStats[uid]['percentage'] = Math.round(100.0 * (betStats[uid].values().sum()?.toDouble() ?: 0) / finishedBets[uid].size())
+			betStats[uid]['betCount'] = finishedBets[uid].size()
 		}
 		
 		def wertung = ['E': ergebnisPunkte, 'T': tordiffPunkte, 'S': tendenzPunkte]
 		
-		[punkte : punkte, posMap : posMap, betStats : betStats, posChangeMap : posChangeMap, wertung: wertung]
+		[punkte : punkte, posMap : posMap, betStats : betStats, posChangeMap : posChangeMap, wertung: wertung, curUser: springSecurityService.currentUser]
 	}
 	
 	def luckers() {
@@ -98,7 +100,7 @@ class StatsController {
 		
 		def nameMap = NameUtil.buildNameMap(luckyShots)
 		
-		[luckyShots : luckyShots, nameMap: nameMap]
+		[luckyShots : luckyShots, nameMap: nameMap, curUser: springSecurityService.currentUser]
 	}
 	
 	def scores() {
@@ -116,6 +118,6 @@ class StatsController {
 		
 		users.sort { -1 * (userScores[(it.id)] ?: 0) }
 		
-		[users:users, result:result, userScores : userScores]
+		[users:users, result:result, userScores : userScores, curUser: springSecurityService.currentUser]
 	}
 }

@@ -14,6 +14,8 @@ class User {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
+	
+	Boolean nomail
 
 	boolean nomail
 

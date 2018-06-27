@@ -1,3 +1,4 @@
+<%@ page import="de.betgame.Game" %>
 <!DOCTYPE html>
 <html>
 
@@ -20,13 +21,18 @@
             <tr>
                 <th>Name</th>
                 <g:each in="${result}" status="i" var="r">
-                	<th class="text-center"><g:link controller="game" action="show" id="${r.key}">${i+1}</g:link></th>
+                    <g:set var="game" value="${de.betgame.Game.get(r.key)}"/>
+                	<th class="text-center" style="height:80px"><g:link controller="game" action="show" id="${r.key}">${i+1}</g:link>
+                        <br/>
+                    <bg:flag team="${game.team1}" /><br/>
+                    <bg:flag team="${game.team2}" />
+                    </th>
                 </g:each>
             </tr>
         </thead>
         <tbody>
         	<g:each in="${users}" var="u">
-            <tr>
+                <tr class="${u.id == curUser.id ? 'bg-secondary text-white' : ''}">
                 <td style="min-width:120px;">${u.display} (${userScores[(u.id)] ?: 0})</td>
                 <g:each in="${result}" status="i" var="r">
                 	<bg:scoreCell bet="${r.value.get(u.id)?.getAt(0)}"></bg:scoreCell>
