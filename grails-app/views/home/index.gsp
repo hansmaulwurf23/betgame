@@ -12,11 +12,9 @@
 			<div class="card ">
 				<g:if test="${nextGames}">
 					<div class="card-header">
-						<h4 class="card-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseNextGames">
-                                <g:message code="next.games" default="Nächste Spiele" /> (<g:formatDate format="EE dd.MM." date="${nextGames[0].playAt}" /> - <g:formatDate format="EE dd.MM." date="${nextGames[-1].playAt}" />)
-							</a>
-						</h4>
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseNextGames">
+							<b><g:message code="next.games" default="Nächste Spiele" /></b>
+						</a>
 					</div>
 					<div id="collapseNextGames" class="card-collapse collapse in">
 						<div class="card-body">
@@ -30,11 +28,9 @@
 			<div class="card ">
 				<g:if test="${lastGames}">
 					<div class="card-header">
-						<h4 class="card-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseLastGames">
-                                <g:message code="last.games" default="Letzte Spiele" /> (<g:formatDate format="EE dd.MM." date="${lastGames[0].playAt}" /> - <g:formatDate format="EE dd.MM." date="${lastGames[-1].playAt}" />)
-							</a>
-						</h4>
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseLastGames">
+							<b><g:message code="last.games" default="Letzte Spiele" /></b>
+						</a>
 					</div>
 					<div id="collapseLastGames" class="card-collapse collapse">
 						<div class="card-body">

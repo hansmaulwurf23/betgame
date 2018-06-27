@@ -33,9 +33,11 @@ class GameController {
 		def groups = Team.executeQuery("select distinct groupName from Team order by groupName")
 		
 		def user = springSecurityService.currentUser
-		def gameIDsFromBets = Bet.executeQuery("select b.game.id as gameID from Bet b where b.user = :u", [u:user])
+		def bets = Bet.findAllByUser(user)
+		def gameToBetMap = bets.collectEntries { [it.game.id, it] }
+		def gameIDsFromBets = bets*.game*.id
 		
-        [games:games, phases:phases, groups:groups, group:group, phase:phase, gameIDsFromBets:gameIDsFromBets]
+        [games:games, phases:phases, groups:groups, group:group, phase:phase, gameIDsFromBets:gameIDsFromBets, gameToBetMap:gameToBetMap]
     }
 
     def show(Game game) {
