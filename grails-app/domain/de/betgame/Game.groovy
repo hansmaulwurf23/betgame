@@ -52,11 +52,7 @@ class Game {
 		if (goals) {
 			def goalsList = JSON.parse(goals)
 			if (goalsList) {
-				if (goalsList.find { it.minute }) {
-					return goalsList?.sort { it.minute?.toInteger() }
-				} else {
-					return goalsList?.sort { (it.score1 ?: 0) + (it.score2 ?: 0) }
-				}
+                return goalsList?.sort { (it.score1 ?: 0) + (it.score2 ?: 0) }
 			} else {
 				return null
 			}

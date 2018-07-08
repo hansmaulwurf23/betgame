@@ -43,7 +43,6 @@ class GameController {
     def show(Game game) {
 		def user = springSecurityService.currentUser
 		def myBet
-		log.info "Looking for bet from user ${user.username} and game ${game}"
 		if (user) {
 			myBet = Bet.findByUserAndGame(user, game)
 		}
