@@ -11,23 +11,37 @@
 
 <body>
 
-<div class="btn-toolbar mt-1">
-<div class="btn-group" role="group" aria-label="Phasen">
-	<g:each in="${phases}" var="p">
-		<g:link class="btn btn-secondary ${p == phase ? 'active' : ''}" action="list" params="[phase:p, group: group]">${p}</g:link>
-	</g:each>
-</div>
+
+<div class="btn-group mt-1">
+    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="phasenMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        ${params.phase ?: message(code:'all.label')}
+    </a>
+
+    <div class="dropdown-menu" aria-labelledby="phasenMenuLink">
+        <g:each in="${phases}" var="p">
+            <g:link class="dropdown-item ${p == phase ? 'active' : ''}" action="list" params="[phase:p, group: group]">${p}</g:link>
+        </g:each>
+        <div class="dropdown-divider"></div>
+        <g:link action="$actionName" class="dropdown-item ${null == phase ? 'active' :''}" params="${[phase:null, group:group]}">
+            <g:message code="all.label" />
+        </g:link>
+    </div>
 </div>
 
-<div class="btn-toolbar my-1">
-<div class="btn-group" role="group" aria-label="Gruppen">
-	<g:each in="${groups.findAll { it }}" var="g">
-		<g:link action="$actionName" class="btn btn-secondary ${g == group ? 'active' :''}" params="${[phase:phase, group:g]}">${g}</g:link>
-	</g:each>
-	<g:link action="$actionName" class="btn btn-secondary ${null == group ? 'active' :''}" params="${[phase:phase, group:null]}">
-		<g:message code="all.label" />
-	</g:link>
-</div>
+<div class="btn-group mt-1">
+    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="groupMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        ${params.group ?: message(code:'all.label')}
+    </a>
+
+    <div class="dropdown-menu" aria-labelledby="groupMenuLink">
+        <g:each in="${groups.findAll { it }}" var="g">
+            <g:link action="$actionName" class="dropdown-item ${g == group ? 'active' :''}" params="${[phase:phase, group:g]}">${g}</g:link>
+        </g:each>
+        <div class="dropdown-divider"></div>
+        <g:link action="$actionName" class="dropdown-item ${null == group ? 'active' :''}" params="${[phase:phase, group:null]}">
+            <g:message code="all.label" />
+        </g:link>
+    </div>
 </div>
 
 <section id="list-game" class="first">
