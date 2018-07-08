@@ -56,7 +56,12 @@ class MainTagLib {
 			def stats = [:]
 			stats.totalCount = betInstances.size()
 			stats.averagePoints = betInstances.sum { it.getScore() }?.div(betInstances.size())
-			betInstances.sort { a,b -> b.getScore() <=> a.getScore() ?: a.goalDiff <=> b.goalDiff ?: a.user.givenname <=> b.user.givenname}
+            def ranking = statsService.getRanking()?.sort { it.punkte }?.reverse()?.collectEntries { [it.user_id, it.punkte] }
+            if (ranking) {
+                betInstances.sort { ranking[it.user.id]?.multiply(-1) ?: 0 }
+            } else {
+                betInstances.sort { a,b -> b.getScore() <=> a.getScore() ?: a.goalDiff <=> b.goalDiff ?: a.user.givenname <=> b.user.givenname}
+            }
 			def nameMap = NameUtil.buildNameMap(betInstances*.user)
 			out << render(template:"/game/bets", model:[gameInstance: attrs.game, showBets: showBets, betInstances:betInstances, stats:stats, currentUser:springSecurityService.currentUser, nameMap:nameMap])
 
