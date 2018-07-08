@@ -1,14 +1,10 @@
 import de.betgame.*
 
 import grails.converters.JSON
-import grails.transaction.Transactional
 import groovy.sql.Sql
 import groovyx.net.http.FromServer
 import groovyx.net.http.HttpBuilder
-import org.springframework.beans.factory.InitializingBean
-
 import java.nio.charset.StandardCharsets
-import groovyx.net.http.HttpBuilder
 
 process {
 
@@ -112,10 +108,15 @@ process {
         Team t1 = Team.findByFkid(match.Team1.TeamId)
         Team t2 = Team.findByFkid(match.Team2.TeamId)
 
+        if (t1.name == 'Platzhalter' || t2.name == 'Platzhalter') {
+            log.warn "Skipping game creation since Platzhalter...\n${match}"
+            return
+        }
+
         Game g = Game.findByFkid(match.MatchID)
         if (!g) {
-            log.error "Could not find Game with fkid ${match.MatchID}\n${match}"
-            return
+            log.info "Could not find Game with fkid ${match.MatchID}\n${match}"
+            //return
             g = new Game()
             g.id = match.MatchID
             g.fkid = match.MatchID
@@ -162,12 +163,12 @@ process {
             if (grp.GroupOrderID) {
                 log.warn "Processing ${grp.GroupOrderID}"
                 def matchData = invokeWebserviceMethod("getmatchdata", [grp.GroupOrderID])
-                log.warn "$matchData"
+                //log.warn "$matchData"
 
                 createOrUpdateLocations(matchData)
 
                 matchData.findAll { it.MatchID > 0 }.each { match ->
-                    log.info "Processing Match: $match"
+                    //log.info "Processing Match: $match"
 
                     createOrUpdateTeam(match.Team1)
                     createOrUpdateTeam(match.Team2)

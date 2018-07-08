@@ -1,14 +1,10 @@
 import de.betgame.*
 
 import grails.converters.JSON
-import grails.transaction.Transactional
 import groovy.sql.Sql
 import groovyx.net.http.FromServer
 import groovyx.net.http.HttpBuilder
-import org.springframework.beans.factory.InitializingBean
-
 import java.nio.charset.StandardCharsets
-import groovyx.net.http.HttpBuilder
 import groovy.json.*
 
 /**
