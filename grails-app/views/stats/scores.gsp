@@ -32,8 +32,8 @@
         </thead>
         <tbody>
         	<g:each in="${users}" var="u">
-                <tr class="${u.id == curUser.id ? 'bg-secondary text-white' : ''}">
-                <td style="min-width:120px;">${u.display} (${userScores[(u.id)] ?: 0})</td>
+                <tr>
+                <td class="${u.id == curUser.id ? 'bg-secondary text-white' : ''}" style="min-width:120px;">${u.display} (${userScores[(u.id)] ?: 0})</td>
                 <g:each in="${result}" status="i" var="r">
                 	<bg:scoreCell bet="${r.value.get(u.id)?.getAt(0)}"></bg:scoreCell>
                 </g:each>
